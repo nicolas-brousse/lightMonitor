@@ -53,10 +53,10 @@
 
   <div class="content-box-content">
     <h4>Charge</h4>
-    <img src="http://srv-www2.dream4web.com/rrdtool/uptime-0.png">
+    <img src="{{ app.request.getBaseUrl() }}/graphs/serveur-2/uptime-0.png" alt="">
     <hr />
     <h4>Mémoire RAM</h4>
-    <img src="http://srv-www2.dream4web.com/rrdtool/mem-0.png">
+    <img src="{{ app.request.getBaseUrl() }}/graphs/serveur-2/mem-0.png">
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
 {% endblock %}

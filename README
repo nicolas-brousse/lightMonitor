@@ -2,5 +2,11 @@
 
 = Installation
 
-Just chmod 777 /data/log/*
-It's work
+
+* In Apache Vhost, add : Alias /app_path /app_path/public
+
+* Duplicate .htaccess-dist to .htaccess, and precise RewriteBase
+
+* chmod 777 /data/log/*
+
+* It's work
