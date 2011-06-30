@@ -5,11 +5,11 @@
     <title>{% block title %}Home{% endblock %} &bull; LightMonitor</title>
     <!--                       CSS                       -->
     <!-- Reset Stylesheet -->
-    <link rel="stylesheet" href="public/css/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/public/css/reset.css" type="text/css" media="screen" />
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="public/css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/public/css/style.css" type="text/css" media="screen" />
     <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
-    <link rel="stylesheet" href="public/css/invalid.css" type="text/css" media="screen" />	
+    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/public/css/invalid.css" type="text/css" media="screen" />	
 
     <!-- Internet Explorer Fixes Stylesheet -->
     <!--[if lte IE 7]>
@@ -19,18 +19,18 @@
     <!--                       Javascripts                       -->
 
     <!-- jQuery -->
-    <script type="text/javascript" src="public/js/jquery-1.3.2.min.js"></script>
-    <script type="text/javascript" src="public/js/simpla.jquery.configuration.js"></script>
-    <script type="text/javascript" src="public/js/facebox.js"></script>
-    <script type="text/javascript" src="public/js/jquery.wysiwyg.js"></script>
-    <script type="text/javascript" src="public/js/jquery.datePicker.js"></script>
-    <script type="text/javascript" src="public/js/jquery.date.js"></script>
-    <!--[if IE]><script type="text/javascript" src="resources/js/jquery.bgiframe.js"></script><![endif]-->
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/simpla.jquery.configuration.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/facebox.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.datePicker.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.date.js"></script>
+    <!--[if IE]><script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.bgiframe.js"></script><![endif]-->
 
     <!-- Internet Explorer .png-fix -->
 
     <!--[if IE 6]>
-      <script type="text/javascript" src="public/js/DD_belatedPNG_0.0.7a.js"></script>
+      <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/DD_belatedPNG_0.0.7a.js"></script>
       <script type="text/javascript">
         DD_belatedPNG.fix('.png_bg, img, li');
       </script>
@@ -41,8 +41,8 @@
   <body><div id="body-wrapper"> <!-- Wrapper for the radial gradient background -->
 
     <div id="sidebar"><div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
-      <h1 id="sidebar-title"><a href="#">Simpla Admin</a></h1>
-      <a href="#"><img id="logo" src="public/img/logo.png" alt="Simpla Admin logo" /></a>
+      <h1 id="sidebar-title"><a href="{{ app.url_generator.generate('homepage') }}">Simpla Admin</a></h1>
+      <a href="{{ app.url_generator.generate('homepage') }}"><img id="logo" src="{{ app.request.getBaseUrl() }}/public/img/logo.png" alt="Simpla Admin logo" /></a>
 
 
       <ul id="main-nav">  <!-- Accordion Menu -->
@@ -57,13 +57,13 @@
             Serveurs
           </a>
           <ul>
-            <li><a href="#">Serveur 1</a></li>
-            <li><a class="current" href="servers_serveur-2">Serveur 2</a></li>
+            <li><a href="{# app.url_generator.generate('servers') servername: 'serveur-1' #}">Serveur 1</a></li>
+            <li><a class="current" href="{# app.url_generator.generate('servers') servername: 'serveur-1' #}">Serveur 2</a></li>
           </ul>
         </li>
 
         <li>
-          <a href="configs" class="nav-top-item no-submenu">
+          <a href="{{ app.url_generator.generate('configs') }}" class="nav-top-item no-submenu">
             Configurations
           </a>
         </li> 
