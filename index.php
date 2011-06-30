@@ -16,13 +16,6 @@ $app->register(new Silex\Extension\MonologExtension(), array(
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 
 
-# Serveurs config
-$config = new stdClass();
-#$config->servers = new Symfony\Component\Routing\Loader\YamlFileLoader();
-$config->servers = (file_get_contents( __DIR__ . '/app/configs/servers.yml'));
-
-
-
 # Routes
 $app->get('/', function () use($app) {
   return $app['twig']->render('index/index.html.php', array());
