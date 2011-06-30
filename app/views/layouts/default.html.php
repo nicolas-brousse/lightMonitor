@@ -50,7 +50,7 @@
 
       <ul id="main-nav">  <!-- Accordion Menu -->
         <li>
-          <a href="./" class="nav-top-item no-submenu current"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+          <a href="{{ app.url_generator.generate('homepage') }}" class="nav-top-item no-submenu current"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
             Dashboard
           </a>
         </li>
@@ -97,7 +97,7 @@
 
       <div id="footer">
         <small> <!-- Remove this notice or replace it with whatever you want -->
-          &#169; Copyright 2009 Your Company | Powered by <a href="http://themeforest.net/item/simpla-admin-flexible-user-friendly-admin-skin/46073">Simpla Admin</a> | <a href="#">Top</a>
+          &#169; Copyright 2011 <a href="https://github.com/nicolas-brousse/lightMonitor">Nicolas BROUSSE</a> | Powered by <a href="http://themeforest.net/item/simpla-admin-flexible-user-friendly-admin-skin/46073">Simpla Admin</a> | <a href="#">Top</a>
         </small>
       </div><!-- End #footer -->
 

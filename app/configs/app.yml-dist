@@ -1,5 +1,5 @@
 
-base_url: "/app_dir"
+base_url: "/base_url"
 
 rrdtool:
   img_path: "public/graphs/"
