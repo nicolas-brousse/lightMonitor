@@ -18,6 +18,9 @@
 
     <!--                       Javascripts                       -->
 
+    <script type="text/javascript">
+      BASE_URL = '{{ app.request.getBaseUrl() }}';
+    </script>
     <!-- jQuery -->
     <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery-1.3.2.min.js"></script>
     <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/simpla.jquery.configuration.js"></script>
@@ -58,7 +61,7 @@
           </a>
           <ul>
             <li><a href="{# app.url_generator.generate('servers') servername: 'serveur-1' #}">Serveur 1</a></li>
-            <li><a class="current" href="{# app.url_generator.generate('servers') servername: 'serveur-1' #}">Serveur 2</a></li>
+            <li><a class="current" href="{# app.url_generator.generate('servers') servername: 'serveur-2' #}{{ app.request.getBaseUrl() }}/servers/serveur-2">Serveur 2</a></li>
           </ul>
         </li>
 

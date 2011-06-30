@@ -73,7 +73,7 @@
 
           <tr>
             <td><input type="checkbox" /></td>
-            <td><a href="servers_serveur-2" title="title">Serveur 2</a></td>
+            <td><a href="{# app.url_generator.generate('servers') servername: 'serveur-2' #}{{ app.request.getBaseUrl() }}/servers/serveur-2" title="title">Serveur 2</a></td>
             <td>10.0.0.2</td>
             <td class="">Ping error</td>
             <td>

@@ -5,9 +5,9 @@
 {% block content %}
 <div class="clear"></div> <!-- End .clear -->
 
-<div class="content-box"><!-- Start Content Box -->
+<div class="content-box column-left"><!-- Start Content Box -->
   <div class="content-box-header">
-    <h3>Serveur 2</h3>
+    <h3>Logiciels</h3>
     <div class="clear"></div>
   </div> <!-- End .content-box-header -->
 
@@ -39,9 +39,24 @@
       </tbody>
 
     </table>
-
-
   </div> <!-- End .content-box-content -->
+</div> <!-- End .content-box -->
 
+
+<div class="clear"></div>
+
+<div class="content-box"><!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3>Graphiques</h3>
+    <div class="clear"></div>
+  </div> <!-- End .content-box-header -->
+
+  <div class="content-box-content">
+    <h4>Charge</h4>
+    <img src="http://srv-www2.dream4web.com/rrdtool/uptime-0.png">
+    <hr />
+    <h4>Mémoire RAM</h4>
+    <img src="http://srv-www2.dream4web.com/rrdtool/mem-0.png">
+  </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
 {% endblock %}
