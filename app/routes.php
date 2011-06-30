@@ -4,11 +4,13 @@
 # $app->get('/', Index_Controller::Index_Action())->bind('homepage');
 
 
+
 # Homepage/Dashboard
 $app->get('/', function () use($app) {
   return $app['twig']->render('index/index.html.php', array());
 })
 ->bind('homepage');
+
 
 
 # Servers

@@ -14,9 +14,9 @@ $app->register(new Silex\Extension\TwigExtension(), array(
 $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.logfile'       => __DIR__.'/../data/log/development.log',
   'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
-  'monolog.level'         => 'Logger::DEBUG',
   'monolog.name'          => 'App',
 ));
+$app['monolog.level'] = Monolog\Logger::DEBUG;
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 
 $app->register(new Rrdtool\RrdtoolExtension());
