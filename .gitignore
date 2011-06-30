@@ -1,2 +1,2 @@
-.DS_Store
-.log
+*.DS_Store
+data/log/*.log

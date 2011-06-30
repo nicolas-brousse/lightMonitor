@@ -1,0 +1,6 @@
+== LightMonitor
+
+= Installation
+
+Just chmod 777 /data/log/*
+It's work
