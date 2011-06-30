@@ -65,9 +65,9 @@
             <td>OK</td>
             <td>
                <!-- Icons -->
-               <a href="#" title="Edit"><img src="public/img/icons/pencil.png" alt="Edit" /></a>
-               <a href="#" title="Delete"><img src="public/img/icons/cross.png" alt="Delete" /></a> 
-               <a href="#" title="Edit Meta"><img src="public/img/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
+               <a href="#" title="Edit"><img src="{{ app.request.getBaseUrl() }}/img/icons/pencil.png" alt="Edit" /></a>
+               <a href="#" title="Delete"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross.png" alt="Delete" /></a> 
+               <a href="#" title="Edit Meta"><img src="{{ app.request.getBaseUrl() }}/img/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
              </td>
           </tr>
 
@@ -78,9 +78,9 @@
             <td class="">Ping error</td>
             <td>
                <!-- Icons -->
-               <a href="#" title="Edit"><img src="public/img/icons/pencil.png" alt="Edit" /></a>
-               <a href="#" title="Delete"><img src="public/img/icons/cross.png" alt="Delete" /></a> 
-               <a href="#" title="Edit Meta"><img src="public/img/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
+               <a href="#" title="Edit"><img src="{{ app.request.getBaseUrl() }}/img/icons/pencil.png" alt="Edit" /></a>
+               <a href="#" title="Delete"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross.png" alt="Delete" /></a> 
+               <a href="#" title="Edit Meta"><img src="{{ app.request.getBaseUrl() }}/img/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
              </td>
           </tr>
         </tbody>

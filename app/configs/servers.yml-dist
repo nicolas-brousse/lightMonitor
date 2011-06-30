@@ -1,5 +1,5 @@
 
-serveur:
+server:
   name: "Serveur 1"
   ip: 10.0.0.1
   protocol: ssh
@@ -8,7 +8,7 @@ serveur:
     ftp:
       port: 21
 
-serveur:
+server:
   name: "Serveur 2"
   ip: 10.0.0.2
   protocol: snmp

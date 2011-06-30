@@ -5,11 +5,11 @@
     <title>{% block title %}Home{% endblock %} &bull; LightMonitor</title>
     <!--                       CSS                       -->
     <!-- Reset Stylesheet -->
-    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/public/css/reset.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/css/reset.css" type="text/css" media="screen" />
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/public/css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/css/style.css" type="text/css" media="screen" />
     <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
-    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/public/css/invalid.css" type="text/css" media="screen" />	
+    <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/css/invalid.css" type="text/css" media="screen" />	
 
     <!-- Internet Explorer Fixes Stylesheet -->
     <!--[if lte IE 7]>
@@ -22,18 +22,18 @@
       BASE_URL = '{{ app.request.getBaseUrl() }}';
     </script>
     <!-- jQuery -->
-    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery-1.3.2.min.js"></script>
-    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/simpla.jquery.configuration.js"></script>
-    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/facebox.js"></script>
-    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.wysiwyg.js"></script>
-    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.datePicker.js"></script>
-    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.date.js"></script>
-    <!--[if IE]><script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/jquery.bgiframe.js"></script><![endif]-->
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/simpla.jquery.configuration.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/facebox.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery.datePicker.js"></script>
+    <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery.date.js"></script>
+    <!--[if IE]><script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery.bgiframe.js"></script><![endif]-->
 
     <!-- Internet Explorer .png-fix -->
 
     <!--[if IE 6]>
-      <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/public/js/DD_belatedPNG_0.0.7a.js"></script>
+      <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/DD_belatedPNG_0.0.7a.js"></script>
       <script type="text/javascript">
         DD_belatedPNG.fix('.png_bg, img, li');
       </script>
@@ -45,12 +45,12 @@
 
     <div id="sidebar"><div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
       <h1 id="sidebar-title"><a href="{{ app.url_generator.generate('homepage') }}">Simpla Admin</a></h1>
-      <a href="{{ app.url_generator.generate('homepage') }}"><img id="logo" src="{{ app.request.getBaseUrl() }}/public/img/logo.png" alt="Simpla Admin logo" /></a>
+      <a href="{{ app.url_generator.generate('homepage') }}"><img id="logo" src="{{ app.request.getBaseUrl() }}/img/logo.png" alt="Simpla Admin logo" /></a>
 
 
       <ul id="main-nav">  <!-- Accordion Menu -->
         <li>
-          <a href="./" class="nav-top-item no-submenu current"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+          <a href="{{ app.url_generator.generate('homepage') }}" class="nav-top-item no-submenu current"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
             Dashboard
           </a>
         </li>
@@ -97,7 +97,7 @@
 
       <div id="footer">
         <small> <!-- Remove this notice or replace it with whatever you want -->
-          &#169; Copyright 2009 Your Company | Powered by <a href="http://themeforest.net/item/simpla-admin-flexible-user-friendly-admin-skin/46073">Simpla Admin</a> | <a href="#">Top</a>
+          &#169; Copyright 2011 <a href="https://github.com/nicolas-brousse/lightMonitor">Nicolas BROUSSE</a> | Powered by <a href="http://themeforest.net/item/simpla-admin-flexible-user-friendly-admin-skin/46073">Simpla Admin</a> | <a href="#">Top</a>
         </small>
       </div><!-- End #footer -->
 
