@@ -15,14 +15,16 @@ $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
   'monolog.name'          => 'jobCron',
 ));
-$app['monolog.level'] = Monolog\Logger::DEBUG;
+
 $app->register(new Asker\AskerExtension());
 $app->register(new Silex\Extension\SwiftmailerExtension(), array(
   'swiftmailer.class_path'  => __DIR__.'/../vendor/swiftmailer/lib',
 ));
 
-# Ne peut être éxécuté que par un jobcron ?
+# Verif CLI
 if(!defined('STDIN') ) 
   die('This file must be execute in CLI mode');
 
+# Verif Environment
+  $app['monolog.level'] = Monolog\Logger::DEBUG;
 #var_dump($argv);

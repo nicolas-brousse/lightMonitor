@@ -11,7 +11,7 @@ defined('APPLICATION_ENV')
 /*
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library'),
+    realpath(APPLICATION_PATH . '/../vendor'),
     get_include_path(),
 )));
 */
@@ -28,6 +28,7 @@ $configs = App::loadConfigs(__DIR__ . '/configs/');
 
 # App
 $app = App::getApp();
+$app['version'] = "alpha1";
 
 # Register Extensions
 $app->register(new Silex\Extension\TwigExtension(), array(
@@ -46,16 +47,17 @@ $app->register(new Silex\Extension\UrlGeneratorExtension());
 $app->register(new Rrdtool\RrdtoolExtension());
 $app->register(new Asker\AskerExtension());
 
-/*$app->register(new Silex\Extension\DoctrineExtension(), array(
+$app->register(new Silex\Extension\DoctrineExtension(), array(
     'db.options'  => array(
-        'driver'    => 'pdo_sqlite',
-        'path'      => __DIR__.'/../data/db',
+      'driver'    => 'pdo_sqlite',
+      'path'      => __DIR__.'/../data/db/light_monitor.sqlite',
     ),
+    'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine2-dbal/lib',
+    'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
 ));
 
-$sql = "SELECT * FROM posts WHERE id = ?";
-$post = $app['db']->fetchAssoc($sql, array(1));
-var_dump($post);*/
+#$sql = "SELECT * FROM servers";
+#$servers = $app['db']->fetchAssoc($sql);
 
 # Autoload Configs
 # functionAutoload($dir, $ext=array('yml'))

@@ -44,8 +44,8 @@
   <body><div id="body-wrapper"> <!-- Wrapper for the radial gradient background -->
 
     <div id="sidebar"><div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
-      <h1 id="sidebar-title"><a href="{{ app.url_generator.generate('homepage') }}">Simpla Admin</a></h1>
-      <a href="{{ app.url_generator.generate('homepage') }}"><img id="logo" src="{{ app.request.getBaseUrl() }}/img/logo.png" alt="Simpla Admin logo" /></a>
+      <h1 id="sidebar-title"><a href="{{ app.url_generator.generate('homepage') }}">Light Monitor</a></h1>
+      <a href="{{ app.url_generator.generate('homepage') }}"><img id="logo" src="{{ app.request.getBaseUrl() }}/img/logo.png" alt="" /></a>
 
 
       <ul id="main-nav">  <!-- Accordion Menu -->
@@ -98,7 +98,7 @@
 
       <div id="footer">
         <small> <!-- Remove this notice or replace it with whatever you want -->
-          &#169; Copyright 2011 <a href="https://github.com/nicolas-brousse/lightMonitor">Nicolas BROUSSE</a> | Powered by <a href="http://themeforest.net/item/simpla-admin-flexible-user-friendly-admin-skin/46073">Simpla Admin</a> | <a href="#">Top</a>
+          &#169; Copyright 2011 <a href="https://github.com/nicolas-brousse/">Nicolas BROUSSE</a> | Powered by <a href="https://github.com/nicolas-brousse/lightMonitor">LightMonitor</a> v {{ app.version }} | <a href="#">Top</a>
         </small>
       </div><!-- End #footer -->
 
