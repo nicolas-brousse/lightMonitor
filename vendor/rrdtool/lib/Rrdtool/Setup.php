@@ -2,7 +2,7 @@
 
 namespace Rrdtool;
 
-Class Setup
+Class Setup extends Base
 {
   private $options = array();
 

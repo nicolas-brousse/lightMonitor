@@ -2,11 +2,24 @@
 
 namespace Rrdtool;
 
-Class Update
+Class Update extends Base
 {
+  private $datas = array();
+
+  function setDatas(array $datas)
+  {
+    $this->datas = $datas;
+    return true;
+  }
+
   function execute($db)
   {
-    $return = rrd_update($db, "N:$total_input_traffic:$total_output_traffic");
+    $insert = "N";
+    foreach ($this->datas as $data) {
+      $insert .= ':'.$data;
+    }
+
+    $return = rrd_update($db, $insert);
 
     if( $return == 0 ) {
       throw new Rrdtool_Exception("rrd_update() ERROR: " . rrd_error());

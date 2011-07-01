@@ -2,7 +2,7 @@
 
 namespace Rrdtool;
 
-Class Generate
+Class Generate extends Base
 {
   private $options = array();
 
@@ -13,9 +13,9 @@ Class Generate
     return $this;
   }
 
-  function execute($filename)
+  function execute($db, $filename)
   {
-    $return = rrd_graph("$filename.png", $this->options, count($this->options));
+    $return = rrd_graph($db, $filename, $this->options, count($this->options));
 
     if( !is_array($return) ) {
       throw new Rrdtool_Exception("rrd_graph() ERROR: " . rrd_error());
