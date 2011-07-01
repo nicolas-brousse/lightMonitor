@@ -47,7 +47,7 @@
         <tbody>
         {% for server in servers %}
           <tr>
-            <td><a href="#" title="title">{{ server.servername|e }}</a></td>
+            <td><a href="{{ app.url_generator.generate('servers', {'ip': server.ip}) }}" title="title">{{ server.servername|e }}</a></td>
             <td>{{ server.ip|e }}</td>
             <td><img src="{{ app.request.getBaseUrl() }}/img/icons/{{ server.status == true ? 'on' : 'off' }}.png" alt="on" /></td>
           </tr>

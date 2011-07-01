@@ -60,8 +60,8 @@
             Serveurs
           </a>
           <ul>
-            <li><a href="{# app.url_generator.generate('servers') servername: 'serveur-1' #}">Serveur 1</a></li>
-            <li><a class="{% if app.request.attributes.get('servername') == 'serveur-2' %}current{% endif %}" href="{# app.url_generator.generate('servers') servername: 'serveur-2' #}{{ app.request.getBaseUrl() }}/servers/serveur-2">Serveur 2</a></li>
+            <li><a class="{% if app.request.attributes.get('ip') == '10.0.0.2' %}current{% endif %}" href="{{ app.url_generator.generate('servers', {'ip': '10.0.0.2'}) }}">Serveur 2</a></li>
+            <li><a class="{% if app.request.attributes.get('ip') == '10.0.0.3' %}current{% endif %}" href="{{ app.url_generator.generate('servers', {'ip': '10.0.0.3'}) }}">Serveur 3</a></li>
           </ul>
         </li>
 

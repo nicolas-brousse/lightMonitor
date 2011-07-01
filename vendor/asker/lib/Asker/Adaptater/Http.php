@@ -20,6 +20,10 @@ Class Http extends Base
     if (ssh2_auth_password($this->connection, 'username', 'secret')) {
       throw new Asker_Exception('ERROR: SSH Connection failed, invalid username or password !');
     }*/
+    
+    #
+    # Componant Symphony Client ???
+    #
   }
 
   public function uptime()

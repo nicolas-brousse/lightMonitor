@@ -9,8 +9,8 @@ Class Index_Controller extends Controller_Base
 
   static function Index_Action()
   {
-    global $app;
+    #$app = App::getApp();
 
-    return $app['twig']->render('index/index.html.php', array());
+    return $app['twig']->render('index/index.html.php', array('servers' => $configs->servers));
   }
 }

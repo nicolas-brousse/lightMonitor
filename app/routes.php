@@ -14,9 +14,11 @@ $app->get('/', function () use($app, $configs) {
 
 
 # Servers
-$app->get('/servers/{servername}', function ($servername) use ($app, $configs) {
-  $servername = $app['request']->get('servername');
-  return $app['twig']->render('servers/details.html.php', array());
+$app->get('/servers/{ip}', function ($ip) use ($app, $configs) {
+  $ip = $app['request']->get('ip');
+  return $app['twig']->render('servers/details.html.php', array(
+    #'server'  => Model_Server::findByIp($ip),
+  ));
 })
 ->bind('servers');
 # $app->get('/servers/{servername}',  Servers_Controller::Index_Action())->bind('servers');
@@ -29,5 +31,5 @@ $app->get('/configs', function () use ($app, $configs) {
 })
 ->bind('configs');
 # $app->get('/configs',                 Servers_Configs::Index_Action())->bind('configs');
-# $app->get('/configs/edit/id/{id}',    Servers_Configs::Edit_Action())->bind('configs');
-# $app->get('/configs/delete/id/{id}',  Servers_Configs::Delete_Action())->bind('configs');
+# $app->get('/configs/edit/{ip}',    Servers_Configs::Edit_Action())->bind('configs');
+# $app->get('/configs/delete/{ip}',  Servers_Configs::Delete_Action())->bind('configs');

@@ -1,10 +1,33 @@
 <?php
 
+
+// Define path to application directory
+defined('APPLICATION_PATH')
+    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../app'));
+
+// Define application environment
+defined('APPLICATION_ENV')
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+/*
+// Ensure library/ is on include_path
+set_include_path(implode(PATH_SEPARATOR, array(
+    realpath(APPLICATION_PATH . '/../library'),
+    get_include_path(),
+)));
+*/
+
 require_once __DIR__.'/../vendor/silex.phar';
+require_once __DIR__.'/../vendor/App.php';
 require_once __DIR__.'/../vendor/rrdtool/required.php';
 require_once __DIR__.'/../vendor/asker/required.php';
+require_once __DIR__.'/../vendor/yaml/lib/sfYaml.php';
 
-$app = new Silex\Application();
+
+# Load Configs
+$configs = App::loadConfigs(__DIR__ . '/configs/');
+
+# App
+$app = App::getApp();
 
 # Register Extensions
 $app->register(new Silex\Extension\TwigExtension(), array(
@@ -16,51 +39,30 @@ $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
   'monolog.name'          => 'App',
 ));
-$app['monolog.level'] = Monolog\Logger::DEBUG;
+$app['monolog.level'] = APPLICATION_ENV == 'development' ? Monolog\Logger::DEBUG : Monolog\Loger::WARNING;
 
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 
 $app->register(new Rrdtool\RrdtoolExtension());
 $app->register(new Asker\AskerExtension());
 
-# Load Configs
-$configs = new stdClass();
-$dir = __DIR__ . "/configs/";
-if (is_dir($dir)) {
-  if ($dh = opendir($dir)) {
-    while (($file = readdir($dh)) !== false) {
-      if (preg_match('#.yml$#i', $file)) {
-        #$loader = new Symfony\Component\Routing\Loader\YamlFileLoader(); $loader->load($file);
-        $configs->tmp[$file] = file_get_contents($dir.$file);
-      }
-    }
-    closedir($dh);
-  }
-}
-else {
-  throw new Exception('ERROR : /app/configs missing !');
-}
-$configs->servers = array(
-  array(
-    'servername'  => 'Serveur 1',
-    'ip'          => '10.0.0.1',
-    'protocol'    => 'SNMP',
-    'status'      => true,
-  ),
-  array(
-    'servername'  => 'Serveur 2',
-    'ip'          => '10.0.0.2',
-    'protocol'    => 'SSH',
-    'status'      => false,
-  ),
-);
+/*$app->register(new Silex\Extension\DoctrineExtension(), array(
+    'db.options'  => array(
+        'driver'    => 'pdo_sqlite',
+        'path'      => __DIR__.'/../data/db',
+    ),
+));
 
+$sql = "SELECT * FROM posts WHERE id = ?";
+$post = $app['db']->fetchAssoc($sql, array(1));
+var_dump($post);*/
 
 # Autoload Configs
 # functionAutoload($dir, $ext=array('yml'))
 
+
 # Autoload Controllers
-# functionAutoload($dir, $ext=false)
+App::autoload(__DIR__ . '/controllers/');
 
 
 # Routes

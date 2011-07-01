@@ -1,6 +1,12 @@
-app:
-  base_url: "/base_url"
 
-rrdtool:
-  img_path: "public/graphs/"
+production:
+  app:
+    base_url: "/"
+  rrdtool:
+    img_path: "public/graphs/"
 
+development:
+  app:
+    base_url: "/base_url"
+  rrdtool:
+    img_path: "public/graphs/"
