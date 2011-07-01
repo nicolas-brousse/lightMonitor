@@ -20,7 +20,7 @@ Class App
         $yamlLoader = new sfYaml();
         while (($file = readdir($dh)) !== false) {
           if (is_file($path.$file)) {
-            if (preg_match('#base\.php#', $file))  { require_once $path.$file; }
+            if (preg_match('#base\.php#i', $file))  { require_once $path.$file; }
             else                                   { $queue[] = $file; }
           }
         }

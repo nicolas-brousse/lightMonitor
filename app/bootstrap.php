@@ -44,12 +44,34 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
 ));
 
-
-# List of servers
-$sql = "SELECT * FROM servers";
-$app['list_servers'] = $app['db']->fetchAll($sql);
-
-
+$servers = array();
+foreach ($app['db']->fetchAll("SELECT servername, ip FROM servers") as $server) {
+  $servers[] = array(
+    'name' => $server['servername'],
+    'bind'  => 'servers',
+    'value'  => $server['ip'],
+  );
+}
+# Navigation
+$app['navigation'] = array(
+  array(
+    'name' => 'Dashboard',
+    'href'  => '/',
+    'bind'  => 'homepage',
+  ),
+  array(
+    'name' => 'Serveurs',
+    'href'  => '#',
+    'bind'  => 'servers',
+    'param' => 'ip',
+    'items' => $servers,
+  ),
+  array(
+    'name' => 'Configurations',
+    'href'  => 'configs',
+    'bind'  => 'configs',
+  ),
+);
 
 
 # Routes

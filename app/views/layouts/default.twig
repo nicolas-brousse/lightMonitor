@@ -49,27 +49,20 @@
 
 
       <ul id="main-nav">  <!-- Accordion Menu -->
+        {% for item in app.navigation %}
         <li>
-          <a href="{{ app.url_generator.generate('homepage') }}" class="nav-top-item no-submenu{% if app.request.attributes.get('_route') == 'homepage' %} current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
-            Dashboard
+          <a href="{{ item.href != '#' ? app.url_generator.generate(item.bind) : '#' }}" class="nav-top-item no-submenu{% if app.request.attributes.get('_route') == item.bind %} current{% endif %}">
+            {{ item.name }}
           </a>
-        </li>
-
-        <li> 
-          <a href="#" class="nav-top-item{% if app.request.attributes.get('_route') == 'servers' %} current{% endif %}">
-            Serveurs
-          </a>
+          {% if item.items is defined %}
           <ul>
-            <li><a class="{% if app.request.attributes.get('ip') == '10.0.0.2' %}current{% endif %}" href="{{ app.url_generator.generate('servers', {'ip': '10.0.0.2'}) }}">Serveur 2</a></li>
-            <li><a class="{% if app.request.attributes.get('ip') == '10.0.0.3' %}current{% endif %}" href="{{ app.url_generator.generate('servers', {'ip': '10.0.0.3'}) }}">Serveur 3</a></li>
+            {% for sub_item in item.items %}
+            <li><a class="{% if app.request.attributes.get(item.param) == sub_item.value %}current{% endif %}" href="{{ app.url_generator.generate(sub_item.bind, {'ip': sub_item.value}) }}">{{ sub_item.name }}</a></li>
+            {% endfor %}
           </ul>
+          {% endif %}
         </li>
-
-        <li>
-          <a href="{{ app.url_generator.generate('configs') }}" class="nav-top-item no-submenu{% if app.request.attributes.get('_route') == 'configs' %} current{% endif %}">
-            Configurations
-          </a>
-        </li> 
+        {% endfor %}
       </ul> <!-- End #main-nav -->
 
     </div></div> <!-- End #sidebar -->
