@@ -13,8 +13,6 @@
 
   <div class="content-box-content">
 
-    {{ flash_messenger }}
-
     <table>
       <thead>
         <tr>

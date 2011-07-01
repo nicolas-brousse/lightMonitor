@@ -19,8 +19,6 @@
   <div class="content-box-content">
     <div class="tab-content default-tab" id="listing"> <!-- This is the target div. id must match the href of this div's tab -->
 
-      {{ flash_messenger }}
-
       <table>
         <thead>
           <tr>

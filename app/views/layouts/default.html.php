@@ -50,23 +50,23 @@
 
       <ul id="main-nav">  <!-- Accordion Menu -->
         <li>
-          <a href="{{ app.url_generator.generate('homepage') }}" class="nav-top-item no-submenu current"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+          <a href="{{ app.url_generator.generate('homepage') }}" class="nav-top-item no-submenu{% if app.request.attributes.get('_route') == 'homepage' %} current{% endif %}"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
             Dashboard
           </a>
         </li>
 
         <li> 
-          <a href="#" class="nav-top-item"> <!-- Add the class "current" to current menu item -->
+          <a href="#" class="nav-top-item{% if app.request.attributes.get('_route') == 'servers' %} current{% endif %}">
             Serveurs
           </a>
           <ul>
             <li><a href="{# app.url_generator.generate('servers') servername: 'serveur-1' #}">Serveur 1</a></li>
-            <li><a class="current" href="{# app.url_generator.generate('servers') servername: 'serveur-2' #}{{ app.request.getBaseUrl() }}/servers/serveur-2">Serveur 2</a></li>
+            <li><a class="{% if app.request.attributes.get('servername') == 'serveur-2' %}current{% endif %}" href="{# app.url_generator.generate('servers') servername: 'serveur-2' #}{{ app.request.getBaseUrl() }}/servers/serveur-2">Serveur 2</a></li>
           </ul>
         </li>
 
         <li>
-          <a href="{{ app.url_generator.generate('configs') }}" class="nav-top-item no-submenu">
+          <a href="{{ app.url_generator.generate('configs') }}" class="nav-top-item no-submenu{% if app.request.attributes.get('_route') == 'configs' %} current{% endif %}">
             Configurations
           </a>
         </li> 
@@ -90,6 +90,7 @@
         <p id="page-intro">{{ page_intro }}</p>
       {% endif %}
 
+      {{ flash_messenger }}
 
       {% block content %}{% endblock %}
 
