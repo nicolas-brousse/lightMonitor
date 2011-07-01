@@ -1,1 +1,6 @@
 <?php
+
+Class Asker
+{
+  
+}

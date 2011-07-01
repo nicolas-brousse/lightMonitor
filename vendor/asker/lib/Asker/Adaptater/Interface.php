@@ -2,7 +2,7 @@
 
 namespace Asker\Adaptater;
 
-Abstract Class Interface
+Interface Asker_Interface
 {
   public function uptime();
   public function memory();

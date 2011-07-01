@@ -2,6 +2,8 @@
 
 namespace Rrdtool;
 
+require_once 'Exception.php';
+
 Class Rrdtool
 {
   function __construct()

@@ -2,7 +2,9 @@
 
 namespace Rrdtool;
 
-Class Rrdtool_Exception extends Exception
+use \Exception;
+
+Class Rrdtool_Exception extends \Exception
 {
   
 }

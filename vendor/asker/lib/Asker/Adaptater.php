@@ -2,6 +2,8 @@
 
 namespace Asker;
 
+require_once 'Exception.php';
+
 Class Adaptater
 {
 
@@ -12,6 +14,7 @@ Class Adaptater
   public function __construct($type)
   {
     switch ($type) {
+
       case self::SNMP:
         return new Adaptater\Snmp();
         break;
