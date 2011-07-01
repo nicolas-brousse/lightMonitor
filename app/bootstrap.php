@@ -24,14 +24,14 @@ $app->register(new Rrdtool\RrdtoolExtension());
 $app->register(new Asker\AskerExtension());
 
 # Load Configs
-$config = new stdClass();
+$configs = new stdClass();
 $dir = __DIR__ . "/configs/";
 if (is_dir($dir)) {
   if ($dh = opendir($dir)) {
     while (($file = readdir($dh)) !== false) {
       if (preg_match('#.yml$#i', $file)) {
         #$loader = new Symfony\Component\Routing\Loader\YamlFileLoader(); $loader->load($file);
-        $config->tmp[$file] = file_get_contents($dir.$file);
+        $configs->tmp[$file] = file_get_contents($dir.$file);
       }
     }
     closedir($dh);
@@ -40,6 +40,20 @@ if (is_dir($dir)) {
 else {
   throw new Exception('ERROR : /app/configs missing !');
 }
+$configs->servers = array(
+  array(
+    'servername'  => 'Serveur 1',
+    'ip'          => '10.0.0.1',
+    'protocol'    => 'SNMP',
+    'status'      => true,
+  ),
+  array(
+    'servername'  => 'Serveur 2',
+    'ip'          => '10.0.0.2',
+    'protocol'    => 'SSH',
+    'status'      => false,
+  ),
+);
 
 
 # Autoload Configs

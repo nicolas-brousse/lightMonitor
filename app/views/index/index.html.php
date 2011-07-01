@@ -47,17 +47,13 @@
         </tfoot>
 
         <tbody>
+        {% for server in servers %}
           <tr>
-            <td><a href="#" title="title">Serveur 1</a></td>
-            <td>10.0.0.1</td>
-            <td><img src="{{ app.request.getBaseUrl() }}/img/icons/on.png" alt="on" /></td>
+            <td><a href="#" title="title">{{ server.servername|e }}</a></td>
+            <td>{{ server.ip|e }}</td>
+            <td><img src="{{ app.request.getBaseUrl() }}/img/icons/{{ server.status == true ? 'on' : 'off' }}.png" alt="on" /></td>
           </tr>
-
-          <tr>
-            <td><a href="{# app.url_generator.generate('servers') servername: 'serveur-2' #}{{ app.request.getBaseUrl() }}/servers/serveur-2" title="title">Serveur 2</a></td>
-            <td>10.0.0.2</td>
-            <td><img src="{{ app.request.getBaseUrl() }}/img/icons/off.png" alt="off" /></td>
-          </tr>
+        {% endfor %}
         </tbody>
 
       </table>
