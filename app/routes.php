@@ -1,5 +1,35 @@
 <?php
 
+# Autoloader controllers
+$controllers = array();
+foreach (App::autoload(__DIR__ . '/controllers/') as $controller) {
+  $classname=substr($controller,0,-4).'_Controller';
+  $controllers[strtolower(substr($controller,0,-4))] = new $classname();
+}
+
+
+# ========================================================  ROUTES  ========================================================
+
+
+$app->get('/',          function () use($controllers) { return $controllers['index']->Index_Action(); })->bind('homepage');
+#$app->get('/dashboard', function () use($app) { return $app->redirect('/'); });
+
+
+
+$app->get('/servers/{ip}',  function () use($controllers) { return $controllers['server']->Index_Action(); })->bind('servers');
+
+
+$app->get('/configs',               function () use($controllers) { return $controllers['config']->Index_Action(); })->bind('configs');
+$app->get('/configs/edit/{ip}',     function () use($controllers) { return $controllers['config']->Edit_Action(); });
+$app->get('/configs/delete/{ip}',   function () use($controllers) { return $controllers['config']->Delete_Action(); });
+
+
+
+# ============================================================================================================================
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 $app->error(function(\Exception $e) use ($app) {
     if ($e instanceof NotFoundHttpException) {
@@ -15,39 +45,3 @@ $app->error(function(\Exception $e) use ($app) {
         return new Response('<h1>You should go eat some cookies while we\'re fixing this feature!</h1>', $e->getStatusCode());
     }
 });
-
-
-
-# require_once 'app/controllers/index.php';
-
-
-# Homepage/Dashboard
-$app->get('/', function () use($app, $configs) {
-  return $app['twig']->render('index/index.html.php', array('servers' => $configs->servers));
-})
-->bind('homepage');
-# $app->get('/',                    Index_Controller::Index_Action())->bind('homepage');
-# $app->get('/dashboard',           Index_Controller::Index_Action())->bind('homepage');
-
-
-
-# Servers
-$app->get('/servers/{ip}', function ($ip) use ($app, $configs) {
-  $ip = $app['request']->get('ip');
-  return $app['twig']->render('servers/details.html.php', array(
-    #'server'  => Model_Server::findByIp($ip),
-  ));
-})
-->bind('servers');
-# $app->get('/servers/{servername}',  Servers_Controller::Index_Action())->bind('servers');
-
-
-
-# Configs
-$app->get('/configs', function () use ($app, $configs) {
-  return $app['twig']->render('configs/index.html.php', array('servers' => $configs->servers));
-})
-->bind('configs');
-# $app->get('/configs',               Servers_Configs::Index_Action())->bind('configs');
-# $app->get('/configs/edit/{ip}',     Servers_Configs::Edit_Action())->bind('configs');
-# $app->get('/configs/delete/{ip}',   Servers_Configs::Delete_Action())->bind('configs');

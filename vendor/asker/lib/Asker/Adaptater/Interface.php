@@ -8,4 +8,5 @@ Interface Asker_Interface
   public function memory();
   public function trafic();
   public function cpu();
+  #public function disk_space();
 }

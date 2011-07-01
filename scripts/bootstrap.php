@@ -16,6 +16,15 @@ $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.name'          => 'jobCron',
 ));
 
+$app->register(new Silex\Extension\DoctrineExtension(), array(
+  'db.options'  => array(
+    'driver'    => 'pdo_sqlite',
+    'path'      => __DIR__.'/../data/db/light_monitor.sqlite',
+  ),
+  'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine2-dbal/lib',
+  'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
+));
+
 $app->register(new Asker\AskerExtension());
 $app->register(new Silex\Extension\SwiftmailerExtension(), array(
   'swiftmailer.class_path'  => __DIR__.'/../vendor/swiftmailer/lib',
@@ -26,5 +35,5 @@ if(!defined('STDIN') )
   die('This file must be execute in CLI mode');
 
 # Verif Environment
-  $app['monolog.level'] = Monolog\Logger::DEBUG;
+$app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBUG : \Monolog\Logger::WARNING;
 #var_dump($argv);

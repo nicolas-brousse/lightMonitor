@@ -33,5 +33,16 @@ foreach ($configs->servers as $server)
 
 # If servername queue is not empty, send an email to hostmaster
 if (!empty($serveurs_without_response)) {
-  print("Send an email !".var_export($serveurs_without_response));
+
+  use Symfony\Component\HttpFoundation\Response;
+
+  $message = \Swift_Message::newInstance()
+      ->setSubject('[LightMonitor] Problème sur un serveur')
+      ->setFrom(array('noreply@lightmonitor.com'))
+      ->setTo(array( $configs->app->monitor->email ))
+      ->setBody("Un problème est survenu sur les IPs suivantes : ".var_export($serveurs_without_response));
+
+  $transport = \Swift_MailTransport::newInstance();
+  $mailer = \Swift_Mailer::newInstance($transport);
+  $mailer->send($message);
 }

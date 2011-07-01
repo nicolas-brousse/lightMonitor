@@ -11,6 +11,8 @@ Class Adaptater
   Const SSH   = 10;
   Const HTTP  = 20;
 
+  private $adaptaters = array('SNMP', 'SSH', 'HTTP');
+
   public function __construct($type)
   {
     switch ($type) {

@@ -1,6 +1,6 @@
 <?php
 
-Class Index_Controller extends Controller_Base
+Class Config_Controller extends Controller_Base
 {
   private $_servers = array();
 
@@ -11,6 +11,6 @@ Class Index_Controller extends Controller_Base
 
   public function Index_Action()
   {
-    return $this->twig->render('index/index.twig', array('servers' => $this->_servers));
+    return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
   }
 }

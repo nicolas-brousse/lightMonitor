@@ -1,12 +1,15 @@
-
 production:
   app:
     base_url: "/"
   rrdtool:
     img_path: "public/graphs/"
+  monitor:
+    email: contact@email.net
 
 development:
   app:
     base_url: "/base_url"
   rrdtool:
     img_path: "public/graphs/"
+  monitor:
+    email: contact@email.net

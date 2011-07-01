@@ -1,21 +1,9 @@
 <?php
-
-
-// Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../app'));
-
 // Define application environment
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-/*
-// Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../vendor'),
-    get_include_path(),
-)));
-*/
 
+# Requires
 require_once __DIR__.'/../vendor/silex.phar';
 require_once __DIR__.'/../vendor/App.php';
 require_once __DIR__.'/../vendor/rrdtool/required.php';
@@ -40,7 +28,7 @@ $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
   'monolog.name'          => 'App',
 ));
-$app['monolog.level'] = APPLICATION_ENV == 'development' ? Monolog\Logger::DEBUG : Monolog\Loger::WARNING;
+$app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBUG : \Monolog\Logger::WARNING;
 
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 
@@ -48,23 +36,20 @@ $app->register(new Rrdtool\RrdtoolExtension());
 $app->register(new Asker\AskerExtension());
 
 $app->register(new Silex\Extension\DoctrineExtension(), array(
-    'db.options'  => array(
-      'driver'    => 'pdo_sqlite',
-      'path'      => __DIR__.'/../data/db/light_monitor.sqlite',
-    ),
-    'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine2-dbal/lib',
-    'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
+  'db.options'  => array(
+    'driver'    => 'pdo_sqlite',
+    'path'      => __DIR__.'/../data/db/light_monitor.sqlite',
+  ),
+  'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine2-dbal/lib',
+  'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
 ));
 
-#$sql = "SELECT * FROM servers";
-#$servers = $app['db']->fetchAssoc($sql);
 
-# Autoload Configs
-# functionAutoload($dir, $ext=array('yml'))
+# List of servers
+$sql = "SELECT * FROM servers";
+$app['list_servers'] = $app['db']->fetchAll($sql);
 
 
-# Autoload Controllers
-App::autoload(__DIR__ . '/controllers/');
 
 
 # Routes

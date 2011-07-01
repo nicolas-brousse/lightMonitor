@@ -21,15 +21,16 @@ Class App
         while (($file = readdir($dh)) !== false) {
           if (is_file($path.$file)) {
             if (preg_match('#base\.php#', $file))  { require_once $path.$file; }
-            else                                   { $queue[] = $path.$file; }
+            else                                   { $queue[] = $file; }
           }
         }
         closedir($dh);
       }
 
       foreach ($queue as $file) {
-        require_once $file;
+        require_once $path.$file;
       }
+      return $queue;
     }
     else {
       throw new Exception('ERROR : \''.$path.'\' missing !');
