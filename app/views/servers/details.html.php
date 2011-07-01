@@ -26,13 +26,13 @@
 
       <tbody>
         <tr>
-          <td>Ok</td>
+          <td><img src="{{ app.request.getBaseUrl() }}/img/icons/on.png" alt="off" /></td>
           <td>Ping</td>
           <td>10 jours</td>
         </tr>
 
         <tr>
-          <td>erreur</td>
+          <td><img src="{{ app.request.getBaseUrl() }}/img/icons/off.png" alt="off" /></td>
           <td>FTP</td>
           <td>5 minutes</td>
         </tr>

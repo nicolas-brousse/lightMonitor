@@ -1,13 +1,12 @@
 == LightMonitor
 
-= Installation
+Welcome to the lightMonitor wiki!
 
+The goal of this project : Create a light monitor with php to view status of servers.
 
-* In Apache Vhost, add : Alias /app_path /app_path/public
-
-* Duplicate /app/configs/*.yml-dist to /app/configs/*.yml
-* Duplicate /public/.htaccess-dist to /public/.htaccess, and precise RewriteBase
-
-* chmod 777 /data/log/*
-
-* It's work
+Protocols to ask informations to the servers :
+* SSH
+* SNMP
+* HTTP    
+    
+With this, a jobcron will be create to generate RRDTOOL graphics and an other to check if servers response to ping action.

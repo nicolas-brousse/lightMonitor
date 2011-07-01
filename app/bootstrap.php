@@ -12,22 +12,41 @@ $app->register(new Silex\Extension\TwigExtension(), array(
   'twig.class_path' => __DIR__.'/../vendor/twig/lib',
 ));
 $app->register(new Silex\Extension\MonologExtension(), array(
-  'monolog.logfile'       => __DIR__.'/../data/log/development.log',
+  'monolog.logfile'       => __DIR__.'/../data/log/development.App.log',
   'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
   'monolog.name'          => 'App',
 ));
 $app['monolog.level'] = Monolog\Logger::DEBUG;
+
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 
 $app->register(new Rrdtool\RrdtoolExtension());
 $app->register(new Asker\AskerExtension());
 
-# Serveurs config
+# Load Configs
 $config = new stdClass();
-#$config->servers = new Symfony\Component\Routing\Loader\YamlFileLoader();
-$config->generals = (file_get_contents( __DIR__ . '/configs/app.yml'));
-$config->servers = (file_get_contents( __DIR__ . '/configs/servers.yml'));
+$dir = __DIR__ . "/configs/";
+if (is_dir($dir)) {
+  if ($dh = opendir($dir)) {
+    while (($file = readdir($dh)) !== false) {
+      if (preg_match('#.yml$#i', $file)) {
+        #$loader = new Symfony\Component\Routing\Loader\YamlFileLoader(); $loader->load($file);
+        $config->tmp[$file] = file_get_contents($dir.$file);
+      }
+    }
+    closedir($dh);
+  }
+}
+else {
+  throw new Exception('ERROR : /app/configs missing !');
+}
 
+
+# Autoload Configs
+# functionAutoload($dir, $ext=array('yml'))
+
+# Autoload Controllers
+# functionAutoload($dir, $ext=false)
 
 
 # Routes

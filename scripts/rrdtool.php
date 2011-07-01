@@ -17,6 +17,11 @@ $app->register(new Rrdtool\RrdtoolExtension());
 
 # Check if RRDTOOL Data Bases exits, else generate it
 
+$rrd['memory'] = new Rrdtool\Rrdtool();
+# $rrd['memory']->generate()->setOptions(array())->execute("rrd");
+
+$asker = new Asker\Adaptater(Asker\Adaptater::SSH);
+
 # Ask the server to collect datas
 
 # Add new informations to RDDTOOL DBs

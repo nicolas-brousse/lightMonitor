@@ -2,22 +2,27 @@
 
 # Load Extension
 
-namespace Asker;
+namespace Rrdtool;
 
 use Silex\Application;
 use Silex\ExtensionInterface;
 
-class AskerExtension implements ExtensionInterface
+class RrdtoolExtension implements ExtensionInterface
 {
-  private $default_class_path = '/vendor/rrdtool/lib';
-  private $extension_name = 'Asker';
+  private $default_class_path = '/lib';
 
   public function register(Application $app)
   {
-    $app[$this->extension_name] = $app->protect(function () use ($app) {
+    $app[__NAMESPACE__] = true; /*$app->protect(function () use ($app) {
         return "Hello $name";
-    });
+    });*/
 
-    $app['autoloader']->registerNamespace($this->extension_name, isset($app['rrdtool.class_path']) ? $app['rrdtool.class_path'] : $this->default_class_path);
+    if (isset($app['rrdtool.class_path']) AND is_dir($app['rrdtool.class_path'])) {
+      $dir = $app['rrdtool.class_path'];
+    }
+    else {
+      $dir = __DIR__ . $this->default_class_path;
+    }
+    $app['autoloader']->registerNamespace(__NAMESPACE__, $dir);
   }
 }
