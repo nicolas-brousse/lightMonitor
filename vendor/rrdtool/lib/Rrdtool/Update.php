@@ -19,7 +19,7 @@ Class Update extends Base
       $insert .= ':'.$data;
     }
 
-    $return = rrd_update($db, $insert);
+    $return = rrd_update($this->getDbPath($db), $insert);
 
     if( $return == 0 ) {
       throw new Rrdtool_Exception("rrd_update() ERROR: " . rrd_error());

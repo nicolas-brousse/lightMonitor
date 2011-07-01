@@ -15,7 +15,7 @@ Class Generate extends Base
 
   function execute($db, $filename)
   {
-    $return = rrd_graph($db, $filename, $this->options, count($this->options));
+    $return = rrd_graph($this->getDbPath($db), $this->getGraphPath($filename), $this->options, count($this->options));
 
     if( !is_array($return) ) {
       throw new Rrdtool_Exception("rrd_graph() ERROR: " . rrd_error());

@@ -13,7 +13,7 @@ Class Setup extends Base
 
   function execute($db)
   {
-    $return = rrd_create($db, $this->options, count($this->options));
+    $return = rrd_create($this->getDbPath($db), $this->options, count($this->options));
 
     if( $return == 0 ) {
       throw new Rrdtool_Exception("rrd_create() ERROR: " . rrd_error());

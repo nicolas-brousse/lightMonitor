@@ -20,7 +20,7 @@ $app->register(new Rrdtool\RrdtoolExtension());
 use Asker\Adaptater;
 use Rrdtool\Rrdtool;
 
-$rrd['trafic'] = new Rrdtool();
+$rrd['trafic'] = new Rrdtool('ip');
 $setup = array( "–step", "300", "–start", 0,
         "DS:input:COUNTER:600:U:U",
         "DS:output:COUNTER:600:U:U",
@@ -58,4 +58,4 @@ $asker = new Adaptater(Adaptater::HTTP);
 
 # Add new informations to RDDTOOL DBs
 
-# Generates RRDTOOL Graphs
+# CleanDir(md5($servername)) and Generates RRDTOOL Graphs
