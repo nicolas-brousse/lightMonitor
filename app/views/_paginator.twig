@@ -1,0 +1,31 @@
+{# http://devtime.blogspot.com/2011/05/symfony2-twig-pagination-class.html #}
+
+<div class="pagination">
+  {% if paginator.currentpage != 1 %}
+      <a title="Previous Page" href="{{ path('_items', {'offset': paginator.currentpage-1 }) }}">&laquo; Previous</a>
+  {% endif %}
+
+  {% for i in 1..paginator.numpages%}
+
+    {% if paginator.range.0 > 2 and i == paginator.range.0 %}
+          ...
+    {% endif %}
+
+    {%  if (i==1 or i==paginator.numpages or i in paginator.range) %}
+      {% if i==paginator.currentpage %}
+      <a href="{{ path('_items', {'offset': i })}}" class="number current" title="1">{{i}}</a>
+      {% else %}
+      <a href="{{ path('_items', {'offset': i }) }}" class="number">{{i}}</a>
+      {% endif %}
+    {% endif %}
+
+   {% if paginator.range[paginator.midrange -1] < paginator.numpages -1 and i == paginator.range[paginator.midrange-1] %}
+        ...
+   {% endif %}
+
+  {% endfor %}
+
+  {% if paginator.currentpage != paginator.numpages %}
+      <a title="Next Page" href="{{ path('_items', {'offset': paginator.currentpage+1 }) }}">Last &raquo;</a>
+  {% endif %}
+</div>

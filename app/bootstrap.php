@@ -22,6 +22,7 @@ $app->register(new Silex\Extension\TwigExtension(), array(
   'twig.path'       => __DIR__.'/views',
   'twig.class_path' => __DIR__.'/../vendor/twig/lib',
 ));
+
 $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.logfile'       => __DIR__.'/../data/log/development.App.log',
   'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
@@ -32,6 +33,7 @@ $app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBU
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 
 $app->register(new Rrdtool\RrdtoolExtension());
+
 $app->register(new Asker\AskerExtension());
 
 $app->register(new Silex\Extension\DoctrineExtension(), array(
@@ -43,7 +45,13 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
 ));
 
-
+# @$app['request']->getBaseUrl()
+/*$app['flash_messenger'] = '<div class="notification error png_bg">
+  <a href="#" class="close"><img src="'.'img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+  <div>
+    Error notification. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate, sapien quis fermentum luctus, libero.
+  </div>
+</div>';*/
 
 
 # Navigation

@@ -11,6 +11,13 @@ Class Config_Controller extends Controller_Base
 
   public function Index_Action()
   {
+    /*$limit = 20;
+    $midrange = 7;
+    $itemsCount = $repository->getListCount();
+    $paginator = new Paginator($itemsCount, $offset, $limit, $midrange);
+    $items = $repository->getList($offset);
+    return array('items' => $items, 'paginator' => $paginator);*/
+
     return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
   }
 

@@ -57,7 +57,7 @@
           {% if item.items is defined %}
           <ul>
             {% for sub_item in item.items %}
-            <li><a class="{% if (app.request.attributes.get(item.param) == sub_item.value) and (app.request.attributes.get('_route') == item.bind) %}current{% endif %}" href="{{ app.url_generator.generate(sub_item.bind, {'ip': sub_item.value}) }}">{{ sub_item.name }}</a></li>
+            <li><a class="{% if (app.request.attributes.get(item.param) == sub_item.value and app.request.attributes.get('_route') == item.bind) %}current{% endif %}" href="{{ app.url_generator.generate(sub_item.bind, {'ip': sub_item.value}) }}">{{ sub_item.name }}</a></li>
             {% endfor %}
           </ul>
           {% endif %}
@@ -83,7 +83,7 @@
         <p id="page-intro">{{ page_intro }}</p>
       {% endif %}
 
-      {{ flash_messenger }}
+      {{ app.flash_messenger|raw }}
 
       {% block content %}{% endblock %}
 
