@@ -69,8 +69,8 @@
               <td>{{ server.updated_at|date("d-m-Y H:m:s") }}</td>
               <td>
                  <!-- Icons -->
-                 <a href="#" title="Edit"><img src="{{ app.request.getBaseUrl() }}/img/icons/pencil.png" alt="Edit" /></a>
-                 <a href="#" title="Delete"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross.png" alt="Delete" /></a>
+                 <a href="{{ app.url_generator.generate('configs.edit', {'ip': server.ip}) }}" title="Edit"><img src="{{ app.request.getBaseUrl() }}/img/icons/pencil.png" alt="Edit" /></a>
+                 <a href="{{ app.url_generator.generate('configs.delete', {'ip': server.ip}) }}" title="Delete"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross.png" alt="Delete" /></a>
                </td>
             </tr>
           {% endfor %}

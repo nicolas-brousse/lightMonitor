@@ -13,4 +13,14 @@ Class Config_Controller extends Controller_Base
   {
     return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
   }
+
+  public function Edit_Action()
+  {
+    return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
+  }
+
+  public function Delete_Action()
+  {
+    return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
+  }
 }
