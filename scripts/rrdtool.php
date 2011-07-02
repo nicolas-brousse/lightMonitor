@@ -21,7 +21,9 @@ use Asker\Asker;
 use Asker\Adaptater;
 use Rrdtool\Rrdtool;
 
-$rrd['traffic'] = new Rrdtool('127.0.0.1');
+$servername = "Localhost";
+$ip = "127.0.0.1";
+$rrd['traffic'] = new Rrdtool($ip);
 
 $setup = array("--start", "N", "--step", "60",
   "DS:input:COUNTER:600:U:U",
@@ -40,22 +42,22 @@ $rrd['traffic']->setup()->setOptions($setup)->execute("traffic.rrd");
 
 $rrd['traffic']->update()->setDatas(array(rand(10000, 15000), rand(10000, 15000)))->execute("traffic.rrd");
 
-$generate = array( "--start", "-1d", "-vertical-label=B/s",
-                 "DEF:inoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":input:AVERAGE",
-                 "DEF:outoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":output:AVERAGE",
-                 "AREA:inoctets#00FF00:In traffic",
-                 "LINE1:outoctets#0000FF:Out traffic\\r",
-                 "CDEF:inbits=inoctets,8,*",
-                 "CDEF:outbits=outoctets,8,*",
-                 "COMMENT:\\n",
-                 "GPRINT:inbits:AVERAGE:Avg In traffic\: %6.2lf %Sbps",
-                 "COMMENT:  ",
-                 "GPRINT:inbits:MAX:Max In traffic\: %6.2lf %Sbps\\r",
-                 "GPRINT:outbits:AVERAGE:Avg Out traffic\: %6.2lf %Sbps",
-                 "COMMENT: ",
-                 "GPRINT:outbits:MAX:Max Out traffic\: %6.2lf %Sbps\\r"
-               );
-$rrd['traffic']->generate()->setOptions($generate)->execute("traffic.rrd", "traffic-0.png");
+$generate = array("--start", "-1d", "--title", "Traffic of ".$servername." ", "--vertical-label=B/s", "--width", "500", "--height", "200",
+  "DEF:inoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":input:AVERAGE",
+  "DEF:outoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":output:AVERAGE",
+  "AREA:inoctets#00FF00:In traffic",
+  "LINE1:outoctets#0000FF:Out traffic\\r",
+  "CDEF:inbits=inoctets,8,*",
+  "CDEF:outbits=outoctets,8,*",
+  "COMMENT:\\n",
+  "GPRINT:inbits:AVERAGE:Avg In traffic\: %6.2lf %Sbps",
+  "COMMENT:  ",
+  "GPRINT:inbits:MAX:Max In traffic\: %6.2lf %Sbps\\r",
+  "GPRINT:outbits:AVERAGE:Avg Out traffic\: %6.2lf %Sbps",
+  "COMMENT: ",
+  "GPRINT:outbits:MAX:Max Out traffic\: %6.2lf %Sbps\\r"
+);
+$rrd['traffic']->generate()->setOptions($generate)->execute("traffic-0.png");
 
 #$asker = new Asker(Adaptater::HTTP);
 # $asker = new Asker(Adaptater::HTTP)->setHost($host, $port);
