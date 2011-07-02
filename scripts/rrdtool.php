@@ -22,7 +22,8 @@ use Asker\Adaptater;
 use Rrdtool\Rrdtool;
 
 $rrd['traffic'] = new Rrdtool('127.0.0.1');
-$setup = array("–step", "300", "-start", "N",
+
+$setup = array("--start", "N", "--step", "60",
   "DS:input:COUNTER:600:U:U",
   "DS:output:COUNTER:600:U:U",
   "RRA:AVERAGE:0.5:1:600",
@@ -32,15 +33,16 @@ $setup = array("–step", "300", "-start", "N",
   "RRA:MAX:0.5:1:600",
   "RRA:MAX:0.5:6:700",
   "RRA:MAX:0.5:24:775",
-  "RRA:MAX:0.5:288:797"
+  "RRA:MAX:0.5:288:797",
 );
+
 $rrd['traffic']->setup()->setOptions($setup)->execute("traffic.rrd");
 
 $rrd['traffic']->update()->setDatas(array(rand(10000, 15000), rand(10000, 15000)))->execute("traffic.rrd");
 
-$generate = array( "–start", "-1d", "–vertical-label=B/s",
-                 "DEF:inoctets=net.rrd:input:AVERAGE",
-                 "DEF:outoctets=net.rrd:output:AVERAGE",
+$generate = array( "--start", "-1d", "-vertical-label=B/s",
+                 "DEF:inoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":input:AVERAGE",
+                 "DEF:outoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":output:AVERAGE",
                  "AREA:inoctets#00FF00:In traffic",
                  "LINE1:outoctets#0000FF:Out traffic\\r",
                  "CDEF:inbits=inoctets,8,*",

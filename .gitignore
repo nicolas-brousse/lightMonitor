@@ -3,3 +3,5 @@ data/log/*.log
 *.htaccess
 *.yml
 *.sqlite-journal
+*.rrd
+public/graphs/*

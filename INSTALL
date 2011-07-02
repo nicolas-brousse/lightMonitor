@@ -2,7 +2,7 @@
 
 = Dependencies
 
-apt-get install php5-curl php-snmp php5-ssh2 php5-rrdtools
+apt-get install php5-curl php-snmp php5-ssh2 php5-rrdtool
 
 
 = Installation

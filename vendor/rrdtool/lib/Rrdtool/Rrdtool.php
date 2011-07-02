@@ -8,7 +8,7 @@ Class Rrdtool
 {
   protected $ip;
   protected $server_dir;
-  protected $server_path;
+  protected $graphics_path;
   protected $db_path;
 
   function __construct($ip=false)
@@ -26,32 +26,35 @@ Class Rrdtool
     $this->db_path = __DIR__ . '/../../../../data/rrdtool/';
     $this->ip = $ip;
     $this->server_dir = md5($ip);
-    $this->server_path = __DIR__ . '/../../../../';
+    $this->graphics_path = __DIR__ . '/../../../../public/graphs/';
 
-    # Create repository
+    # Create repositories
     if(!file_exists($this->db_path.$this->server_dir.'/')) {
       mkdir($this->db_path.$this->server_dir.'/', 0777, true);
+    }
+    if(!file_exists($this->graphics_path.$this->server_dir.'/')) {
+      mkdir($this->graphics_path.$this->server_dir.'/', 0777, true);
     }
   }
 
   public function getGraphPath($filename=false)
   {
-    return $this->server_path.$this->server_dir.'/'.($filename ? $filename.'/' : '');
+    return $this->graphics_path.$this->server_dir.'/'.($filename ? $filename : '');
   }
 
   public function getDbPath($filename=false)
   {
-    return $this->db_path.$this->server_dir.'/'.($filename ? $filename.'/': '');
+    return $this->db_path.$this->server_dir.'/'.($filename ? $filename : '');
   }
 
   public function update()
   {
-    return new Update();
+    return new Update($this->getDbPath());
   }
 
   public function generate()
   {
-    return new Generate();
+    return new Generate($this->getGraphPath());
   }
 
   public function setup()

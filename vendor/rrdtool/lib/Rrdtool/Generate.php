@@ -8,9 +8,8 @@ Class Generate extends Base
   private $db_path;
   private $graphics_path;
 
-  public function __construct($db_path, $graphics_path)
+  public function __construct($graphics_path)
   {
-    $this->db_path = $db_path;
     $this->graphics_path = $graphics_path;
   }
 
@@ -21,8 +20,8 @@ Class Generate extends Base
   }
 
   function execute($db, $filename)
-  {
-    $return = rrd_graph($this->db_path.($db), $this->graphics_path.($filename), $this->options, count($this->options));
+  { #var_dump($this->graphics_path.$filename); exit;
+    $return = rrd_graph($this->graphics_path.$filename, $this->options, count($this->options));
 
     if (!is_array($return)) {
       throw new Rrdtool_Exception("rrd_graph() ERROR: " . rrd_error());

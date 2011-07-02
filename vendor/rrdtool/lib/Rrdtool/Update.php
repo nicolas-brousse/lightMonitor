@@ -5,21 +5,27 @@ namespace Rrdtool;
 Class Update extends Base
 {
   private $datas = array();
+  private $db_path;
 
-  function setDatas(array $datas)
+  public function __construct($db_path)
+  {
+    $this->db_path = $db_path;
+  }
+
+  public function setDatas(array $datas)
   {
     $this->datas = $datas;
     return $this;
   }
 
-  function execute($db)
+  public function execute($db)
   {
     $insert = "N";
     foreach ($this->datas as $data) {
       $insert .= ':'.$data;
     }
 
-    $return = rrd_update($this->getDbPath($db), $insert);
+    $return = rrd_update($this->db_path.$db, $insert);
 
     if (!$return) {
       throw new Rrdtool_Exception("rrd_update() ERROR: " . rrd_error());

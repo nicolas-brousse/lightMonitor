@@ -20,6 +20,11 @@ Class Setup extends Base
 
   function execute($db)
   {#var_dump($this->db_path.$db); var_dump($this->options); var_dump(count($this->options)); exit;
+    if(file_exists($this->db_path.$db)) {
+      return; // TODO remove this return
+      throw new Rrdtool_Exception("Rrdtool\Setup()->execute() ERROR: rdd file '".$db."' already exists");
+    }
+
     $return = rrd_create($this->db_path.$db, $this->options, count($this->options));
 
     if (!$return) {
