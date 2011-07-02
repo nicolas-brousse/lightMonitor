@@ -5,12 +5,17 @@ require_once __DIR__.'/../vendor/asker/required.php';
 require_once __DIR__.'/../vendor/yaml/lib/sfYaml.php';
 
 
+
 # Load Configs
 $configs = App::loadConfigs(__DIR__ . '/configs/', APPLICATION_ENV);
 
+
+
 # App
 $app = App::getApp();
-$app['version'] = "alpha1";
+$app['version'] = APPLICATION_VERSION;
+
+
 
 # Register Extensions
 $app->register(new Silex\Extension\TwigExtension(), array(
@@ -57,7 +62,7 @@ $app['navigation'] = array(
     'bind'  => 'homepage',
   ),
   array(
-    'name' => 'Serveurs',
+    'name' => 'Servers',
     'href'  => '#',
     'bind'  => 'servers',
     'param' => 'ip',

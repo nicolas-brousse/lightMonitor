@@ -7,11 +7,11 @@
 
 <div class="content-box"><!-- Start Content Box -->
   <div class="content-box-header">
-    <h3>Liste des serveurs à monitorer</h3>
+    <h3>List of servers to monitor</h3>
 
     <ul class="content-box-tabs">
-      <li><a href="#listing" class="default-tab">Liste</a></li> <!-- href must be unique and match the id of target div -->
-      <li><a href="#form">Formulaire</a></li>
+      <li><a href="#listing" class="default-tab">Listing</a></li> <!-- href must be unique and match the id of target div -->
+      <li><a href="#form">Form</a></li>
     </ul>
     <div class="clear"></div>
   </div> <!-- End .content-box-header -->
@@ -25,9 +25,9 @@
             <th><input class="check-all" type="checkbox" /></th>
             <th>Host</th>
             <th>IP</th>
-            <th>Protocole</th>
-            <th>Création</th>
-            <th>Modification</th>
+            <th>Protocol</th>
+            <th>Created at</th>
+            <th>Updated at</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -82,30 +82,30 @@
 
     <div class="tab-content" id="form">
       <form action="#" method="post">
-        <fieldset> <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+        <fieldset>
 
           <p>
             <label>Servername</label>
             <input class="text-input medium-input datepicker" type="text" id="medium-input" name="servername" />
-            <br /><small>Cette information est juste visuelle, elle ne correspond pas au reverse du serveur.</small>
+            <br /><small>This information is just visual, it doesn't match the reverse of the server.</small>
           </p>
 
           <p>
-            <label>Adresse IP</label>
+            <label>IP address</label>
             <input class="text-input small-input" type="text" id="small-input" name="ip" />
           </p>
 
           <p>
-            <label>Protocol de récolte des informations</label>
+            <label>Protocol to get informations</label>
             <select name="dropdown" class="small-input">
-              <option value="option1">SNMP</option>
-              <option value="option2">SSH</option>
-              <option value="option3">HTTP</option>
+              <option value="0">SNMP</option>
+              <option value="1">SSH</option>
+              <option value="2">HTTP</option>
             </select> 
           </p>
 
           <p>
-            <label>Logiciels à monitorer</label>
+            <label>Software to monitor</label>
             <label for="ftp"><input type="checkbox" name="ftp" id="ftp" value="" /> FTP <small>(port 21)</small></label>
             <label for="dns"><input type="checkbox" name="dns" id="dns" value="" /> DSN <small>(port 53)</small></label>
           </p>
