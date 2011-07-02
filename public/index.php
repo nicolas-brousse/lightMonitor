@@ -1,2 +1,2 @@
 <?php # Lauch app
-require_once __DIR__ . '/../app/bootstrap.php';
+require_once __DIR__ . '/../vendor/Launcher.php';

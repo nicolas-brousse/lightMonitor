@@ -11,12 +11,14 @@ foreach (App::autoload(__DIR__ . '/controllers/') as $controller) {
 # ========================================================  ROUTES  ========================================================
 
 
+
 $app->get('/',          function () use($controllers) { return $controllers['index']->Index_Action(); })->bind('homepage');
 #$app->get('/dashboard', function () use($app) { return $app->redirect('/'); });
 
 
 
 $app->get('/servers/{ip}',  function () use($controllers) { return $controllers['server']->Index_Action(); })->bind('servers');
+
 
 
 $app->get('/configs',               function () use($controllers) { return $controllers['config']->Index_Action(); })->bind('configs');

@@ -1,11 +1,5 @@
 <?php
-// Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-
 # Requires
-require_once __DIR__.'/../vendor/silex.phar';
-require_once __DIR__.'/../vendor/App.php';
 require_once __DIR__.'/../vendor/rrdtool/required.php';
 require_once __DIR__.'/../vendor/asker/required.php';
 require_once __DIR__.'/../vendor/yaml/lib/sfYaml.php';
@@ -44,6 +38,10 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
 ));
 
+
+
+
+# Navigation
 $servers = array();
 foreach ($app['db']->fetchAll("SELECT servername, ip FROM servers") as $server) {
   $servers[] = array(
@@ -52,7 +50,6 @@ foreach ($app['db']->fetchAll("SELECT servername, ip FROM servers") as $server) 
     'value'  => $server['ip'],
   );
 }
-# Navigation
 $app['navigation'] = array(
   array(
     'name' => 'Dashboard',
@@ -74,8 +71,12 @@ $app['navigation'] = array(
 );
 
 
+
+
 # Routes
 require_once __DIR__ . '/routes.php';
+
+
 
 # Run
 $app->run();
