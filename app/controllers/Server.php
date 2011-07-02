@@ -14,6 +14,7 @@ Class Server_Controller extends Controller_Base
       "SELECT * FROM servers WHERE ip = ?",
       array($ip)
     );
+    $server['graphics_dir'] = '/graphs/'.md5($server['ip']).'/';
 
     if ($server) {
       return $this->twig->render('server/details.twig', array('server' => $server));
