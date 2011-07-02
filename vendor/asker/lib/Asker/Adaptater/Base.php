@@ -6,27 +6,27 @@ require_once 'Interface.php';
 
 Abstract Class Base implements Asker_Interface
 {
-  function __construct()
+  final public function __construct()
   {
-    
+    $this->init();
   }
 
-  public function uptime()
-  {
-
-  }
-
-  public function memory()
+  public function getUptime()
   {
 
   }
 
-  public function trafic()
+  public function getMemory()
   {
 
   }
 
-  public function cpu()
+  public function getTraffic()
+  {
+
+  }
+
+  public function getCpu()
   {
 
   }

@@ -6,12 +6,11 @@ Class Ssh extends Base
 {
   private $connection;
 
-  public function __construct()
+  public function init()
   {
     if (!function_exists('ssh2_connect')) {
       throw new Asker_Exception("ERROR: To use SSH protocol, install php5_ssh2 PHP extention !");
     }
-    parent::__construct();
 
     $host = "shell.example.com";
     $port = 22;
@@ -24,22 +23,28 @@ Class Ssh extends Base
     }
   }
 
-  public function uptime()
+  public function setHost($host, $port)
+  {
+    // TODO set Host and Log
+    // TODO Can Log with public key
+  }
+
+  public function getUptime()
   {
 
   }
 
-  public function memory()
+  public function getMemory()
   {
 
   }
 
-  public function trafic()
+  public function getTraffic()
   {
 
   }
 
-  public function cpu()
+  public function getCpu()
   {
 
   }

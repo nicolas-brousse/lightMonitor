@@ -2,11 +2,33 @@
 
 namespace Asker\Adaptater;
 
+/**
+ * @version 1
+ */
 Interface Asker_Interface
 {
-  public function uptime();
-  public function memory();
-  public function trafic();
-  public function cpu();
-  #public function disk_space();
+  /**
+   *
+   */
+  public function getUptime();
+
+  /**
+   *
+   */
+  public function getMemory();
+
+  /**
+   *
+   */
+  public function getTraffic();
+
+  /**
+   *
+   */
+  public function getCpu();
+
+  /**
+   *
+   */
+  #public function getDiskSpace();
 }

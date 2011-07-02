@@ -4,12 +4,11 @@ namespace Asker\Adaptater;
 
 Class Snmp extends Base
 {
-  public function __construct()
+  public function init()
   {
     if (!class_exists('SNMP')) {
       throw new Asker_Exception("ERROR: To use SNMP protocol, install php5_snmp PHP extention !");
     }
-    parent::__construct();
 
     /*$host = "shell.example.com";
     $port = 22;
@@ -20,24 +19,27 @@ Class Snmp extends Base
     if (ssh2_auth_password($this->connection, 'username', 'secret')) {
       throw new Asker_Exception('ERROR: SSH Connection failed, invalid username or password !');
     }*/
+
+    # http://www.debianadmin.com/linux-snmp-oids-for-cpumemory-and-disk-statistics.html
+    # http://www.net-snmp.org/wiki/index.php/TUT:snmpwalk
   }
 
-  public function uptime()
+  public function getUptime()
   {
 
   }
 
-  public function memory()
+  public function getMemory()
   {
 
   }
 
-  public function trafic()
+  public function getTraffic()
   {
 
   }
 
-  public function cpu()
+  public function getCpu()
   {
 
   }

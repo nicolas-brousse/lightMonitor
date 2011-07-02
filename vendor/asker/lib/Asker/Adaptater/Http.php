@@ -4,12 +4,11 @@ namespace Asker\Adaptater;
 
 Class Http extends Base
 {
-  public function __construct()
+  public function init()
   {
     if (!function_exists('curl_init')) {
       throw new Asker_Exception("ERROR: To use HTTP protocol, install php5_curl PHP extention !");
     }
-    parent::__construct();
 
     /*$host = "shell.example.com";
     $port = 22;
@@ -26,22 +25,22 @@ Class Http extends Base
     #
   }
 
-  public function uptime()
+  public function getUptime()
   {
     
   }
 
-  public function memory()
+  public function getMemory()
   {
     
   }
 
-  public function trafic()
+  public function getTraffic()
   {
     
   }
 
-  public function cpu()
+  public function getCpu()
   {
     
   }
