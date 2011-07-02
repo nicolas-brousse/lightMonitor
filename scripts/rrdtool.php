@@ -17,24 +17,27 @@ $app->register(new Rrdtool\RrdtoolExtension());
 
 # Check if RRDTOOL Data Bases exits, else generate it
 
+use Asker\Asker;
 use Asker\Adaptater;
 use Rrdtool\Rrdtool;
 
-$rrd['trafic'] = new Rrdtool('ip');
-$setup = array( "–step", "300", "–start", 0,
-        "DS:input:COUNTER:600:U:U",
-        "DS:output:COUNTER:600:U:U",
-        "RRA:AVERAGE:0.5:1:600",
-        "RRA:AVERAGE:0.5:6:700",
-        "RRA:AVERAGE:0.5:24:775",
-        "RRA:AVERAGE:0.5:288:797",
-        "RRA:MAX:0.5:1:600",
-        "RRA:MAX:0.5:6:700",
-        "RRA:MAX:0.5:24:775",
-        "RRA:MAX:0.5:288:797"
-     );
-# $rrd['trafic']->setup()->setOptions($setup)->execute("trafic.rrd");
-# $rrd['trafic']->update()->setDatas(array(rand(10000, 15000), rand(10000, 15000)))->execute("trafic.rrd");
+$rrd['traffic'] = new Rrdtool('127.0.0.1');
+$setup = array("–step", "300", "-start", "N",
+  "DS:input:COUNTER:600:U:U",
+  "DS:output:COUNTER:600:U:U",
+  "RRA:AVERAGE:0.5:1:600",
+  "RRA:AVERAGE:0.5:6:700",
+  "RRA:AVERAGE:0.5:24:775",
+  "RRA:AVERAGE:0.5:288:797",
+  "RRA:MAX:0.5:1:600",
+  "RRA:MAX:0.5:6:700",
+  "RRA:MAX:0.5:24:775",
+  "RRA:MAX:0.5:288:797"
+);
+$rrd['traffic']->setup()->setOptions($setup)->execute("traffic.rrd");
+
+$rrd['traffic']->update()->setDatas(array(rand(10000, 15000), rand(10000, 15000)))->execute("traffic.rrd");
+
 $generate = array( "–start", "-1d", "–vertical-label=B/s",
                  "DEF:inoctets=net.rrd:input:AVERAGE",
                  "DEF:outoctets=net.rrd:output:AVERAGE",
@@ -50,9 +53,11 @@ $generate = array( "–start", "-1d", "–vertical-label=B/s",
                  "COMMENT: ",
                  "GPRINT:outbits:MAX:Max Out traffic\: %6.2lf %Sbps\\r"
                );
-# $rrd['trafic']->generate()->setOptions($generate)->execute("trafic.rrd", "trafic-0.png");
+$rrd['traffic']->generate()->setOptions($generate)->execute("traffic.rrd", "traffic-0.png");
 
-$asker = new Adaptater(Adaptater::HTTP);
+#$asker = new Asker(Adaptater::HTTP);
+# $asker = new Asker(Adaptater::HTTP)->setHost($host, $port);
+# $asker->getUptime();
 
 # Ask the server to collect datas
 

@@ -5,19 +5,26 @@ namespace Rrdtool;
 Class Generate extends Base
 {
   private $options = array();
+  private $db_path;
+  private $graphics_path;
+
+  public function __construct($db_path, $graphics_path)
+  {
+    $this->db_path = $db_path;
+    $this->graphics_path = $graphics_path;
+  }
 
   public function setOptions(array $options)
   {
     $this->options = $options;
-
     return $this;
   }
 
   function execute($db, $filename)
   {
-    $return = rrd_graph($this->getDbPath($db), $this->getGraphPath($filename), $this->options, count($this->options));
+    $return = rrd_graph($this->db_path.($db), $this->graphics_path.($filename), $this->options, count($this->options));
 
-    if( !is_array($return) ) {
+    if (!is_array($return)) {
       throw new Rrdtool_Exception("rrd_graph() ERROR: " . rrd_error());
     }
     else {

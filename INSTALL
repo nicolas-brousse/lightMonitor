@@ -1,7 +1,11 @@
 == LightMonitor
 
-= Installation
+= Dependencies
 
+apt-get install php5-curl php-snmp php5-ssh2 php5-rrdtools
+
+
+= Installation
 
 * In Apache Vhost, add : Alias /app_path /app_path/public
 

@@ -5,17 +5,24 @@ namespace Rrdtool;
 Class Setup extends Base
 {
   private $options = array();
+  private $db_path;
+
+  public function __construct($db_path)
+  {
+    $this->db_path = $db_path;
+  }
 
   public function setOptions(array $options)
   {
     $this->options = $options;
+    return $this;
   }
 
   function execute($db)
-  {
-    $return = rrd_create($this->getDbPath($db), $this->options, count($this->options));
+  {#var_dump($this->db_path.$db); var_dump($this->options); var_dump(count($this->options)); exit;
+    $return = rrd_create($this->db_path.$db, $this->options, count($this->options));
 
-    if( $return == 0 ) {
+    if (!$return) {
       throw new Rrdtool_Exception("rrd_create() ERROR: " . rrd_error());
     }
     else {

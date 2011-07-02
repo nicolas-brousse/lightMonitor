@@ -9,7 +9,7 @@ Class Update extends Base
   function setDatas(array $datas)
   {
     $this->datas = $datas;
-    return true;
+    return $this;
   }
 
   function execute($db)
@@ -21,7 +21,7 @@ Class Update extends Base
 
     $return = rrd_update($this->getDbPath($db), $insert);
 
-    if( $return == 0 ) {
+    if (!$return) {
       throw new Rrdtool_Exception("rrd_update() ERROR: " . rrd_error());
     }
     else {
