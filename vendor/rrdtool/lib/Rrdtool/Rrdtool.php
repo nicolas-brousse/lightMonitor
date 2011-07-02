@@ -22,7 +22,7 @@ Class Rrdtool
 
     // TODO verif IP value
 
-    // TODO use configs values
+    // TODO use configs app values
     $this->db_path = __DIR__ . '/../../../../data/rrdtool/';
     $this->ip = $ip;
     $this->server_dir = md5($ip);
