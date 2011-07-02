@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/bootstrap.php';
 
+use Symfony\Component\HttpFoundation\Response;
+
 /**
  *
  * Check status of servers
@@ -17,7 +19,7 @@ require_once __DIR__.'/bootstrap.php';
 $serveurs_without_response = array();
 
 #$serveurs = Model_Server::findAll();
-foreach ($configs->servers as $server)
+foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
 {
   #$softwares = Model_Sofware::find($server['id'])
 
@@ -34,15 +36,15 @@ foreach ($configs->servers as $server)
 # If servername queue is not empty, send an email to hostmaster
 if (!empty($serveurs_without_response)) {
 
-  use Symfony\Component\HttpFoundation\Response;
-
   $message = \Swift_Message::newInstance()
       ->setSubject('[LightMonitor] Problème sur un serveur')
       ->setFrom(array('noreply@lightmonitor.com'))
-      ->setTo(array( $configs->app->monitor->email ))
-      ->setBody("Un problème est survenu sur les IPs suivantes : ".var_export($serveurs_without_response));
+      ->setTo(array( $configs->app['monitor']['email'] ))
+      ->setBody("Un problème est survenu sur les IPs suivantes : ".var_export($serveurs_without_response, true));
 
   $transport = \Swift_MailTransport::newInstance();
   $mailer = \Swift_Mailer::newInstance($transport);
-  $mailer->send($message);
+  if ( !$mailer->send($message) ) {
+    echo "Mailer Error";
+  }
 }

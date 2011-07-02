@@ -6,7 +6,7 @@ require_once __DIR__.'/../vendor/yaml/lib/sfYaml.php';
 
 
 # Load Configs
-$configs = App::loadConfigs(__DIR__ . '/configs/');
+$configs = App::loadConfigs(__DIR__ . '/configs/', APPLICATION_ENV);
 
 # App
 $app = App::getApp();

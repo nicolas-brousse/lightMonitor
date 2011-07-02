@@ -37,7 +37,7 @@ Class App
     }
   }
 
-  public static function loadConfigs($path)
+  public static function loadConfigs($path, $env='development')
   {
     $configs = new stdClass();
 
@@ -46,7 +46,8 @@ Class App
         $yamlLoader = new sfYaml();
         while (($file = readdir($dh)) !== false) {
           if (preg_match('#.yml$#i', $file)) {
-            $configs->{substr($file, 0, -4)}  = $yamlLoader->load($path.$file);
+            $tmp = $yamlLoader->load($path.$file);
+            $configs->{substr($file, 0, -4)} = $tmp[$env];
           }
         }
         closedir($dh);
