@@ -13,6 +13,7 @@ foreach (App::autoload(__DIR__ . '/controllers/') as $controller) {
 
 
 $app->get('/',          function () use($controllers) { return $controllers['index']->Index_Action(); })->bind('homepage');
+$app->get('/log',       function () use($controllers) { return $controllers['index']->Log_Action(); })->bind('log');
 #$app->get('/dashboard', function () use($app) { return $app->redirect('/'); });
 
 

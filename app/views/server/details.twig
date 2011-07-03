@@ -25,8 +25,8 @@
         {% for software in server.softwares %}
         <tr>
           <td><img src="{{ app.request.getBaseUrl() }}/img/icons/{{ software.status == true ? 'on' : 'off' }}.png" alt="off" /></td>
-          <td>{{ software.name }}</td>
-          <td>{{ software.created_at|date("d-m-Y H:m:s") }}</td>
+          <td>{{ software.name }}{% if software.port %} (:{{software.port}}){% endif %}</td>
+          <td>{{ software.updated_at|date("d-m-Y H:m:s") }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -67,22 +67,22 @@
     <hr />
 
     <h4>Memory</h4>
-    <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/mem-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/memory-0.png">
 
     <hr />
 
     <h4>Charge</h4>
-    <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/uptime-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/uptime-0.png">
 
     <hr />
 
     <h4>CPU</h4>
-    <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/uptime-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/cpu-0.png">
 
     <hr />
 
     <h4>Disk space</h4>
-    <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/uptime-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/disk-0.png">
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
 {% endblock %}

@@ -5,6 +5,3 @@ data/log/*.log
 *.sqlite-journal
 *.rrd
 public/graphs/*
-
-
-data/db/light_monitor.sqlite

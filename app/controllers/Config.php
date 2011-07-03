@@ -23,7 +23,7 @@ Class Config_Controller extends Controller_Base
 
   public function Create_Action()
   {
-    return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
+    return $this->twig->render('config/index.twig', array('server' => $server, 'active_tab' => 'form'));
   }
 
   public function Save_Action()
@@ -33,12 +33,17 @@ Class Config_Controller extends Controller_Base
 
   public function Edit_Action()
   {
-    return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
+    $ip = $this->_getRequest()->get('ip');
+    $server = $this->db->fetchAssoc(
+      "SELECT * FROM servers WHERE ip = ?",
+      array($ip)
+    );
+    return $this->twig->render('config/index.twig', array('server' => $server, 'active_tab' => 'form'));
   }
 
   public function Update_Action()
   {
-    return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
+    return $this->twig->render('config/index.twig', array('servers' => $this->_servers, 'active_tab' => 'form'));
   }
 
   public function Delete_Action()

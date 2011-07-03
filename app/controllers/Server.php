@@ -21,17 +21,25 @@ Class Server_Controller extends Controller_Base
       array(
         'status' => true,
         'name'   => 'Ping',
-        'created_at'  => '1309649892',
+        'updated_at'  => '1309649892',
       ),
       array(
-        'status' => true,
-        'name'   => 'FTP',
-        'created_at'  => '1309649992',
+        'status' => false,
+        'name'   => 'DNS',
+        'port'   => '53',
+        'updated_at'  => '1309649902',
       ),
       array(
         'status' => false,
         'name'   => 'SSH',
-        'created_at'  => '1309649902',
+        'port'   => '22',
+        'updated_at'  => '1309649902',
+      ),
+      array(
+        'status' => true,
+        'name'   => 'FTP',
+        'port'   => '21',
+        'updated_at'  => '1309649992',
       ),
     );
 
