@@ -7,7 +7,7 @@ Class Http extends Base
   public function init()
   {
     if (!function_exists('curl_init')) {
-      throw new Asker_Exception("ERROR: To use HTTP protocol, install php5_curl PHP extention !");
+      throw new Asker_Exception("ERROR: To use HTTP protocol, install php5-curl PHP extention !");
     }
 
     /*$host = "shell.example.com";

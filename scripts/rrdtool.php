@@ -39,8 +39,11 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   $rrd['traffic']->setup()->setOptions($setup)->execute("traffic.rrd");
 
   # Ask the server to collect datas
-  # $asker = new Asker(Adaptater::HTTP);
-  # $asker = new Asker(Adaptater::HTTP)->setHost($host, $port);
+  # $asker = new Asker(Adaptater::SSH);
+  $asker = new Asker(Adaptater::SSH);
+  #var_dump(get_class($asker)); exit;
+  #$asker->setHost("ip", "port")->setAuth("root", "pass");
+  #var_dump($asker->getUptime()); exit;
   # $asker->getUptime();
 
   # Add new informations to RDDTOOL DBs

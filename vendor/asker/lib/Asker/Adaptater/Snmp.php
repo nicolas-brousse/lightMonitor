@@ -7,7 +7,7 @@ Class Snmp extends Base
   public function init()
   {
     if (!class_exists('SNMP')) {
-      throw new Asker_Exception("ERROR: To use SNMP protocol, install php5_snmp PHP extention !");
+      throw new Asker_Exception("ERROR: To use SNMP protocol, install php5-snmp PHP extention !");
     }
 
     /*$host = "shell.example.com";

@@ -6,8 +6,11 @@ require_once 'Exception.php';
 
 Class Asker
 {
+  private $_adaptater;
+
   public function __construct($protocol)
   {
-    return new Adaptater($protocol);
+    $this->_adaptater = new Adaptater($protocol);
+    return $this->_adaptater;
   }
 }
