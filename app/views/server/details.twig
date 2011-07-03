@@ -12,7 +12,6 @@
   </div> <!-- End .content-box-header -->
 
   <div class="content-box-content">
-
     <table>
       <thead>
         <tr>
@@ -23,19 +22,14 @@
       </thead>
 
       <tbody>
+        {% for software in server.softwares %}
         <tr>
-          <td><img src="{{ app.request.getBaseUrl() }}/img/icons/on.png" alt="off" /></td>
-          <td>Ping</td>
-          <td>10 days</td>
+          <td><img src="{{ app.request.getBaseUrl() }}/img/icons/{{ software.status == true ? 'on' : 'off' }}.png" alt="off" /></td>
+          <td>{{ software.name }}</td>
+          <td>{{ software.created_at|date("d-m-Y H:m:s") }}</td>
         </tr>
-
-        <tr>
-          <td><img src="{{ app.request.getBaseUrl() }}/img/icons/off.png" alt="off" /></td>
-          <td>FTP</td>
-          <td>5 minutes</td>
-        </tr>
+        {% endfor %}
       </tbody>
-
     </table>
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
@@ -49,8 +43,9 @@
 
   <div class="content-box-content">
 
-    <p>IP address : {{ server.ip }}</p>
-    <p>Last check : {{ '1309649892'|date("d-m-Y H:m:s") }}</p>
+    <p><strong>IP address</strong>: {{ server.ip }}</p>
+    <p><strong>Protocol</strong>: {{ server.protocol }}</p>
+    <p><strong>Last check</strong>: {{ server.last_check|date("d-m-Y H:m:s") }}</p>
 
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
@@ -65,12 +60,29 @@
   </div> <!-- End .content-box-header -->
 
   <div class="content-box-content">
-    <h4>Charge</h4>
+    <h4>Traffic</h4>
     <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/traffic-0.png" alt="">
     {# TODO Use configs for graphics Path AND apply md5 to ip for know the server graphics dir #}
+
     <hr />
+
     <h4>Memory</h4>
     <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/mem-0.png">
+
+    <hr />
+
+    <h4>Charge</h4>
+    <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/uptime-0.png">
+
+    <hr />
+
+    <h4>CPU</h4>
+    <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/uptime-0.png">
+
+    <hr />
+
+    <h4>Disk space</h4>
+    <img src="{{ app.request.getBaseUrl() }}/graphs/{{ 'serveur-2' }}/uptime-0.png">
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
 {% endblock %}
