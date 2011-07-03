@@ -8,6 +8,7 @@ if ('cli' === php_sapi_name()) {
     case '-e':
       if (in_array($argv[2], array('development', 'production'))) {
         define('APPLICATION_ENV', $argv[2]);
+        define('CLI_FILENAME', basename($argv[0]));
       }
       else {
         printf("Unkown environment '%s' (available: development or production).\n", $argv[1]);
@@ -45,6 +46,7 @@ $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.name'          => 'jobCron',
 ));
 $app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBUG : \Monolog\Logger::WARNING;
+$app['monolog']->addInfo("CLI EXEC : ".CLI_FILENAME);
 
 $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.options'  => array(
