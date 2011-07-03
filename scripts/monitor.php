@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * Check status of servers
  *
+ * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
+ *
  **/
 
 

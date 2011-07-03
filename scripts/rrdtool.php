@@ -6,7 +6,7 @@ $app->register(new Rrdtool\RrdtoolExtension());
 
 /**
  *
- * RRDTOOL Class
+ * RRDTOOL Graphs generator
  *
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  *
@@ -63,4 +63,8 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "GPRINT:outbits:MAX:Max Out traffic\: %6.2lf %Sbps\\r"
   );
   $rrd['traffic']->generate()->setOptions($generate)->execute("traffic-0.png");
+  $rrd['traffic']->generate()->setOptions($generate)->execute("memory-0.png");
+  $rrd['traffic']->generate()->setOptions($generate)->execute("uptime-0.png");
+  $rrd['traffic']->generate()->setOptions($generate)->execute("cpu-0.png");
+  $rrd['traffic']->generate()->setOptions($generate)->execute("disk-0.png");
 }
