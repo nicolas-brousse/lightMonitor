@@ -37,7 +37,7 @@ Class App
     }
   }
 
-  public static function loadConfigs($path, $env='development')
+  public static function loadConfigs($path, $env='production')
   {
     $configs = new stdClass();
 

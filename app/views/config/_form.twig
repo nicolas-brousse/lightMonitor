@@ -1,19 +1,19 @@
-<form action="#" method="post">
+<form action="{{ form.action }}" method="post">
   <fieldset class="column-left">
     <p>
       <label for="servername">Servername</label>
-      <input class="text-input medium-input" type="text" id="servername" name="servername" value="{{ server.servername }}" />
+      <input class="text-input medium-input" type="text" id="servername" name="servername" value="{{ form.servername }}" />
       <br /><small>This information is just visual, it doesn't match the reverse of the server.</small>
     </p>
 
     <p>
       <label for="ip">IP address</label>
-      <input class="text-input small-input" type="text" id="ip" name="ip" value="{{ server.ip }}" /> <span class="input-notification error png_bg">Invalid format (xxx.xxx.xxx.xxx)</span>
+      <input class="text-input small-input" type="text" id="ip" name="form[ip]" value="{{ form.ip }}" /> <span class="input-notification error png_bg">Invalid format (xxx.xxx.xxx.xxx)</span>
     </p>
 
     <p>
       <label for="protocol">Protocol to get informations</label>
-      <select name="protocol" id="protocol" class="small-input">
+      <select name="form[protocol]" id="protocol" class="small-input">
         <option value="0">SNMP</option>
         <option value="1">SSH</option>
         <option value="2">HTTP</option>

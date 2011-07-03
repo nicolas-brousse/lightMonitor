@@ -1,14 +1,13 @@
 <?php
 # Requires
-require_once __DIR__.'/../vendor/rrdtool/required.php';
-require_once __DIR__.'/../vendor/asker/required.php';
-require_once __DIR__.'/../vendor/yaml/lib/sfYaml.php';
+require_once APPLICATION_BASE_URI.'/vendor/rrdtool/required.php';
+require_once APPLICATION_BASE_URI.'/vendor/asker/required.php';
+require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
 
 
 
 # Load Configs
-$configs = App::loadConfigs(__DIR__ . '/configs/', APPLICATION_ENV);
-
+$configs = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_ENV);
 
 
 # App
@@ -19,13 +18,13 @@ $app['version'] = APPLICATION_VERSION;
 
 # Register Extensions
 $app->register(new Silex\Extension\TwigExtension(), array(
-  'twig.path'       => __DIR__.'/views',
-  'twig.class_path' => __DIR__.'/../vendor/twig/lib',
+  'twig.path'       => APPLICATION_BASE_URI . '/app/views',
+  'twig.class_path' => APPLICATION_BASE_URI . '/vendor/twig/lib',
 ));
 
 $app->register(new Silex\Extension\MonologExtension(), array(
-  'monolog.logfile'       => __DIR__.'/../data/log/development.App.log',
-  'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
+  'monolog.logfile'       => APPLICATION_BASE_URI . '/data/log/'.APPLICATION_ENV.'.App.log',
+  'monolog.class_path'    => APPLICATION_BASE_URI . '/vendor/monolog/src',
   'monolog.name'          => 'App',
 ));
 $app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBUG : \Monolog\Logger::WARNING;
@@ -39,10 +38,10 @@ $app->register(new Asker\AskerExtension());
 $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.options'  => array(
     'driver'    => 'pdo_sqlite',
-    'path'      => __DIR__.'/../data/db/light_monitor.sqlite',
+    'path'      => APPLICATION_BASE_URI . '/data/db/light_monitor.sqlite',
   ),
-  'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine2-dbal/lib',
-  'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
+  'db.dbal.class_path'    => APPLICATION_BASE_URI . '/vendor/doctrine2-dbal/lib',
+  'db.common.class_path'  => APPLICATION_BASE_URI . '/vendor/doctrine2-common/lib',
 ));
 
 # @$app['request']->getBaseUrl()
@@ -87,7 +86,7 @@ $app['navigation'] = array(
 
 
 # Routes
-require_once __DIR__ . '/routes.php';
+require_once APPLICATION_BASE_URI . '/app/routes.php';
 
 
 

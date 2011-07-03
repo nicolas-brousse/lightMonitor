@@ -21,14 +21,17 @@ Class Config_Controller extends Controller_Base
     return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
   }
 
-  public function Create_Action()
+  public function New_Action()
   {
-    return $this->twig->render('config/index.twig', array('server' => $server, 'active_tab' => 'form'));
+    return $this->twig->render('config/index.twig', array(
+      'active_tab' => 'form',
+      'form' => array('action' => $this->_getUrl('configs.save')),
+    ));
   }
 
   public function Save_Action()
   {
-    
+    var_dump($this->_getRequest()->get('form'));
   }
 
   public function Edit_Action()
@@ -38,11 +41,17 @@ Class Config_Controller extends Controller_Base
       "SELECT * FROM servers WHERE ip = ?",
       array($ip)
     );
-    return $this->twig->render('config/index.twig', array('server' => $server, 'active_tab' => 'form'));
+    return $this->twig->render('config/index.twig', array(
+      'form' => $server + array(
+        'action' => $this->_getUrl('configs.update', array('ip' => $ip)),
+      ),
+      'active_tab' => 'form'
+    ));
   }
 
   public function Update_Action()
   {
+    var_dump($this->_getRequest()->get('form')); exit;
     return $this->twig->render('config/index.twig', array('servers' => $this->_servers, 'active_tab' => 'form'));
   }
 

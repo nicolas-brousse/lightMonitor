@@ -23,7 +23,10 @@ $app->get('/servers/{ip}',  function () use($controllers) { return $controllers[
 
 
 $app->get('/configs',               function () use($controllers) { return $controllers['config']->Index_Action(); })->bind('configs');
+$app->get('/configs/new',           function () use($controllers) { return $controllers['config']->New_Action(); })->bind('configs.new');
+$app->post('/configs/save',         function () use($controllers) { return $controllers['config']->Save_Action(); })->bind('configs.save');
 $app->get('/configs/edit/{ip}',     function () use($controllers) { return $controllers['config']->Edit_Action(); })->bind('configs.edit');
+$app->post('/configs/update/{ip}',  function () use($controllers) { return $controllers['config']->Update_Action(); })->bind('configs.update');
 $app->get('/configs/delete/{ip}',   function () use($controllers) { return $controllers['config']->Delete_Action(); })->bind('configs.delete');
 
 
