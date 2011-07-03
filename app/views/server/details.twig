@@ -61,28 +61,28 @@
 
   <div class="content-box-content">
     <h4>Traffic</h4>
-    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/traffic-0.png" alt="">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}traffic-0.png" alt="">
     {# TODO Use configs for graphics Path AND apply md5 to ip for know the server graphics dir #}
 
     <hr />
 
     <h4>Memory</h4>
-    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/memory-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}memory-0.png">
 
     <hr />
 
     <h4>Charge</h4>
-    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/uptime-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}uptime-0.png">
 
     <hr />
 
     <h4>CPU</h4>
-    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/cpu-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}cpu-0.png">
 
     <hr />
 
     <h4>Disk space</h4>
-    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}/disk-0.png">
+    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}disk-0.png">
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
 {% endblock %}

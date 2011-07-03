@@ -40,6 +40,7 @@ Abstract Class Controller_Base
 
   protected function _getUrl($bind, array $parameters=array())
   {
+    # http://silex-project.org/doc/extensions/url_generator.html
     return $this->app['url_generator']->generate($bind, $parameters);
   }
 }

@@ -53,6 +53,7 @@ Class Server_Controller extends Controller_Base
       #get_class_methods($this->app); exit; 
       return $this->_halt();
       #return "Erreur à faire !";#$this->app->redirector('/home');
+      # http://silex-project.org/doc/services.html#core-services
     }
   }
 }
