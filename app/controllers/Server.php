@@ -48,11 +48,11 @@ Class Server_Controller extends Controller_Base
       return $this->twig->render('server/details.twig', array('server' => $server));
     }
     else {
-      #$this->monolog->addDebug(var_export($this->app->redirect('/hello'), true));
-      #var_dump( $this->app->redirect('/hello')); exit;
-      #get_class_methods($this->app); exit; 
+      # $this->monolog->addDebug(var_export($this->app->redirect('/hello'), true));
+      # var_dump( $this->app->redirect('/hello')); exit;
+      # get_class_methods($this->app); exit; 
       return $this->_halt();
-      #return "Erreur à faire !";#$this->app->redirector('/home');
+      # return "Erreur à faire !";#$this->app->redirector('/home');
       # http://silex-project.org/doc/services.html#core-services
     }
   }

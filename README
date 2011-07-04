@@ -1,12 +1,13 @@
-== LightMonitor
++ LightMonitor
 
 Welcome to the lightMonitor wiki!
 
 The goal of this project : Create a light monitor with php to view status of servers.
 
 Protocols to ask informations to the servers :
-* SSH
-* SNMP
-* HTTP    
+
+- SSH
+- SNMP
+- HTTP    
     
 With this, a jobcron will be create to generate RRDTOOL graphics and an other to check if servers response to ping action.

@@ -2,10 +2,6 @@
 
 Abstract Class Controller_Base
 {
-
-  abstract function init();
-
-
   protected $app;
   protected $twig;
   protected $db;
@@ -20,7 +16,9 @@ Abstract Class Controller_Base
     $this->monolog = $this->app['monolog'];
     #var_dump($this->app); exit;
 
-    $this->init();
+    if (method_exists($this, 'init')) {
+      $this->init();
+    }
   }
 
   protected function _getRequest()

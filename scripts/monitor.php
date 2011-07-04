@@ -35,12 +35,11 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   }
 }
 
-# If servername queue is not empty, send an email to hostmaster
+# If servername queue is not empty, send an email to contact
 if (!empty($serveurs_without_response)) {
-
   $message = \Swift_Message::newInstance()
       ->setSubject('[LightMonitor] Problème sur un serveur')
-      ->setFrom(array('noreply@lightmonitor.com'))
+      ->setFrom(array( $configs->app['monitor']['email'] ))
       ->setTo(array( $configs->app['monitor']['email'] ))
       ->setBody("Un problème est survenu sur les IPs suivantes : ".var_export($serveurs_without_response, true));
 
