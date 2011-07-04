@@ -47,6 +47,9 @@ Class App
         while (($file = readdir($dh)) !== false) {
           if (preg_match('#.yml$#i', $file)) {
             $tmp = $yamlLoader->load($path.$file);
+            if (!isset($tmp[$env])) {
+              throw new Exception("ERROR: Environment '".$env."' not exist in '".$file."' file");
+            }
             $configs->{substr($file, 0, -4)} = $tmp[$env];
           }
         }
