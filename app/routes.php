@@ -37,6 +37,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+$app->get('/favicon.png', function() use ($app) {
+  $state = array_rand(array('on' => true, 'off' => true));
+  return new Response(
+          file_get_contents(APPLICATION_BASE_URI . 'public/img/icons/'.$state.'.png'),
+          200,
+          array(
+            'Content-Type' => 'image/png',
+            'Cache-Control' => 'no-cache, must-revalidate',
+            'Expires' => ' Sat, 26 Jul 1997 05:00:00 GMT',
+          )
+      );
+});
+$app->get('/favicon.ico', function() use ($app) {
+  $state = array_rand(array('on' => true, 'off' => true));
+  return new Response(
+          file_get_contents(APPLICATION_BASE_URI . 'public/img/icons/favicon_'.$state.'.ico'),
+          200,
+          array(
+            'Content-Type' => 'image/png',
+            'Cache-Control' => 'no-cache, must-revalidate',
+            'Expires' => ' Sat, 26 Jul 1997 05:00:00 GMT',
+          )
+      );
+});
+
 $app->error(function(\Exception $e) use ($app) {
     if ($e instanceof NotFoundHttpException) {
         $content = vsprintf('<h1>%d - %s (%s)</h1>', array(

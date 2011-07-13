@@ -7,5 +7,5 @@ define('APPLICATION_VERSION', 'alpha');
 define('APPLICATION_BASE_URI', dirname(__DIR__).'/');
 
 require_once APPLICATION_BASE_URI . '/vendor/silex.phar';
-require_once APPLICATION_BASE_URI . 'vendor/App.php';
+require_once APPLICATION_BASE_URI . '/vendor/App.php';
 require_once APPLICATION_BASE_URI . '/app/bootstrap.php';

@@ -64,6 +64,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   $generate = array("--start", "-1d", "--title", "Traffic of ".$server['servername']." (average of 5min)", "--vertical-label=B/s", "--width", "500", "--height", "200",
     "DEF:inoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":input:AVERAGE",
     "DEF:outoctets=".$rrd['traffic']->getDbPath('traffic.rrd').":output:AVERAGE",
+    "CDEF:outoctets_line=outoctets,-1,*",
     "AREA:inoctets#00FF00:In traffic",
     "LINE1:outoctets#0000FF:Out traffic\\r",
     "CDEF:inbits=inoctets,8,*",
