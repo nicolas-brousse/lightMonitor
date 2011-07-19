@@ -1,3 +1,9 @@
+/**
+ *  FONT
+ *************************************************************/
+
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,700,900);
+
 
 /********************************      Basic Structure      ********************************/
 
@@ -37,7 +43,7 @@ h5            { font-size: 14px; padding: 0 0 5px 0; }
 h6            { font-size: 12px; padding: 0 0 5px 0; }
 
 
-a              { color: #57a000; text-decoration: none; }
+a              { color: #2994A4; text-decoration: none; }
 a:hover     { color: #000; }
 a:active     { color: #777; }
 a:focus     { outline: 1px; }
@@ -98,74 +104,75 @@ a.remove-link:hover {
 /********************************      Sidebar      ********************************/
 
 #sidebar {
-                background: url('../img/bg-sidebar.gif') top left no-repeat;
-                width: 230px;
-                height: 100%;
-                position: absolute;
-                left: 0;
-                top: 0;
-                color: #888;
-                font-size: 11px;
-                }
+  background: #2E2E2E;
+  width: 255px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #888;
+  font-size: 11px;
+}
 
 #sidebar #sidebar-wrapper {
-                margin: 0 0 0 9px;
-                }
+  margin: 0;
+}
 
 #sidebar a,
 #sidebar a:active {
-                color:#ccc;
-                }
+  color:#ccc;
+}
 
 #sidebar a:hover {
-                color:#fff;
-                }
+  color:#fff;
+}
 
 #sidebar #sidebar-title {
-                margin: 40px 0 40px 15px;
-                }
+  margin: 40px 0 40px 15px;
+}
 
 #sidebar #logo {
-                margin: 40px 0 40px 0;
-                }
+  margin: 40px 0 40px 0;
+}
 
 #sidebar #profile-links {
-                padding: 0 15px 20px 15px;
-                text-align: right;
-                line-height: 1.5em;
-                }
+  padding: 0 15px 20px 15px;
+  text-align: right;
+  line-height: 1.5em;
+}
+
 
 /************ Sidebar Accordion Menu ************/
 
 #sidebar #main-nav {
-                width: 206px;
-                padding: 0;
-                margin: 0 0 0 15px;
-                font-family: Helvetica, Arial, sans-serif;
-                }
+  width: auto;
+  padding: 0;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
 
 #sidebar #main-nav li {
-                list-style: none;
-                padding-bottom: 10px;
-                text-align: right;
-                }
+  list-style: none;
+  text-align: right;
+}
 
 #sidebar #main-nav li a.nav-top-item {
-                background: transparent url('../img/bg-menu-item-green.gif') right center no-repeat; /* Background image for default color scheme - green */
-                padding: 10px 15px;
-                color: #fff;
-                font-size: 14px;
-                cursor: pointer;
-                display: block;
-                text-decoration: none;
-                }
+  background: #464646;
+  padding: 10px 15px;
+  color: #57CADD;
+  font-size: 14px;
+  font-family: 'Merriweather', serif;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+}
 
 #sidebar #main-nav li a.current {
-                background-image: url('../img/bg-menu-item-current.gif') !important;
-                color: #333;
-                font-weight: bold;
-                }
-                
+  background: #55CADB;
+  color: #fff;
+}
+
 #sidebar #main-nav li a.current:hover {
                 color: #333;
                 }
@@ -186,7 +193,7 @@ a.remove-link:hover {
 #sidebar #main-nav ul li a {
                 padding: 8px 15px;
                 display: block;
-                color: #aaa;
+                color: #fff;
                 font-size: 13px;
                 line-height: 1.2em;
                 }
@@ -194,99 +201,101 @@ a.remove-link:hover {
 #sidebar #main-nav ul li a:hover,
 #sidebar #main-nav ul li a.current,
 #sidebar #main-nav ul li a.current:hover {
-                color: #fff;
+                color: #55CADC;
                 }
 
 #sidebar #main-nav ul li a.current {
-                background: transparent url('../img/menu-current-arrow.gif') right center no-repeat !important;
-                }
+  background: transparent url('../img/menu-current-arrow.gif') right center no-repeat !important;
+}
 
 
 /************ Messages ************/
 
 #messages p,
 #messages form {
-                border-top: 1px solid #ddd;
-                padding: 10px 0;
-                }
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
 
 #messages h4 {
-                padding: 10px 0;
-                }
-				
+  padding: 10px 0;
+}
+
 #messages fieldset {
-                margin: 0;
-                }
-				
+  margin: 0;
+}
+
 #messages textarea {
-                margin: 0 0 15px 0;
-                }
+  margin: 0 0 15px 0;
+}
+
 /********************************      Main Content      ********************************/
 
 /************ Layout ************/
 
 #main-content {
-                margin: 0 30px 0 260px;
-                padding: 40px 0 0 0;
-                }
+  margin: 0 30px 0 285px;
+  padding: 40px 0 0 0;
+}
 
 .column-left {
-                width: 48%;
-                float: left;
-                }
-                
-.column-right {
-                width: 48%;
-                float: right;
-                }
-               
-#page-intro {
-                font-size: 17px;
-                padding: 0 0 20px 0;
-                }
+  width: 48%;
+  float: left;
+}
 
-				
+.column-right {
+  width: 48%;
+  float: right;
+}
+
+#page-intro {
+  font-size: 17px;
+  padding: 0 0 20px 0;
+}
+
+
 #footer {
-				border-top: 1px solid #ccc;
-				margin: 40px 0 0 0;
-				padding: 20px 0;
-				font-size: 12px;
-                }
+  border-top: 1px solid #ccc;
+  margin: 40px 0 0 0;
+  padding: 20px 0;
+  font-size: 12px;
+}
+
+
 /************ Lists ************/
 
 #main-content ul,
 #main-content ol {
-                padding: 10px 0;
-                }
+  padding: 10px 0;
+}
 
 /* Unordered List */
 
 #main-content ul li {
-                background: url('../img/icons/bullet_black.png') center left no-repeat;
-                padding: 4px 0 4px 20px;
-                }
+  background: url('../img/icons/bullet_black.png') center left no-repeat;
+  padding: 4px 0 4px 20px;
+}
 
 /* Ordered List */
 
 #main-content ol {
-                padding: 0 0 0 24px;
-                }
+  padding: 0 0 0 24px;
+}
 
 #main-content ol li {
-                list-style: decimal;
-                padding: 4px 0;
-                }
+  list-style: decimal;
+  padding: 4px 0;
+}
 
 /*************** Content Box ***************/
 
 .content-box {
-                border: 1px solid #ccc;
+                border: 1px solid #919191;
                 margin: 0 0 20px 0;
                 background: #fff;
                 }
 
 .content-box-header {
-                background: #e5e5e5 url('../img/bg-content-box.gif') top left repeat-x;
                 margin-top: 1px;
                 height: 40px;
                 }
@@ -299,7 +308,7 @@ a.remove-link:hover {
 ul.content-box-tabs {
                 float: right;
                 padding: 12px 15px 0 0 !important;
-				margin: 0 !important;
+                margin: 0 !important;
                 }
 
 ul.content-box-tabs li {
@@ -314,24 +323,21 @@ ul.content-box-tabs li a {
                 padding: 8px 10px;
                 display: block;
                 margin: 1px;
-                border-bottom: 0;
                 }
 
 ul.content-box-tabs li a:hover {
-                color: #57a000;
+                color: #2994A4;
                 }              
                 
 ul.content-box-tabs li a.current {
                 background: #fff;
                 border: 1px solid #ccc;
-                border-bottom: 0;
                 margin: 0;
                 }
 
 .content-box-content {
                 padding: 20px;
                 font-size: 13px;
-                border-top: 1px solid #ccc;
                 }
                 
 /************ Table ************/
@@ -392,8 +398,8 @@ ul.content-box-tabs li a.current {
                 }
 
 .pagination a.current {
-                background: #469400 url('../img/bg-button-green.gif') top left repeat-x !important;
-                border-color: #459300 !important;
+                background: #2994A4 url('../img/bg-button-green.gif') top left repeat-x !important;
+                border-color: #55CADB !important;
                 color: #fff !important;
                 }
 				
@@ -431,7 +437,7 @@ ul.content-box-tabs li a.current {
                 }
 				
 .shortcut-button span:hover {
-				color: #57a000; 
+				color: #2994A4; 
                 }
 
 ul.shortcut-buttons-set li {

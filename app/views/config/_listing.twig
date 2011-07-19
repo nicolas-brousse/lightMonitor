@@ -24,12 +24,9 @@
         </div>
 
         <div class="pagination">
-          <a href="#" title="First Page">&laquo; First</a><a href="#" title="Previous Page">&laquo; Previous</a>
-          <a href="#" class="number" title="1">1</a>
-          <a href="#" class="number" title="2">2</a>
-          <a href="#" class="number current" title="3">3</a>
-          <a href="#" class="number" title="4">4</a>
-          <a href="#" title="Next Page">Next &raquo;</a><a href="#" title="Last Page">Last &raquo;</a>
+          <a href="#" title="Previous Page">&laquo; Previous</a>
+          <a href="#" class="number current" title="1">1</a>
+          <a href="#" title="Next Page">Next &raquo;</a>
         </div> <!-- End .pagination -->
         <div class="clear"></div>
       </td>
@@ -47,8 +44,8 @@
         <td>{{ server.updated_at|date("d-m-Y H:m:s") }}</td>
         <td>
            <!-- Icons -->
-           <a href="{{ app.url_generator.generate('configs.edit', {'ip': server.ip}) }}" title="Edit"><img src="{{ app.request.getBaseUrl() }}/img/icons/pencil.png" alt="Edit" /></a>
-           <a href="{{ app.url_generator.generate('configs.delete', {'ip': server.ip}) }}" title="Delete"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross.png" alt="Delete" /></a>
+           <a href="{{ app.url_generator.generate('configs.servers.edit', {'ip': server.ip}) }}" title="Edit"><img src="{{ app.request.getBaseUrl() }}/img/icons/pencil.png" alt="Edit" /></a>
+           <a href="{{ app.url_generator.generate('configs.servers.delete', {'ip': server.ip}) }}" title="Delete"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross.png" alt="Delete" /></a>
          </td>
       </tr>
     {% endfor %}
