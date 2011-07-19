@@ -76,9 +76,19 @@ $app['navigation'] = array(
     'items' => $servers,
   ),
   array(
-    'name' => 'Configurations',
-    'href'  => 'configs',
-    'bind'  => 'configs',
+    'name' => 'Settings',
+    'href'  => '#',
+    'bind'  => 'configs.servers',
+    'items' => array(
+      array(
+        'name' => 'Servers',
+        'bind' => 'configs.servers',
+      ),
+      array(
+        'name' => 'Users',
+        'bind' => 'configs.users',
+      ),
+    ),
   ),
 );
 

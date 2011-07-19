@@ -3,7 +3,7 @@
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-define('APPLICATION_VERSION', 'alpha');
+define('APPLICATION_VERSION', 'alpha 0.1');
 define('APPLICATION_BASE_URI', dirname(__DIR__).'/');
 
 require_once APPLICATION_BASE_URI . '/vendor/silex.phar';
