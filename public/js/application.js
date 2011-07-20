@@ -22,10 +22,10 @@ $(document).ready(function(){
     // Sidebar Accordion Menu Hover Effect:
     $("#main-nav li .nav-top-item").hover(
       function () {
-        $(this).stop().animate({ paddingRight: "25px" }, 200);
+        $(this).stop().animate({ paddingRight: "60px" }, 200);
       },
       function () {
-        $(this).stop().animate({ paddingRight: "15px" });
+        $(this).stop().animate({ paddingRight: "44px" });
       }
     );
 

@@ -1,4 +1,4 @@
-/**
+/*************************************************************
  *  FONT
  *************************************************************/
 
@@ -8,34 +8,37 @@
 /********************************      Basic Structure      ********************************/
 
 html {
-                font-size: 100%;
-                height: 100%;
-                margin-bottom: 1px; /* Always show a scrollbar to avoid jumping when the scrollbar appears  */
-                }
+  font-size: 100%;
+  height: 100%;
+  margin-bottom: 1px; /* Always show a scrollbar to avoid jumping when the scrollbar appears  */
+}
 
 body {
-                font-family: Arial, Helvetica, sans-serif;
-                color: #555;
-                background: #f0f0f0 url('../img/bg-body.gif') top left repeat-y;
-                font-size: 12px;
-                }
+  font-family: Arial, Helvetica, sans-serif;
+  color: #555;
+  background: #f0f0f0;
+  font-size: 12px;
+  height: 100%;
+}
 
 #body-wrapper {
-                background: url('../img/bg-radial-gradient.gif') fixed 230px top no-repeat;
-                }                
+  overflow: hidden;
+  position: relative;
+  background: url('../img/bg-radial-gradient.gif') fixed 230px top no-repeat;
+}
 
 /********************************      Elements styling      ********************************/
 
 h1, h2, h3, h4, h5, h6 {
-                font-family: Helvetica, Arial, sans-serif;
-                color: #222;
-                font-weight: bold;
-                }
+  font-family: Helvetica, Arial, sans-serif;
+  color: #222;
+  font-weight: bold;
+}
 
-h1            { font-family: Calibri, Helvetica, Arial, sans-serif; font-size: 31px; font-weight: bold; color: #fff; 
-				  position: absolute; top: -1000px;  /* Remove this line and delete the logo (in the HTML) if you don't want an image as a logo */
-				}
-				
+h1 {
+  font-family: Calibri, Helvetica, Arial, sans-serif; font-size: 31px; font-weight: bold; color: #fff; 
+  position: absolute; top: -1000px;  /* Remove this line and delete the logo (in the HTML) if you don't want an image as a logo */
+}
 h2            { font-size: 26px; padding: 0 0 10px 0; }
 h3            { font-size: 17px; padding: 0 0 10px 0; }
 h4            { font-size: 16px; padding: 0 0 5px 0; }
@@ -43,63 +46,49 @@ h5            { font-size: 14px; padding: 0 0 5px 0; }
 h6            { font-size: 12px; padding: 0 0 5px 0; }
 
 
-a              { color: #2994A4; text-decoration: none; }
-a:hover     { color: #000; }
-a:active     { color: #777; }
-a:focus     { outline: 1px; }
+a             { color: #2994A4; text-decoration: none; }
+a:hover       { color: #000; }
+a:active      { color: #777; }
+a:focus       { outline: 1px; }
 
-strong       { font-weight: bold; color: #333; }
+strong        { font-weight: bold; color: #333; }
 
-small   		{ font-size: 0.85em; }
+small         { font-size: 0.85em; }
 
 pre           { font-family: monospace; }
 
-p {
-                padding: 5px 0 10px 0;
-                line-height: 1.6em;
-                }
+p             { padding: 5px 0 10px 0; line-height: 1.6em; }
+
 
 /********************************      General Classes      ********************************/
 
-.clear {
-                clear: both;
-                }
-				
-.align-left {
-                float: left;
-                }
-				
-.align-right {
-                float: right;
-                }
+.clear        { clear: both; }
+
+.align-left   { float: left; }
+
+.align-right  { float: right; }
+
 
 /************ Button ************/
 .button {
-				font-family: Verdana, Arial, sans-serif;
-                display: inline-block;
-                background: #459300 url('../img/bg-button-green.gif') top left repeat-x !important;
-                border: 1px solid #459300 !important;
-                padding: 4px 7px 4px 7px !important;
-                color: #fff !important;
-                font-size: 11px !important;
-                cursor: pointer;
-                }
-                
-.button:hover {
-                text-decoration: underline;
-                }
-                
-.button:active {
-                padding: 5px 7px 3px 7px !important;
-                }
-				
-a.remove-link {
-				color: #bb0000;
-				}
+  font-family: Verdana, Arial, sans-serif;
+  display: inline-block;
+  background: #459300 url('../img/bg-button-green.gif') top left repeat-x !important;
+  border: 1px solid #459300 !important;
+  padding: 4px 7px 4px 7px !important;
+  color: #fff !important;
+  font-size: 11px !important;
+  cursor: pointer;
+}
 
-a.remove-link:hover {
-				color: #000;
-				}
+.button:hover   { text-decoration: underline; }
+
+.button:active  { padding: 5px 7px 3px 7px !important; }
+
+a.remove-link   { color: #bb0000; }
+
+a.remove-link:hover   { color: #000; }
+
 
 /********************************      Sidebar      ********************************/
 
@@ -149,6 +138,7 @@ a.remove-link:hover {
   padding: 0;
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
+  border-top: 1px solid #5e5e5e;
 }
 
 #sidebar #main-nav li {
@@ -158,7 +148,7 @@ a.remove-link:hover {
 
 #sidebar #main-nav li a.nav-top-item {
   background: #464646;
-  padding: 10px 15px;
+  padding: 10px 44px;
   color: #57CADD;
   font-size: 14px;
   font-family: 'Merriweather', serif;
@@ -166,6 +156,7 @@ a.remove-link:hover {
   display: block;
   text-decoration: none;
   font-weight: bold;
+  border-bottom: 1px solid #5e5e5e;
 }
 
 #sidebar #main-nav li a.current {
@@ -174,35 +165,36 @@ a.remove-link:hover {
 }
 
 #sidebar #main-nav li a.current:hover {
-                color: #333;
-                }
+  color: #333;
+}
 
 #sidebar #main-nav ul {
-                padding: 0;
-                font-size: 12px;
-                margin: 0;
-                }
+  padding: 0;
+  font-size: 12px;
+  margin: 0;
+  border-bottom: 1px solid #5e5e5e;
+}
 
 #sidebar #main-nav ul li {
-                list-style: none;
-                margin: 0;
-                text-align: right;
-				padding: 0;
-                }
+  list-style: none;
+  margin: 0;
+  text-align: right;
+  padding: 0;
+}
 
 #sidebar #main-nav ul li a {
-                padding: 8px 15px;
-                display: block;
-                color: #fff;
-                font-size: 13px;
-                line-height: 1.2em;
-                }
+  padding: 8px 15px;
+  display: block;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.2em;
+}
 
 #sidebar #main-nav ul li a:hover,
 #sidebar #main-nav ul li a.current,
 #sidebar #main-nav ul li a.current:hover {
-                color: #55CADC;
-                }
+  color: #55CADC;
+}
 
 #sidebar #main-nav ul li a.current {
   background: transparent url('../img/menu-current-arrow.gif') right center no-repeat !important;
@@ -641,6 +633,7 @@ body#login {
 				width: auto;
 				margin-top: 20px;
 				}
+
 
 /********************************      jQuery plugins styles      ********************************/
 

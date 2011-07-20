@@ -1,31 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{% block title %}Home{% endblock %} &bull; LightMonitor</title>
 
     <link rel="icon" type="image/png" href="{{ app.request.getBaseUrl() }}/favicon.png?{{ "now"|date('U') }}"> 
     <link rel="shortcut icon" type="image/x-icon" href="{{ app.request.getBaseUrl() }}/favicon.ico?{{ "now"|date('U') }}">
 
-    <!--                       CSS                       -->
-    <!-- Reset Stylesheet -->
     <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/css/reset.css" type="text/css" media="screen" />
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/css/style.css" type="text/css" media="screen" />
-    <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
     <link rel="stylesheet" href="{{ app.request.getBaseUrl() }}/css/invalid.css" type="text/css" media="screen" />	
 
-    <!-- Internet Explorer Fixes Stylesheet -->
     <!--[if lte IE 7]>
       <link rel="stylesheet" href="public/css/ie.css" type="text/css" media="screen" />
     <![endif]-->
 
-    <!--                       Javascripts                       -->
-
     <script type="text/javascript">
       BASE_URL = '{{ app.request.getBaseUrl() }}';
     </script>
-    <!-- jQuery -->
     <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery-1.3.2.min.js"></script>
     <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/application.js"></script>
     <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/facebox.js"></script>
@@ -33,8 +25,6 @@
     <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery.datePicker.js"></script>
     <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery.date.js"></script>
     <!--[if IE]><script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/jquery.bgiframe.js"></script><![endif]-->
-
-    <!-- Internet Explorer .png-fix -->
 
     <!--[if IE 6]>
       <script type="text/javascript" src="{{ app.request.getBaseUrl() }}/js/DD_belatedPNG_0.0.7a.js"></script>
@@ -95,7 +85,7 @@
 
       <div id="footer">
         <small>
-          &#169; Copyright 2011 <a href="https://github.com/nicolas-brousse/">Nicolas BROUSSE</a> | Powered by <a href="https://github.com/nicolas-brousse/lightMonitor">LightMonitor</a> - version {{ app.version }} | <a href="#">Top</a>
+          &#169; Copyright 2011 <a href="https://github.com/nicolas-brousse/">Nicolas BROUSSE</a> | Designed by <a href="http://twitter.com/FuriouZz">FuriouZz</a> | Powered by <a href="https://github.com/nicolas-brousse/lightMonitor">LightMonitor</a> - version {{ app.version }} | <a href="#">Top</a>
         </small>
       </div><!-- End #footer -->
 

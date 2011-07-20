@@ -46,11 +46,13 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
 
 # @$app['request']->getBaseUrl()
 /*$app['flash_messenger'] = '<div class="notification error png_bg">
-  <a href="#" class="close"><img src="'.'img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+  <a href="#" class="close"><img src="http://localhost:8000/sandbox/lightMonitor/img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
   <div>
     Error notification. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate, sapien quis fermentum luctus, libero.
   </div>
 </div>';*/
+
+
 
 
 # Navigation
@@ -97,6 +99,7 @@ $app['navigation'] = array(
 
 # Routes
 require_once APPLICATION_BASE_URI . '/app/routes.php';
+
 
 
 

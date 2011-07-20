@@ -2,11 +2,6 @@
 
 Class Server_Controller extends Controller_Base
 {
-  public function init()
-  {
-    
-  }
-
   public function Index_Action()
   {
     $ip = $this->_getRequest()->get('ip');
