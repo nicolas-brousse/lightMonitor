@@ -45,7 +45,7 @@
       <ul id="main-nav">  <!-- Accordion Menu -->
         {% for item in app.navigation %}
         <li>
-          <a href="{{ item.href != '#' ? app.url_generator.generate(item.bind) : '#' }}" class="nav-top-item no-submenu{% if app.request.attributes.get('_route') == item.bind %} current{% endif %}">
+          <a href="{{ item.href != '#' ? app.url_generator.generate(item.bind) : '#' }}" class="nav-top-item {% if item.items is empty %} no-submenu{% endif %}{% if app.request.attributes.get('_route') == item.bind %} current{% endif %}">
             {{ item.name }}
           </a>
           {% if item.items is defined %}
@@ -58,6 +58,12 @@
         </li>
         {% endfor %}
       </ul> <!-- End #main-nav -->
+
+      <div class="credits">
+        <small>
+          &#169; Copyright {{ "now"|date('Y') }} <a href="https://github.com/nicolas-brousse/">Nicolas BROUSSE</a><br />Designed by <a href="http://twitter.com/FuriouZz">FuriouZz</a><br />Powered by <a href="https://github.com/nicolas-brousse/lightMonitor">LightMonitor</a> - version {{ app.version }}
+        </small>
+      </div>
 
     </div></div> <!-- End #sidebar -->
 
@@ -82,12 +88,6 @@
       {% block content %}{% endblock %}
 
       <div class="clear"></div>
-
-      <div id="footer">
-        <small>
-          &#169; Copyright 2011 <a href="https://github.com/nicolas-brousse/">Nicolas BROUSSE</a> | Designed by <a href="http://twitter.com/FuriouZz">FuriouZz</a> | Powered by <a href="https://github.com/nicolas-brousse/lightMonitor">LightMonitor</a> - version {{ app.version }} | <a href="#">Top</a>
-        </small>
-      </div><!-- End #footer -->
 
     </div> <!-- End #main-content -->
 

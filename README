@@ -8,6 +8,9 @@ Protocols to ask informations to the servers :
 
 - SSH
 - SNMP
-- HTTP    
-    
+- HTTP
+
 With this, a jobcron will be create to generate RRDTOOL graphics and an other to check if servers response to ping action.
+
+
+This software is based on the micro-framework Silex

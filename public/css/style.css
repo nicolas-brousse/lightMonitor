@@ -22,7 +22,6 @@ body {
 }
 
 #body-wrapper {
-  overflow: hidden;
   position: relative;
   background: url('../img/bg-radial-gradient.gif') fixed 230px top no-repeat;
 }
@@ -96,7 +95,7 @@ a.remove-link:hover   { color: #000; }
   background: #2E2E2E;
   width: 255px;
   height: 100%;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   color: #888;
@@ -147,7 +146,7 @@ a.remove-link:hover   { color: #000; }
 }
 
 #sidebar #main-nav li a.nav-top-item {
-  background: #464646;
+  background: #464646 url('../img/icons/closed.png') center right no-repeat;
   padding: 10px 44px;
   color: #57CADD;
   font-size: 14px;
@@ -160,9 +159,11 @@ a.remove-link:hover   { color: #000; }
 }
 
 #sidebar #main-nav li a.current {
-  background: #55CADB;
+  background: #55CADB url('../img/icons/closed.png') center right no-repeat;
   color: #fff;
 }
+
+#sidebar #main-nav li a.no-submenu { background-image: none; }
 
 #sidebar #main-nav li a.current:hover {
   color: #333;
@@ -183,7 +184,7 @@ a.remove-link:hover   { color: #000; }
 }
 
 #sidebar #main-nav ul li a {
-  padding: 8px 15px;
+  padding: 8px 30px 8px 15px;
   display: block;
   color: #fff;
   font-size: 13px;
@@ -220,6 +221,12 @@ a.remove-link:hover   { color: #000; }
 #messages textarea {
   margin: 0 0 15px 0;
 }
+
+
+/*********** Credits ***********/
+
+div.credits { margin: 8px; }
+
 
 /********************************      Main Content      ********************************/
 
