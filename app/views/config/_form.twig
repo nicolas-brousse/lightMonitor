@@ -14,6 +14,9 @@
     <p>
       <label for="protocol">Protocol to get informations</label>
       <select name="form[protocol]" id="protocol" class="small-input">
+      {% for key, protocol in protocols %}
+        <option value="{{ key }}">{{ protocol|e }}</option>
+      {% endfor %}
         <option value="0">SNMP</option>
         <option value="1">SSH</option>
         <option value="2">HTTP</option>

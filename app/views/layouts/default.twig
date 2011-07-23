@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{% block title %}Home{% endblock %} &bull; LightMonitor</title>
+    <title>{% block title %}Home{% endblock %} // LightMonitor</title>
 
     <link rel="icon" type="image/png" href="{{ app.request.getBaseUrl() }}/favicon.png?{{ "now"|date('U') }}"> 
     <link rel="shortcut icon" type="image/x-icon" href="{{ app.request.getBaseUrl() }}/favicon.ico?{{ "now"|date('U') }}">
@@ -45,7 +45,7 @@
       <ul id="main-nav">  <!-- Accordion Menu -->
         {% for item in app.navigation %}
         <li>
-          <a href="{{ item.href != '#' ? app.url_generator.generate(item.bind) : '#' }}" class="nav-top-item {% if item.items is empty %} no-submenu{% endif %}{% if app.request.attributes.get('_route') == item.bind %} current{% endif %}">
+          <a href="{{ item.href != '#' ? app.url_generator.generate(item.bind) : '#' }}" class="nav-top-item {% if item.items is not defined %} no-submenu{% endif %}{% if app.request.attributes.get('_route') == item.bind %} current{% endif %}">
             {{ item.name }}
           </a>
           {% if item.items is defined %}
@@ -79,8 +79,8 @@
 
       <!-- Page Head -->
       <h2>{{ block('title') }}</h2>
-      {% if page_intro %}
-        <p id="page-intro">{{ page_intro }}</p>
+      {% if block('page_intro') %}
+        <p id="page-intro">{{ block('page_intro') }}</p>
       {% endif %}
 
       {{ app.flash_messenger|raw }}
