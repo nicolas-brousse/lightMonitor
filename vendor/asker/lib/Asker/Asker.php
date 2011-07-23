@@ -11,6 +11,8 @@ Class Asker
   public function __construct($protocol)
   {
     $this->_adaptater = new Adaptater($protocol);
-    return $this->_adaptater;
+    if ($this->_adaptater)
+      return $this->_adaptater;
+    return false;
   }
 }

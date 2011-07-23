@@ -51,6 +51,8 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   # Ask the server to collect datas
   # $asker = new Asker(Adaptater::SSH);
   $asker = new Asker(Adaptater::SSH);
+  #var_dump(Adaptater::SSH)
+  #var_dump(get_class_methods($asker));
   #var_dump(get_class($asker)); exit;
   #$asker->setHost("ip", "port")->setAuth("root", "pass");
   #var_dump($asker->getUptime()); exit;

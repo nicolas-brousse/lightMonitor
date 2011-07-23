@@ -14,7 +14,7 @@ Abstract Class Base implements Asker_Interface
     $this->init();
   }
 
-  public function setHost($host, $port)
+  final public function setHost($host, $port)
   {
     $this->_host = $host;
     $this->_port = $port;

@@ -7,15 +7,19 @@ require_once 'Exception.php';
 Class Adaptater
 {
 
-  Const SNMP  = 0;
-  Const SSH   = 10;
-  Const HTTP  = 20;
+  Const SNMP  = 10;
+  Const SSH   = 20;
+  Const HTTP  = 30;
 
-  private $adaptaters = array('SNMP', 'SSH', 'HTTP');
+  private $_protocols = array(
+    self::SNMP  => 'SNMP',
+    self::SSH   => 'SSH',
+    self::HTTP  => 'HTTP',
+  );
 
-  public function __construct($type)
+  public function __construct($protocol)
   {
-    switch ($type) {
+    switch ($protocol) {
 
       case self::SNMP:
         return new Adaptater\Snmp();
@@ -30,7 +34,12 @@ Class Adaptater
         break;
 
       default:
-        throw new Asker_Exception("ERROR: Adaptater '$type' not exist !");
+        throw new Asker_Exception("ERROR: Adaptater not exist !");
     }
+  }
+
+  public function getProtocols()
+  {
+    return $this->_protocols;
   }
 }
