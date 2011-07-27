@@ -1,4 +1,15 @@
 <?php
+/**
+ *
+ * Scripts Bootstrap
+ *
+ * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
+ */
+
+
+/**
+ * Options detection
+ */
 if ('cli' === php_sapi_name()) {
   if (empty($argv[1]) OR empty($argv[2])) {
     print("Precise environment\nExample file.php -e development\n");
@@ -26,7 +37,9 @@ else {
   die('This file must be execute in CLI mode');
 }
 
-
+/**
+ * Load required files
+ */
 require_once __DIR__.'/../vendor/silex.phar';
 require_once __DIR__.'/../vendor/App.php';
 require_once __DIR__.'/../vendor/yaml/lib/sfYaml.php';
@@ -34,12 +47,16 @@ require_once __DIR__.'/../vendor/rrdtool/required.php';
 require_once __DIR__.'/../vendor/asker/required.php';
 require_once __DIR__.'/../vendor/swiftmailer/lib/swift_required.php';
 
-
-$app = App::getApp('jobCron');
+/**
+ * Initialize new Application
+ */
+$app = App::getInstance('jobCron');
 $configs = App::loadConfigs(__DIR__ . '/../app/configs/', APPLICATION_ENV);
 
 
-# Register Extensions
+/**
+ *  Register Extensions
+ */
 $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.logfile'       => __DIR__.'/../data/log/development.jobCron.log',
   'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',

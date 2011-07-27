@@ -4,7 +4,7 @@ Class App
 {
   protected static $app = array();
 
-  public static function getApp($name="default")
+  public static function getInstance($name="default")
   {
     if (!isset(self::$app[$name])) {
       self::$app[$name] = new Silex\Application();

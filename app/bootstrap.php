@@ -1,22 +1,38 @@
 <?php
-# Requires
+/**
+ *
+ * Main application Bootstrap
+ *
+ * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
+ */
+
+
+/**
+ * Load Required files
+ */
 require_once APPLICATION_BASE_URI.'/vendor/rrdtool/required.php';
 require_once APPLICATION_BASE_URI.'/vendor/asker/required.php';
 require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
 
 
-
-# Load Configs
+/**
+ * Load Configs
+ **/
 $configs = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_ENV);
 
 
-# App
-$app = App::getApp();
+/**
+ * Initialize App
+ *
+ */
+$app = App::getInstance();
 $app['version'] = APPLICATION_VERSION;
+$app['name'] = "LightMonitor";
 
 
-
-# Register Extensions
+/**
+ * Register Extensions
+ */
 $app->register(new Silex\Extension\TwigExtension(), array(
   'twig.path'       => APPLICATION_BASE_URI . '/app/views',
   'twig.class_path' => APPLICATION_BASE_URI . '/vendor/twig/lib',
@@ -53,9 +69,9 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
 </div>';*/
 
 
-
-
-# Navigation
+/**
+ * Navigation
+ */
 $servers = array();
 foreach ($app['db']->fetchAll("SELECT servername, ip FROM servers") as $server) {
   $servers[] = array(
@@ -95,13 +111,13 @@ $app['navigation'] = array(
 );
 
 
-
-
-# Routes
+/**
+ * Load routes
+ */
 require_once APPLICATION_BASE_URI . '/app/routes.php';
 
 
-
-
-# Run
+/**
+ * Run Application
+ */
 $app->run();

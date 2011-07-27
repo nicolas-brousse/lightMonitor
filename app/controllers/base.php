@@ -10,7 +10,7 @@ Abstract Class Controller_Base
 
   final public function __construct()
   {
-    $this->app = App::getApp();
+    $this->app = App::getInstance();
     $this->twig = $this->app['twig'];
     $this->db = $this->app['db'];
     $this->monolog = $this->app['monolog'];
