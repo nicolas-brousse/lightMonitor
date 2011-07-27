@@ -1,22 +1,24 @@
 <?php 
 
-require_once __DIR__.'/bootstrap.php';
+use Asker\Asker;
+use Asker\Adaptater;
+use Rrdtool\Rrdtool;
+use Rrdtool\RrdtoolExtension;
 
-$app->register(new Rrdtool\RrdtoolExtension());
+/* Launch */
+require_once __DIR__.'/bootstrap.php';
+$app->register(new RrdtoolExtension());
+
 
 /**
  *
  * RRDTOOL Graphs generator
  *
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
- *
  **/
 
 # view : http://www.ioncannon.net/system-administration/59/php-rrdtool-tutorial/
 
-use Asker\Asker;
-use Asker\Adaptater;
-use Rrdtool\Rrdtool;
 
 # List the servers
 foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
@@ -51,6 +53,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   # Ask the server to collect datas
   # $asker = new Asker(Adaptater::SSH);
   $asker = new Asker(Adaptater::SSH);
+  #          $asker = new Asker::getInstance(Adaptater::SSH);
   #var_dump(Adaptater::SSH)
   #var_dump(get_class_methods($asker));
   #var_dump(get_class($asker)); exit;
@@ -81,7 +84,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   );
   $rrd['traffic']->generate()->setOptions($generate)->execute("traffic-0.png");
   $rrd['traffic']->generate()->setOptions($generate)->execute("memory-0.png");
-  $generate = array("--start", "-1d", "--title", "Uptime of ".$server['servername']." (average of 5min)", "--vertical-label=uptime", "--width", "500", "--height", "200", "-l", "0",
+  $generate = array("--start", "-1d", "--title", "Load averages of ".$server['servername']." (average of 5min)", "--vertical-label=uptime", "--width", "500", "--height", "200", "-l", "0",
     "DEF:uptime1=".$rrd['traffic']->getDbPath('uptime.rrd').":uptime1:AVERAGE",
     "DEF:uptime5=".$rrd['traffic']->getDbPath('uptime.rrd').":uptime5:AVERAGE",
     "DEF:uptime15=".$rrd['traffic']->getDbPath('uptime.rrd').":uptime15:AVERAGE",

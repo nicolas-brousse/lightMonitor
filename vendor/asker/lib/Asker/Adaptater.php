@@ -38,8 +38,11 @@ Class Adaptater
     }
   }
 
-  public function getProtocols()
+  public function getProtocols($protocol=null)
   {
+    if (!is_null($protocol) AND array_key_exists($protocol)) {
+      return $this->_protocols[$protocol];
+    }
     return $this->_protocols;
   }
 }
