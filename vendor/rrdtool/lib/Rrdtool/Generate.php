@@ -21,7 +21,7 @@ Class Generate
 
   function execute($filename)
   {
-    $return = rrd_graph($this->graphics_path.$filename, $this->options, count($this->options));
+    $return = rrd_graph($this->graphics_path . $filename, $this->options, count($this->options));
 
     if (!is_array($return)) {
       throw new Rrdtool_Exception("rrd_graph() ERROR: " . rrd_error());
