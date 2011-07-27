@@ -18,10 +18,10 @@ Class Update
     return $this;
   }
 
-  public function execute($db)
+  public function execute()
   {
-    if(!file_exists($this->db_path.$db)) {
-      throw new Rrdtool_Exception("Rrdtool\Update() ERROR: rdd file '".$db."' not exists");
+    if(!file_exists($this->db_path)) {
+      throw new Rrdtool_Exception("Rrdtool\Update() ERROR: rdd file '".$this->db_path."' not exists");
     }
 
     $insert = "N";
@@ -29,7 +29,7 @@ Class Update
       $insert .= ':'.$data;
     }
 
-    $return = rrd_update($this->db_path.$db, $insert);
+    $return = rrd_update($this->db_path, $insert);
 
     if (!$return) {
       throw new Rrdtool_Exception("rrd_update() ERROR: " . rrd_error());

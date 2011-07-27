@@ -18,13 +18,13 @@ Class Setup
     return $this;
   }
 
-  function execute($db)
+  function execute()
   {
-    if(file_exists($this->db_path.$db)) {
+    if(file_exists($this->db_path)) {
       return true;
     }
 
-    $return = rrd_create($this->db_path.$db, $this->options, count($this->options));
+    $return = rrd_create($this->db_path, $this->options, count($this->options));
 
     if (!$return) {
       throw new Rrdtool_Exception("rrd_create() ERROR: " . rrd_error());
