@@ -1,46 +1,65 @@
 $(document).ready(function(){
 
 
-    // Sidebar Accordion Menu:
-    $("#main-nav li ul").hide(); // Hide all sub menus
-    $("#main-nav li a.current").parent().find("ul").slideToggle("slow"); // Slide down the current menu item's sub menu
-    $("#main-nav li a.nav-top-item").click( // When a top menu item is clicked...
-      function () {
-        $(this).parent().siblings().find("ul").slideUp("normal"); // Slide up all sub menus except the one clicked
-        $(this).next().slideToggle("normal"); // Slide down the clicked sub menu
-        return false;
-      }
-    );
-    $("#main-nav li a.no-submenu").click( // When a menu item with no sub menu is clicked...
-      function () {
-        window.location.href=(this.href); // Just open the link instead of a sub menu
-        return false;
-      }
-    );
+  /**
+   * INIT PLUGINS
+   */
+
+  // Facebox
+  $('a[rel*=modal]').facebox();
+  // Wysiwyg
+  $(".wysiwyg").wysiwyg();
 
 
-    // Sidebar Accordion Menu Hover Effect:
-    $("#main-nav li .nav-top-item").hover(
-      function () {
-        $(this).stop().animate({ paddingRight: "60px" }, 200);
-      },
-      function () {
-        $(this).stop().animate({ paddingRight: "44px" });
-      }
-    );
+
+  /**
+   * NAVIGATION
+   */
+
+  // Animation
+  $("#main-nav li .nav-top-item").hover(
+    function () {
+      $(this).stop().animate({ paddingRight: "50px" }, 200);
+    },
+    function () {
+      $(this).stop().animate({ paddingRight: "44px" });
+    }
+  );
+
+  // Accordion
+  $("#main-nav li ul").hide(); // Hide all sub menus
+  $("#main-nav li a.current").parent().find("ul").slideToggle("slow"); // Slide down the current menu item's sub menu
+  $("#main-nav li a.nav-top-item").click( // When a top menu item is clicked...
+    function () {
+      $(this).parent().siblings().find("ul").slideUp("normal"); // Slide up all sub menus except the one clicked
+      $(this).next().slideToggle("normal"); // Slide down the clicked sub menu
+      return false;
+    }
+  );
+  $("#main-nav li a.no-submenu").click( // When a menu item with no sub menu is clicked...
+    function () {
+      window.location.href=(this.href); // Just open the link instead of a sub menu
+      return false;
+    }
+  );
 
 
-    // Minimize Content Box
-    $(".content-box-header h3").css({ "cursor":"s-resize" }); // Give the h3 in Content Box Header a different cursor
-    $(".closed-box .content-box-content").hide(); // Hide the content of the header if it has the class "closed"
-    $(".closed-box .content-box-tabs").hide(); // Hide the tabs in the header if it has the class "closed"
-    $(".content-box-header h3").click( // When the h3 is clicked...
-      function () {
-        $(this).parent().next().slideToggle(); // Toggle the Content Box
-        $(this).parent().parent().toggleClass("closed-box"); // Toggle the class "closed-box" on the content box
-        $(this).parent().find(".content-box-tabs").slideToggle(); // Toggle the tabs
-      }
-    );
+
+  /**
+   * CONTENT BOXES
+   */
+
+  $(".content-box-header h3").css({ "cursor":"s-resize" });
+  $(".closed-box .content-box-content").hide();
+  $(".closed-box .content-box-tabs").hide();
+  $(".content-box-header h3").click(
+    function () {
+      var $parent = $(this).parent();
+      $parent.next().slideToggle();
+      $parent.parent().toggleClass("closed-box");
+      $parent.find(".content-box-tabs").slideToggle();
+    }
+  );
 
 
     // Content box tabs
@@ -69,24 +88,14 @@ $(document).ready(function(){
     );
 
 
-    // Alternating table rows:
-    $('tbody tr:even').addClass("alt-row"); // Add class "alt-row" to even table rows
+    $('tbody tr:even').addClass("even");
+    $('tbody tr:odd').addClass("odd");
 
-
-    // Check all checkboxes when the one in a table head is checked:
     $('.check-all').click(
       function(){
         $(this).parent().parent().parent().parent().find("input[type='checkbox']").attr('checked', $(this).is(':checked'));
       }
     );
-
-
-    // Initialise Facebox Modal window:
-    $('a[rel*=modal]').facebox();
-
-
-    // Initialise jQuery WYSIWYG:
-    $(".wysiwyg").wysiwyg();
 
 
 });

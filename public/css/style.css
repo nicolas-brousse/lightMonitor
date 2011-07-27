@@ -356,11 +356,11 @@ ul.content-box-tabs li a.current {
                 border-bottom: 1px solid #ddd;
                 }
                 
-#main-content tbody tr {
+#main-content tbody tr, #main-content tbody tr.odd {
                 background: #fff;
                 }
               
-#main-content tbody tr.alt-row {
+#main-content tbody tr.even {
                 background: #f3f3f3;
                 }
                 
@@ -401,10 +401,10 @@ ul.content-box-tabs li a.current {
                 border-color: #55CADB !important;
                 color: #fff !important;
                 }
-				
+
 .pagination a.current:hover {
-				text-decoration: underline;
-                }
+  text-decoration: underline;
+}
 
 /************ Shortcut Buttons ************/
 
@@ -427,24 +427,23 @@ ul.content-box-tabs li a.current {
                 }
 
 .shortcut-button span img {
-                margin-bottom: 10px;
-                }
+  margin-bottom: 10px;
+}
 
 .shortcut-button:hover {
-                background: #fff;
-				
-                }
-				
+  background: #fff;
+}
+
 .shortcut-button span:hover {
-				color: #2994A4; 
-                }
+  color: #2994A4; 
+}
 
 ul.shortcut-buttons-set li {
-                float: left;
-                margin: 0 15px 0 0;
-				padding: 0 !important;
-				background: 0;
-                }
+  float: left;
+  margin: 0 15px 0 0;
+  padding: 0 !important;
+  background: 0;
+}
 
 /*************** Forms ***************/
 
@@ -453,60 +452,49 @@ form label {
                 padding: 0 0 10px;
                 font-weight: bold;
                 }
-             
+
 form fieldset legend {
                 font-weight: bold;
                 margin-bottom: 10px;
                 padding-top: 10px;
                 }
-                
+
 form p small {
                 font-size: 0.75em;
                 color: #777;
                 }
-				
-				
+
+
 form input.text-input,
 form select,
 form textarea,
 form .wysiwyg {
-                padding: 6px;
-                font-size: 13px;
-                background: #fff url('../img/bg-form-field.gif') top left repeat-x;
-                border: 1px solid #d5d5d5;
-				color: #333;
-                }
-            
-form .small-input {
-                width: 25% !important;
-                }
-                
-form .medium-input {
-                width: 50% !important;
-                }
-                
-form .large-input {
-                width: 97.5% !important;
-				font-size: 16px !important;
-				padding: 8px !important;
-                }
-                
+  padding: 6px;
+  font-size: 13px;
+  background: #fff url('../img/bg-form-field.gif') top left repeat-x;
+  border: 1px solid #d5d5d5;
+  color: #333;
+}
+
+form .small-input   { width: 25% !important; }
+form .medium-input  { width: 50% !important; }
+form .large-input   { width: 97.5% !important; font-size: 16px !important; padding: 8px !important; }
+
 form textarea {
-                width: 97.5% !important;
-                font-family: Arial, Helvetica, sans-serif;
-                }
-                
+  width: 97.5% !important;
+  font-family: Arial, Helvetica, sans-serif;
+}
 form select {
-                padding: 4px;
-                background: #fff;
-                }
-				
+  padding: 4px;
+  background: #fff;
+}
+
 form input[type="checkbox"],
 form input[type="radio"] {
-				padding: 0;
-                background: none;
-				border: 0;
-                }
+  padding: 0;
+  background: none;
+  border: 0;
+}
 
 /*************** Notifications ***************/
 
@@ -520,7 +508,7 @@ form input[type="radio"] {
                 font-size: 13px;
                 width: 99.8%;
                 }
-                
+
 
 .attention {
                 background: #fffbcc url('../img/icons/exclamation.png') 10px 11px no-repeat;
@@ -795,3 +783,22 @@ div.wysiwyg ul.panel li a.removeFormat { background-position: -80px -64px; }
 div.wysiwyg ul.panel li a.empty { background-position: -64px -80px; }
 
 div.wysiwyg iframe { border: 0; margin: 5px 0 0 0; clear: left; width: 97.5% !important; }
+
+/**
+ * PLUS
+ ****/
+
+::selection {
+  background: #55CADB;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #55CADB;
+  color: #fff;
+}
+
+::-webkit-selection {
+  background: #55CADB;
+  color: #fff;
+}

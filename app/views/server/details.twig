@@ -1,6 +1,6 @@
 {% extends "layouts/default.twig" %}
 
-{% block title %}{{ server.servername }}[{{ server.ip }}]{% endblock %}
+{% block title %}Servers > {{ server.servername }}[{{ server.ip }}]{% endblock %}
 {% block page_intro %}Details informations of {{ server.servername }}[{{ server.ip }}]{% endblock %}
 
 {% block content %}
@@ -47,6 +47,7 @@
     <p><strong>IP address</strong>: {{ server.ip }}</p>
     <p><strong>Protocol</strong>: {{ server.protocol }}</p>
     <p><strong>Last check</strong>: {{ server.last_check|date("d-m-Y H:m:s") }}</p>
+    <p><strong>Informations</strong>: of CPU, HDD, Memory / OS, Up time</p>
 
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
@@ -72,7 +73,7 @@
 
     <hr />
 
-    <h4>Charge</h4>
+    <h4>Load averages</h4>
     <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}uptime-0.png">
 
     <hr />
