@@ -1,12 +1,20 @@
 <?php
 
+use Asker\Asker;
+
 Class Config_Controller extends Controller_Base
 {
   private $_servers = array();
 
   public function init()
   {
-    $this->_servers = $this->db->fetchAll("SELECT * FROM servers");
+    $servers = array();
+    foreach ($this->db->fetchAll("SELECT * FROM servers") as $server) {
+      $tmp = $server;
+      $tmp['protocol'] = Asker::getProtocols($server['protocol']);
+      $servers[] = $tmp;
+    }
+    $this->_servers = $servers;
   }
 
   public function Index_Action()
@@ -18,14 +26,23 @@ Class Config_Controller extends Controller_Base
     $items = $repository->getList($offset);
     return array('items' => $items, 'paginator' => $paginator);*/
 
-    return $this->twig->render('config/index.twig', array('servers' => $this->_servers));
+    return $this->twig->render('config/index.twig', array(
+      'servers' => $this->_servers,
+      'form' => array(
+        'action' => $this->_getUrl('configs.servers.save'),
+        'protocols' => Asker::getProtocols(),
+      ),
+    ));
   }
 
   public function New_Action()
   {
     return $this->twig->render('config/index.twig', array(
       'active_tab' => 'form',
-      'form' => array('action' => $this->_getUrl('configs.save')),
+      'form' => array(
+        'action' => $this->_getUrl('configs.save'),
+        'protocols' => Asker::getProtocols(),
+      ),
     ));
   }
 
@@ -48,7 +65,8 @@ Class Config_Controller extends Controller_Base
 
     return $this->twig->render('config/index.twig', array(
       'form' => $server + array(
-        'action' => $this->_getUrl('configs.update', array('ip' => $ip)),
+        'action' => $this->_getUrl('configs.servers.update', array('ip' => $ip)),
+        'protocols' => Asker::getProtocols(),
       ),
       'active_tab' => 'form'
     ));
