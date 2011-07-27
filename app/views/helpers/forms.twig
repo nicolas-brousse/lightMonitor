@@ -13,7 +13,7 @@
 
 
 {% macro textarea(name, value, rows, cols) %}
-    <textarea name="{{ name }}" rows="{{ rows|default(10) }}" cols="{{ cols|default(40) }}">{{ value|e }}</textarea>
+    <textarea name="{{ name }}" rows="{{ rows|default(15) }}" cols="{{ cols|default(79) }}">{{ value|e }}</textarea>
 {% endmacro %}
 
 
@@ -31,6 +31,11 @@
 
 {% macro checkbox(name, value, label, id, description, notification) %}
 <label for="{{ id|default(name) }}"><input type="checkbox" name="{{ name }}" id="{{ id|default(name) }}" value="" /> {{ label|default(name|capitalize) }}{% if description is not empty %} <small>{{ description }}</small>{% endif %}</label>
+{% endmacro %}
+
+
+{% macro radio(name, value, label, id, description, notification) %}
+<label for="{{ id|default(name) }}"><input type="radio" name="{{ name }}" id="{{ id|default(name) }}" value="" /> {{ label|default(name|capitalize) }}{% if description is not empty %} <small>{{ description }}</small>{% endif %}</label>
 {% endmacro %}
 
 
