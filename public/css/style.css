@@ -448,21 +448,21 @@ ul.shortcut-buttons-set li {
 /*************** Forms ***************/
 
 form label {
-                display: block;
-                padding: 0 0 10px;
-                font-weight: bold;
-                }
+  display: block;
+  padding: 0 0 10px;
+  font-weight: bold;
+}
 
 form fieldset legend {
-                font-weight: bold;
-                margin-bottom: 10px;
-                padding-top: 10px;
-                }
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
 
 form p small {
-                font-size: 0.75em;
-                color: #777;
-                }
+  font-size: 0.75em;
+  color: #777;
+}
 
 
 form input.text-input,

@@ -62,40 +62,40 @@ $(document).ready(function(){
   );
 
 
-    // Content box tabs
-    $('.content-box .content-box-content div.tab-content').hide(); // Hide the content divs
-    $('ul.content-box-tabs li a.default-tab').addClass('current'); // Add the class "current" to the default tab
-    $('.content-box-content div.default-tab').show(); // Show the div with class "default-tab"
-    $('.content-box ul.content-box-tabs li a').click( // When a tab is clicked...
-      function() {
-        $(this).parent().siblings().find("a").removeClass('current'); // Remove "current" class from all tabs
-        $(this).addClass('current'); // Add class "current" to clicked tab
-        var currentTab = $(this).attr('href'); // Set variable "currentTab" to the value of href of clicked tab
-        $(currentTab).siblings().slideUp('normal', function() { $(currentTab).slideDown(); });
-        return false;
-      }
-    );
+  // Content box tabs
+  $('.content-box .content-box-content div.tab-content').hide(); // Hide the content divs
+  $('ul.content-box-tabs li a.default-tab').addClass('current'); // Add the class "current" to the default tab
+  $('.content-box-content div.default-tab').show(); // Show the div with class "default-tab"
+  $('.content-box ul.content-box-tabs li a').click( // When a tab is clicked...
+    function() {
+      $(this).parent().siblings().find("a").removeClass('current'); // Remove "current" class from all tabs
+      $(this).addClass('current'); // Add class "current" to clicked tab
+      var currentTab = $(this).attr('href'); // Set variable "currentTab" to the value of href of clicked tab
+      $(currentTab).siblings().slideUp('normal', function() { $(currentTab).slideDown(); });
+      return false;
+    }
+  );
 
 
-    //Close button:
-    $(".close").click(
-      function () {
-        $(this).parent().fadeTo(400, 0, function () { // Links with the class "close" will close parent
-          $(this).slideUp(400);
-        });
-        return false;
-      }
-    );
+  //Close button:
+  $(".close").click(
+    function () {
+      $(this).parent().fadeTo(400, 0, function () { // Links with the class "close" will close parent
+        $(this).slideUp(400);
+      });
+      return false;
+    }
+  );
 
 
-    $('tbody tr:even').addClass("even");
-    $('tbody tr:odd').addClass("odd");
+  $('tbody tr:even').addClass("even");
+  $('tbody tr:odd').addClass("odd");
 
-    $('.check-all').click(
-      function(){
-        $(this).parent().parent().parent().parent().find("input[type='checkbox']").attr('checked', $(this).is(':checked'));
-      }
-    );
+  $('.check-all').click(
+    function(){
+      $(this).parent().parent().parent().parent().find("input[type='checkbox']").attr('checked', $(this).is(':checked'));
+    }
+  );
 
 
 });
