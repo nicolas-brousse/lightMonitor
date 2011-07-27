@@ -1,4 +1,13 @@
 <?php
+/**
+ *
+ * Asker Extension
+ * Base Asker Adaptater
+ *
+ * @package Asker Extension
+ * @version 1
+ * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
+ */
 
 namespace Asker\Adaptater;
 

@@ -1,6 +1,17 @@
 <?php
+/**
+ *
+ * Asker Extension
+ * Adaptater : SSH
+ *
+ * @package Asker Extension
+ * @version 1
+ * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
+ */
 
 namespace Asker\Adaptater;
+
+use Asker\Asker_Adaptater_Exception;
 
 Class Ssh extends Base
 {
@@ -11,7 +22,7 @@ Class Ssh extends Base
   public function init()
   {
     if (!function_exists('ssh2_connect')) {
-      throw new \Asker\Asker_Exception("ERROR: To use SSH protocol, install php5-ssh2 PHP extention !");
+      throw new Asker_Adaptater_Exception("ERROR: To use SSH protocol, install php5-ssh2 PHP extention !");
     }
   }
 
@@ -27,10 +38,10 @@ Class Ssh extends Base
     if (!$this->_connection) {
       $this->_connection = ssh2_connect($this->_host, $this->_port);
       if (!$this->_connection) {
-        throw new Asker_Exception("ERROR: SSH Connection to '$host:$port' failed !");
+        throw new Asker_Adaptater_Exception("ERROR: SSH Connection to '$host:$port' failed !");
       }
       if (ssh2_auth_password($this->_connection, $this->_login, $this->_pas)) {
-        throw new Asker_Exception('ERROR: SSH Connection failed, invalid username or password !');
+        throw new Asker_Adaptater_Exception('ERROR: SSH Connection failed, invalid username or password !');
       }
     }
     else {

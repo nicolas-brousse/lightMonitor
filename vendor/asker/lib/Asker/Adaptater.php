@@ -1,8 +1,18 @@
 <?php
+/**
+ *
+ * Asker Adaptater
+ * Caller Class for adaptaters
+ *
+ * @package Asker Extension
+ * @version 1
+ * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
+ **/
 
 namespace Asker;
 
 require_once 'Exception.php';
+require_once 'Adaptater/Exception.php';
 
 Class Adaptater
 {
@@ -11,7 +21,7 @@ Class Adaptater
   Const SSH   = 20;
   Const HTTP  = 30;
 
-  private $_protocols = array(
+  static private $_protocols = array(
     self::SNMP  => 'SNMP',
     self::SSH   => 'SSH',
     self::HTTP  => 'HTTP',
@@ -34,15 +44,15 @@ Class Adaptater
         break;
 
       default:
-        throw new Asker_Exception("ERROR: Adaptater not exist !");
+        throw new Asker_Adaptater_Exception("ERROR: Adaptater not exist !");
     }
   }
 
-  public function getProtocols($protocol=null)
+  final static public function getProtocols($protocol=null)
   {
-    if (!is_null($protocol) AND array_key_exists($protocol)) {
-      return $this->_protocols[$protocol];
+    if (!is_null($protocol) AND array_key_exists($protocol, self::$_protocols)) {
+      return self::$_protocols[$protocol];
     }
-    return $this->_protocols;
+    return self::$_protocols;
   }
 }

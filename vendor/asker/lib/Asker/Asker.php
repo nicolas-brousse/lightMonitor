@@ -1,4 +1,13 @@
 <?php
+/**
+ *
+ * Asker
+ * Entering class
+ *
+ * @package Asker Extension
+ * @version 1
+ * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
+ **/
 
 namespace Asker;
 
@@ -19,6 +28,6 @@ Class Asker
 
   public static function getProtocols($protocol=null)
   {
-    return $this->_adaptater->getProtocols($protocol);
+    return Adaptater::getProtocols($protocol);
   }
 }
