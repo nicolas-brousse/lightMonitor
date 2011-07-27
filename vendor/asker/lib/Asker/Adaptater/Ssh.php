@@ -2,7 +2,7 @@
 /**
  *
  * Asker Extension
- * Adaptater : SSH
+ * @adaptater SSH
  *
  * @package Asker Extension
  * @version 1

@@ -2,7 +2,7 @@
 /**
  *
  * Asker Extension
- * Adaptater : SNMP
+ * @adaptater SNMP
  *
  * @package Asker Extension
  * @version 1

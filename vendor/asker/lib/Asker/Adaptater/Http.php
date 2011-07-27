@@ -2,7 +2,7 @@
 /**
  *
  * Asker Extension
- * Adaptater : HTTP
+ * @adaptater HTTP
  *
  * @package Asker Extension
  * @version 1
