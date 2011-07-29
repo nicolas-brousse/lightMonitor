@@ -90,7 +90,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
 
   # Ask the server to collect datas
   # $asker = new Asker(Adaptater::SSH);
-  $asker = new Asker(Adaptater::SSH);
+  #$asker = new Asker(Adaptater::SSH);
   #          $asker = new Asker::getInstance(Adaptater::SSH);
   #var_dump(Adaptater::SSH)
   #var_dump(get_class_methods($asker));
