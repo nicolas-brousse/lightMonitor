@@ -139,7 +139,12 @@ Class Ssh extends Base
 
   public function getTraffic()
   {
-    return array(rand(10000, 15000), rand(10000, 15000));
+    $return = $this->_exec('cat /proc/net/dev');
+    $result = $this->_execResult($return[0]);
+
+    preg_match("#eth0:\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)#",$result,$traffic);
+
+    return array($traffic[1], $traffic[9]);
   }
 
   public function getCpu()
