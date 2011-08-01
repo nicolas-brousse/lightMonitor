@@ -11,9 +11,6 @@
 
 namespace Asker;
 
-require_once 'Exception.php';
-require_once 'Adaptater/Exception.php';
-
 Class Adaptater
 {
 
@@ -21,38 +18,42 @@ Class Adaptater
   Const SSH   = 20;
   Const HTTP  = 30;
 
-  static private $_protocols = array(
+  static private $_adapters = array(
     self::SNMP  => 'SNMP',
     self::SSH   => 'SSH',
     self::HTTP  => 'HTTP',
   );
 
-  public function __construct($protocol)
+  final public static function factory($adapter, $config=array())
   {
-    switch ($protocol) {
+    switch ($adapter) {
 
       case self::SNMP:
-        return new Adaptater\Snmp();
+        return new Adaptater\Snmp($config);
         break;
 
       case self::SSH:
-        return new Adaptater\Ssh();
+        return new Adaptater\Ssh($config);
         break;
 
       case self::HTTP:
-        return new Adaptater\Http();
+        return new Adaptater\Http($config);
         break;
 
       default:
+        /**
+         * @see Asker\Adaptater\Exception
+         */
+        require_once 'Adaptater/Exception.php';
         throw new Asker_Adaptater_Exception("ERROR: Adaptater not exist !");
     }
   }
 
-  final static public function getProtocols($protocol=null)
+  final public static function getProtocols($adapter=null)
   {
-    if (!is_null($protocol) AND array_key_exists($protocol, self::$_protocols)) {
-      return self::$_protocols[$protocol];
+    if (!is_null($adapter) AND array_key_exists($adapter, self::$_adapters)) {
+      return self::$_adapters[$adapter];
     }
-    return self::$_protocols;
+    return self::$_adapters;
   }
 }

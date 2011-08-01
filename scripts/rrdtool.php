@@ -36,7 +36,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   /**
    * Setup rrd DB
    */
-  $setup = array("--start", "N", "--step", "60",
+  $options = array("--start", "N", "--step", "60",
     "DS:input:COUNTER:600:U:U",
     "DS:output:COUNTER:600:U:U",
     "RRA:AVERAGE:0.5:1:600",
@@ -48,18 +48,18 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "RRA:MAX:0.5:24:775",
     "RRA:MAX:0.5:288:797",
   );
-  $rrd['traffic']->setup()->setOptions($setup)->execute();
+  $rrd['traffic']->setup()->setOptions($options)->execute();
 
-  $setup = array("--start", "N", "--step", "60",
+  $options = array("--start", "N", "--step", "60",
     "DS:mem_total:GAUGE:150:0:U",
     "DS:mem_free:GAUGE:150:0:U",
     "RRA:AVERAGE:0.5:1:1440",
     "RRA:AVERAGE:0.5:10:1008",
     "RRA:AVERAGE:0.5:60:744",
   );
-  $rrd['memory']->setup()->setOptions($setup)->execute();
+  $rrd['memory']->setup()->setOptions($options)->execute();
 
-  $setup = array("--start", "N", "--step", "60",
+  $options = array("--start", "N", "--step", "60",
     "DS:uptime1:GAUGE:600:0:90",
     "DS:uptime5:GAUGE:600:0:90",
     "DS:uptime15:GAUGE:600:0:90",
@@ -67,9 +67,9 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "RRA:MAX:0.5:12:1440",
     "RRA:AVERAGE:0.5:1:1440",
   );
-  $rrd['uptime']->setup()->setOptions($setup)->execute();
+  $rrd['uptime']->setup()->setOptions($options)->execute();
 
-  $setup = array("--start", "N", "--step", "60",
+  $options = array("--start", "N", "--step", "60",
     "DS:cpu_user:COUNTER:150:0:100",
     "DS:cpu_nice:COUNTER:150:0:100",
     "DS:cpu_system:COUNTER:150:0:100",
@@ -81,7 +81,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "RRA:AVERAGE:0.5:10:1008",
     "RRA:AVERAGE:0.5:60:744",
   );
-  $rrd['cpu']->setup()->setOptions($setup)->execute();
+  $rrd['cpu']->setup()->setOptions($options)->execute();
 
 
   /**
@@ -89,28 +89,28 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
    */
 
   # Ask the server to collect datas
-  # $asker = new Asker(Adaptater::SSH);
-  #$asker = new Asker(Adaptater::SSH);
-  #          $asker = new Asker::getInstance(Adaptater::SSH);
-  #var_dump(Adaptater::SSH)
-  #var_dump(get_class_methods($asker));
-  #var_dump(get_class($asker)); exit;
-  #$asker->setHost("ip", "port")->setAuth("root", "pass");
-  #var_dump($asker->getUptime()); exit;
-  # $asker->getUptime();
+  $configs = array(
+    "host" => "192.168.1.1",
+    "port" => '22',
+    "login" => 'root',
+    "pass" => '',
+  );
+  $asker = Asker::factory(Adaptater::SSH, $configs);
+  #var_dump($asker->getMemory()); exit;
 
   /**
    * Add new informations to RDDTOOL DBs
    */
-  $rrd['traffic']->update()->setDatas(array(rand(10000, 15000), rand(10000, 15000)))->execute();
-  $rrd['memory']->update()->setDatas(array(rand(10000000, 15000000), rand(10000000, 15000000)))->execute();
-  $rrd['uptime']->update()->setDatas(array(rand(0, 2), rand(0, 2), rand(0, 2)))->execute();
+  $rrd['traffic']->update()->setDatas($asker->getTraffic())->execute();
+  $rrd['memory']->update()->setDatas($asker->getMemory())->execute();
+  $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
+  $rrd['cpu']->update()->setDatas($asker->getCpu())->execute();
 
 
   /**
    * Generates RRDTOOL Graphs
    */
-  $generate = array("--start", "-1d", "--title", "Traffic of ".$server['servername']." (average of 5min)", "--vertical-label=B/s", "--width", "500", "--height", "200",
+  $options = array("--start", "-1d", "--title", "Traffic of ".$server['servername']." (average of 5min)", "--vertical-label=B/s", "--width", "500", "--height", "200",
     "DEF:inoctets=".$rrd['traffic']->getDbPath().":input:AVERAGE",
     "DEF:outoctets=".$rrd['traffic']->getDbPath().":output:AVERAGE",
     "CDEF:outoctets_line=outoctets,-1,*",
@@ -126,9 +126,9 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "COMMENT: ",
     "GPRINT:outbits:MAX:Max Out traffic\: %6.2lf %Sbps\\r"
   );
-  $rrd['traffic']->generate()->setOptions($generate)->execute("traffic-0.png");
+  $rrd['traffic']->generate()->setOptions($options)->execute("traffic-0.png");
 
-  $generate = array("--start", "-1d", "--title", "Memory of ".$server['servername']." (average of 5min)", "--vertical-label=octets", "--width", "500", "--height", "200",
+  $options = array("--start", "-1d", "--title", "Memory of ".$server['servername']." (average of 5min)", "--vertical-label=octets", "--width", "500", "--height", "200",
     "--base", "1024",
     "--upper-limit", "2e+09", "--lower-limit", "0", "-r",
     "DEF:mem_total=".$rrd['memory']->getDbPath().":mem_total:AVERAGE",
@@ -138,9 +138,9 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "HRULE:2e+09#FF0000:Limit \: 2Go",
     
   );
-  $rrd['memory']->generate()->setOptions($generate)->execute("memory-0.png");
+  $rrd['memory']->generate()->setOptions($options)->execute("memory-0.png");
 
-  $generate = array("--start", "-1d", "--title", "Load averages of ".$server['servername']." (average of 5min)", "--vertical-label=uptime", "--width", "500", "--height", "200", "-l", "0",
+  $options = array("--start", "-1d", "--title", "Load averages of ".$server['servername']." (average of 5min)", "--vertical-label=uptime", "--width", "500", "--height", "200", "-l", "0",
     "DEF:uptime1=".$rrd['uptime']->getDbPath().":uptime1:AVERAGE",
     "DEF:uptime5=".$rrd['uptime']->getDbPath().":uptime5:AVERAGE",
     "DEF:uptime15=".$rrd['uptime']->getDbPath().":uptime15:AVERAGE",
@@ -148,9 +148,24 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "AREA:uptime5#ffa000:uptime (5min)",
     "AREA:uptime15#ff3333:uptime (15min)",
   );
-  $rrd['uptime']->generate()->setOptions($generate)->execute("uptime-0.png");
-  $rrd['traffic']->generate()->setOptions($generate)->execute("cpu-0.png");
-  $rrd['traffic']->generate()->setOptions($generate)->execute("disk-0.png");
+  $rrd['uptime']->generate()->setOptions($options)->execute("uptime-0.png");
+
+  $options = array("--start", "-1d", "--title", "CPU of ".$server['servername']." (average of 5min)", "--vertical-label=%", "--width", "500", "--height", "200", "-l", "0",
+    "DEF:cpu_user=".$rrd['cpu']->getDbPath().":cpu_user:AVERAGE",
+    "DEF:cpu_nice=".$rrd['cpu']->getDbPath().":cpu_nice:AVERAGE",
+    "DEF:cpu_system=".$rrd['cpu']->getDbPath().":cpu_system:AVERAGE",
+    "DEF:cpu_idle=".$rrd['cpu']->getDbPath().":cpu_idle:AVERAGE",
+    "DEF:cpu_iowait=".$rrd['cpu']->getDbPath().":cpu_iowait:AVERAGE",
+    "DEF:cpu_irq=".$rrd['cpu']->getDbPath().":cpu_irq:AVERAGE",
+    "DEF:cpu_softirq=".$rrd['cpu']->getDbPath().":cpu_softirq:AVERAGE",
+    "AREA:cpu_iowait#0000FF:IO wait",
+    "STACK:cpu_system#FF9999:system",
+    "STACK:cpu_nice#FF99FF:nice",
+    "STACK:cpu_user#99FF99:user",
+    "STACK:cpu_idle#FFFFFF:idle",
+  );
+  $rrd['cpu']->generate()->setOptions($options)->execute("cpu-0.png");
+  $rrd['traffic']->generate()->setOptions($options)->execute("disk-0.png");
 }
 
 
