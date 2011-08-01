@@ -16,37 +16,68 @@ use Asker\Asker_Adaptater_Exception;
 Class Ssh extends Base
 {
   private $_connection = false;
-  private $_login;
-  private $_pass;
 
   public function init()
   {
     if (!function_exists('ssh2_connect')) {
-      throw new Asker_Adaptater_Exception("ERROR: To use SSH protocol, install php5-ssh2 PHP extention !");
+      /**
+       * @see Asker\Adaptater\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adaptater_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
     }
+
+    /**
+     * Verif configurations
+     */
+    $config = $this->_config;
+    if (!isset($config["host"]) OR empty($config["host"])) {
+      /**
+       * @see Asker\Adaptater\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adaptater_Exception("ERROR: Precise host !");
+    }
+    if (!isset($config["login"]) OR empty($config["login"])) {
+      /**
+       * @see Asker\Adaptater\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adaptater_Exception("ERROR: Precise login !");
+    }
+    if (!isset($config["pass"])) {
+      /**
+       * @see Asker\Adaptater\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adaptater_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
+    }
+
+    /**
+     * Generate SSH connection
+     */
+    $this->_connection = ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22);
+    if (!$this->_connection) {
+      /**
+       * @see Asker\Adaptater\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adaptater_Exception("ERROR: SSH Connection to '{$config["host"]}:{$config["port"]}' failed !");
+    }
+    if (!@ssh2_auth_password($this->_connection, $config["login"], $config["pass"])) {
+      /**
+       * @see Asker\Adaptater\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adaptater_Exception("ERROR: Authentication failed for {$config["login"]} using password !");
+    }
+    // TODO set Host and Log
+    // TODO Can Log with public key
   }
 
   public function __destruct()
   {
     $this->_logout();
-  }
-
-  private function _getConnection()
-  {
-    // TODO set Host and Log
-    // TODO Can Log with public key
-    if (!$this->_connection) {
-      $this->_connection = ssh2_connect($this->_host, $this->_port);
-      if (!$this->_connection) {
-        throw new Asker_Adaptater_Exception("ERROR: SSH Connection to '$host:$port' failed !");
-      }
-      if (ssh2_auth_password($this->_connection, $this->_login, $this->_pas)) {
-        throw new Asker_Adaptater_Exception('ERROR: SSH Connection failed, invalid username or password !');
-      }
-    }
-    else {
-      return $this->_connection;
-    }
   }
 
   private function _logout() {
@@ -86,31 +117,38 @@ Class Ssh extends Base
     return utf8_encode(stream_get_contents($stream));
   }
 
-  public function setAuth($login, $pass)
-  {
-    $this->_login = $login;
-    $this->_pass = $pass;
-    return $this;
-  }
-
   public function getUptime()
   {
     $return = $this->_exec('uptime');
-    return $this->_execResult($return);
+    $result = $this->_execResult($return[0]);
+
+    preg_match("#averages?: ([0-9\.]+),[\s]+([0-9\.]+),[\s]+([0-9\.]+)#",$result,$avgs); 
+
+    return array($avgs[1], $avgs[2], $avgs[3]);
   }
 
   public function getMemory()
   {
+    $return = $this->_exec('cat /proc/meminfo');
+    $result = $this->_execResult($return[0]);
 
+    preg_match("#^MemTotal:\s*(\d+) kB\s*MemFree:\s*(\d+) kB#",$result,$mem); 
+
+    return array($mem[1], $mem[2]);
   }
 
   public function getTraffic()
   {
-
+    return array(rand(10000, 15000), rand(10000, 15000));
   }
 
   public function getCpu()
   {
+    $return = $this->_exec('cat /proc/stat');
+    $result = $this->_execResult($return[0]);
 
+    preg_match("#^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)#",$result,$cpu); 
+
+    return array($cpu[1], $cpu[2], $cpu[3], $cpu[4], $cpu[5], $cpu[6], $cpu[7]);
   }
 }
