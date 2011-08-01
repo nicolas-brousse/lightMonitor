@@ -105,6 +105,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   $rrd['memory']->update()->setDatas($asker->getMemory())->execute();
   $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
   $rrd['cpu']->update()->setDatas($asker->getCpu())->execute();
+  // TODO create graphs of paquets
 
 
   /**
@@ -130,13 +131,15 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
 
   $options = array("--start", "-1d", "--title", "Memory of ".$server['servername']." (average of 5min)", "--vertical-label=octets", "--width", "500", "--height", "200",
     "--base", "1024",
-    "--upper-limit", "2e+09", "--lower-limit", "0", "-r",
+    #"--upper-limit", "2e+09",
+    "--lower-limit", "0", "-r",
     "DEF:mem_total=".$rrd['memory']->getDbPath().":mem_total:AVERAGE",
     "DEF:mem_free=".$rrd['memory']->getDbPath().":mem_free:AVERAGE",
     "CDEF:mem_used=mem_total,mem_free,-,1024,*",
+    "CDEF:mem_total_limit=mem_total",
+    "CDEF:mem_total_resize=mem_total,1024,*",
     "AREA:mem_used#00FF00:Used",
-    "HRULE:2e+09#FF0000:Limit \: 2Go",
-    
+    #"HRULE:mem_total#FF0000:Limit \: mem_total_resize",
   );
   $rrd['memory']->generate()->setOptions($options)->execute("memory-0.png");
 
