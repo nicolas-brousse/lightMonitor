@@ -111,7 +111,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   /**
    * Generates RRDTOOL Graphs
    */
-  $options = array("--start", "-1d", "--title", "Traffic of ".$server['servername']." (average of 5min)", "--vertical-label=B/s", "--width", "500", "--height", "200",
+  $options = array("--start", "-1d", "--title", "Eth0 Traffic of ".$server['servername']." (average of 5min)", "--vertical-label=B/s", "--width", "500", "--height", "200",
     "DEF:inoctets=".$rrd['traffic']->getDbPath().":input:AVERAGE",
     "DEF:outoctets=".$rrd['traffic']->getDbPath().":output:AVERAGE",
     "CDEF:outoctets_line=outoctets,-1,*",
