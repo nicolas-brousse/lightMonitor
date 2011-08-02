@@ -1,8 +1,10 @@
 <?php
 
+namespace Controller;
+
 use Asker\Asker;
 
-Class Config_Controller extends Controller_Base
+Class Config extends Base
 {
   private $_servers = array();
 
@@ -48,8 +50,17 @@ Class Config_Controller extends Controller_Base
 
   public function Save_Action()
   {
-    var_dump($this->_getRequest()->get('form'));
-    $this->db->insert('servers', array('ip' => 'ip'));
+    //var_dump($this->_getRequest()->get('form'));
+    $this->db->insert('servers',
+      array(
+        'ip' => '192.168.1.200',
+        'servername' => 'srv-home',
+        'protocol' => 10,
+        'created_at' => time(),
+        'updated_at' => time(),
+      )
+    );
+    return $this->_redirector('/configs/servers');
   }
 
   public function Edit_Action()
@@ -90,12 +101,9 @@ Class Config_Controller extends Controller_Base
       return $this->_halt();
     }
     else {
-      # Ask confirmation
-      try {
-        $this->db->delete('servers', array('id' => $server['id']));
-      }
-      catch(PDOException $e) { var_dump($e->getMessage()); }
-      return $this->app->redirector('/configs');
+      # TODO: Ask confirmation
+      $this->db->delete('servers', array('id' => $server['id']));
+      return $this->_redirector('/configs/servers');
       #return redirect;
     }
   }

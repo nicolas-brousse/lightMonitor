@@ -1,6 +1,8 @@
 <?php
 
-Class Index_Controller extends Controller_Base
+namespace Controller;
+
+Class Index extends Base
 {
   private $_servers = array();
 

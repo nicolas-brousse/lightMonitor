@@ -1,6 +1,8 @@
 <?php
 
-Class Server_Controller extends Controller_Base
+namespace Controller;
+
+Class Server extends Base
 {
   public function Index_Action()
   {

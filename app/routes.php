@@ -1,41 +1,44 @@
 <?php
 
 # Autoloader controllers
-$controllers = array();
-foreach (App::autoload(__DIR__ . '/controllers/') as $controller) {
-  $classname=substr($controller,0,-4).'_Controller';
-  $controllers[strtolower(substr($controller,0,-4))] = new $classname();
-}
+App::autoload(__DIR__ . '/controllers/');
+//$controllers = array();
+//foreach (App::autoload(__DIR__ . '/controllers/') as $controller) {
+//  $classname=substr($controller,0,-4).'_Controller';
+//  $controllers[strtolower(substr($controller,0,-4))] = new $classname();
+//}
 
 // TODO: use PHP5 autoloader
 
 
-# ========================================================  ROUTES  ========================================================
+/**
+ * ROUTES
+ **/
 
-
-
-$app->get('/',          function () use($controllers) { return $controllers['index']->Index_Action(); })->bind('homepage');
-$app->get('/log',       function () use($controllers) { return $controllers['index']->Log_Action(); })->bind('log');
+$app->get('/',          function () { $c = new Controller\Index(); return $c->Index_Action(); })->bind('homepage');
+$app->get('/log',       function () { $c = new Controller\Index(); return $c->Log_Action(); })->bind('log');
 #$app->get('/dashboard', function () use($app) { return $app->redirect('/'); });
 
 
 
-$app->get('/servers/{ip}',  function () use($controllers) { return $controllers['server']->Index_Action(); })->bind('servers');
+$app->get('/servers/{ip}',  function () { $c = new Controller\Server(); return $c->Index_Action(); })->bind('servers');
 
 
 
-$app->get('/configs/servers',         function () use($controllers) { return $controllers['config']->Index_Action(); })->bind('configs.servers');
-$app->get('/configs/servers/new',     function () use($controllers) { return $controllers['config']->New_Action(); })->bind('configs.servers.new');
-$app->post('/configs/save',           function () use($controllers) { return $controllers['config']->Save_Action(); })->bind('configs.servers.save');
-$app->get('/configs/edit/{ip}',       function () use($controllers) { return $controllers['config']->Edit_Action(); })->bind('configs.servers.edit');
-$app->post('/configs/update/{ip}',    function () use($controllers) { return $controllers['config']->Update_Action(); })->bind('configs.servers.update');
-$app->get('/configs/delete/{ip}',     function () use($controllers) { return $controllers['config']->Delete_Action(); })->bind('configs.servers.delete');
+$app->get('/configs/servers',         function () { $c = new Controller\Config(); return $c->Index_Action(); })->bind('configs.servers');
+$app->get('/configs/servers/new',     function () { $c = new Controller\Config(); return $c->New_Action(); })->bind('configs.servers.new');
+$app->post('/configs/save',           function () { $c = new Controller\Config(); return $c->Save_Action(); })->bind('configs.servers.save');
+$app->get('/configs/edit/{ip}',       function () { $c = new Controller\Config(); return $c->Edit_Action(); })->bind('configs.servers.edit');
+$app->post('/configs/update/{ip}',    function () { $c = new Controller\Config(); return $c->Update_Action(); })->bind('configs.servers.update');
+$app->get('/configs/delete/{ip}',     function () { $c = new Controller\Config(); return $c->Delete_Action(); })->bind('configs.servers.delete');
 
-$app->get('/configs/users',           function () use($controllers) { return $controllers['config']->Index_Action(); })->bind('configs.users');
+$app->get('/configs/users',           function () { $c = new Controller\Config(); return $c->Index_Action(); })->bind('configs.users');
 
 
 
-# ============================================================================================================================
+/**
+ * Errors and Favicon
+ */
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
