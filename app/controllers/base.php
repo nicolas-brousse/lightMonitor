@@ -1,6 +1,11 @@
 <?php
 
-Abstract Class Controller_Base
+namespace Controller;
+
+use App;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+Abstract Class Base
 {
   protected $app;
   protected $twig;
@@ -28,12 +33,20 @@ Abstract Class Controller_Base
 
   protected function _halt()
   {
-    throw new Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+    throw new NotFoundHttpException();
   }
 
   protected function _helper()
   {
     
+  }
+
+  protected function _redirector($url)
+  {
+    // TODO: dynamize
+    if (preg_match('#^/#', $url))
+      $url = substr($url, 1);
+    return $this->app->redirect($this->app['configs']->app['app']['base_url'] . $url);
   }
 
   protected function _getUrl($bind, array $parameters=array())

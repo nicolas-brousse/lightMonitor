@@ -5,3 +5,5 @@ data/log/*.log
 *.sqlite-journal
 *.rrd
 public/graphs/*
+lightMonitor.esproj/*
+data/db/*

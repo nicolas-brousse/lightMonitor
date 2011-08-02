@@ -23,11 +23,12 @@ $configs = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_
 
 /**
  * Initialize App
- *
  */
 $app = App::getInstance();
 $app['version'] = APPLICATION_VERSION;
 $app['name'] = "LightMonitor";
+$app['debug'] = APPLICATION_ENV == 'development' ? true : false;
+$app['configs'] = $configs;
 
 
 /**
