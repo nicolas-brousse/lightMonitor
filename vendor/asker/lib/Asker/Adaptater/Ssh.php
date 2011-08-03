@@ -56,7 +56,7 @@ Class Ssh extends Base
     /**
      * Generate SSH connection
      */
-    $this->_connection = ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22);
+    $this->_connection = @ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22);
     if (!$this->_connection) {
       /**
        * @see Asker\Adaptater\Exception

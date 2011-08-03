@@ -8,7 +8,7 @@
 
 
 /**
- * Options detection
+ * Verif CLI options
  */
 if ('cli' === php_sapi_name()) {
   if (empty($argv[1]) OR empty($argv[2])) {

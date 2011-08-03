@@ -85,28 +85,32 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
 
 
   /**
-   * Get Informations
+   * Get Informations AND Add new informations to RDDTOOL DBs
    */
 
-  # Ask the server to collect datas
-  $configs = array(
-    "host" => "192.168.1.1",
-    "port" => '22',
-    "login" => 'root',
-    "pass" => '',
-  );
-  $asker = Asker::factory(Adaptater::SSH, $configs);
-  #var_dump($asker->getMemory()); exit;
+  try {
+    $configs = array(
+      "host" => "192.168.1.1",
+      "port" => '22',
+      "login" => 'root',
+      "pass" => '',
+    );
+    if ($asker = Asker::factory(Adaptater::SSH, $configs)) {
+      $memory = $asker->getMemory();
 
-  /**
-   * Add new informations to RDDTOOL DBs
-   */
-  $rrd['traffic']->update()->setDatas($asker->getTraffic())->execute();
-  $rrd['memory']->update()->setDatas($asker->getMemory())->execute();
-  $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
-  $rrd['cpu']->update()->setDatas($asker->getCpu())->execute();
-  // TODO create graphs of paquets
-
+      $rrd['traffic']->update()->setDatas($asker->getTraffic())->execute();
+      $rrd['memory']->update()->setDatas($memory)->execute();
+      $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
+      $rrd['cpu']->update()->setDatas($asker->getCpu())->execute();
+      // TODO create graphs of paquets
+    }
+  }
+  catch (Exception $e) {
+    $app['monolog']->addWarning($e->getMessage());
+    if (APPLICATION_ENV == 'development') {
+      print($e->getMessage() . PHP_EOL);
+    }
+  }
 
   /**
    * Generates RRDTOOL Graphs
@@ -136,10 +140,10 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "DEF:mem_total=".$rrd['memory']->getDbPath().":mem_total:AVERAGE",
     "DEF:mem_free=".$rrd['memory']->getDbPath().":mem_free:AVERAGE",
     "CDEF:mem_used=mem_total,mem_free,-,1024,*",
-    "CDEF:mem_total_limit=mem_total",
+    #"CDEF:mem_total_limit=mem_total",
     "CDEF:mem_total_resize=mem_total,1024,*",
     "AREA:mem_used#00FF00:Used",
-    #"HRULE:mem_total#FF0000:Limit \: mem_total_resize",
+    "LINE1:mem_total_resize#FF0000:Limit",
   );
   $rrd['memory']->generate()->setOptions($options)->execute("memory-0.png");
 
@@ -162,10 +166,10 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "DEF:cpu_irq=".$rrd['cpu']->getDbPath().":cpu_irq:AVERAGE",
     "DEF:cpu_softirq=".$rrd['cpu']->getDbPath().":cpu_softirq:AVERAGE",
     "AREA:cpu_iowait#0000FF:IO wait",
-    "STACK:cpu_system#FF9999:system",
-    "STACK:cpu_nice#FF99FF:nice",
-    "STACK:cpu_user#99FF99:user",
-    "STACK:cpu_idle#FFFFFF:idle",
+    "STACK:cpu_system#FF9999:System",
+    "STACK:cpu_nice#FF99FF:Nice",
+    "STACK:cpu_user#99FF99:User",
+    "STACK:cpu_idle#FFFFFF:Idle",
   );
   $rrd['cpu']->generate()->setOptions($options)->execute("cpu-0.png");
   $rrd['traffic']->generate()->setOptions($options)->execute("disk-0.png");
