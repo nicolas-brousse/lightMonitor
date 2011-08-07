@@ -39,6 +39,8 @@ $app->register(new Silex\Extension\TwigExtension(), array(
   'twig.class_path' => APPLICATION_BASE_URI . '/vendor/twig/lib',
 ));
 
+$app->register(new Silex\Extension\SessionExtension());
+
 $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.logfile'       => APPLICATION_BASE_URI . '/data/log/'.APPLICATION_ENV.'.App.log',
   'monolog.class_path'    => APPLICATION_BASE_URI . '/vendor/monolog/src',
@@ -60,6 +62,7 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.dbal.class_path'    => APPLICATION_BASE_URI . '/vendor/doctrine2-dbal/lib',
   'db.common.class_path'  => APPLICATION_BASE_URI . '/vendor/doctrine2-common/lib',
 ));
+// TODO verif if DB exist, else duplicate emptyDB
 
 # @$app['request']->getBaseUrl()
 /*$app['flash_messenger'] = '<div class="notification error png_bg">

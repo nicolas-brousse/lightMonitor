@@ -27,13 +27,38 @@ $app->get('/servers/{ip}',  function () { $c = new Controller\Server(); return $
 
 $app->get('/configs/servers',         function () { $c = new Controller\Config(); return $c->Index_Action(); })->bind('configs.servers');
 $app->get('/configs/servers/new',     function () { $c = new Controller\Config(); return $c->New_Action(); })->bind('configs.servers.new');
-$app->post('/configs/save',           function () { $c = new Controller\Config(); return $c->Save_Action(); })->bind('configs.servers.save');
+$app->post('/configs/servers/save',           function () { $c = new Controller\Config(); return $c->Save_Action(); })->bind('configs.servers.save');
 $app->get('/configs/edit/{ip}',       function () { $c = new Controller\Config(); return $c->Edit_Action(); })->bind('configs.servers.edit');
 $app->post('/configs/update/{ip}',    function () { $c = new Controller\Config(); return $c->Update_Action(); })->bind('configs.servers.update');
 $app->get('/configs/delete/{ip}',     function () { $c = new Controller\Config(); return $c->Delete_Action(); })->bind('configs.servers.delete');
 
 $app->get('/configs/users',           function () { $c = new Controller\Config(); return $c->Index_Action(); })->bind('configs.users');
 
+
+/** SESSION
+$app->get('/login', function () use ($app) {
+    $username = $app['request']->server->get('PHP_AUTH_USER', false);
+    $password = $app['request']->server->get('PHP_AUTH_PW');
+
+    if ('igor' === $username && 'password' === $password) {
+        $app['session']->set('user', array('username' => $username));
+        return $app->redirect('/account');
+    }
+
+    $response = new Response();
+    $response->headers->set('WWW-Authenticate', sprintf('Basic realm="%s"', 'site_login'));
+    $response->setStatusCode(401, 'Please sign in.');
+    return $response;
+});
+
+$app->get('/account', function () use ($app) {
+    if (null === $user = $app['session']->get('user')) {
+        return $app->redirect('/login');
+    }
+
+    return "Welcome {$user['username']}!";
+});
+**/
 
 
 /**
