@@ -1,7 +1,7 @@
 <?php 
 
 use Asker\Asker;
-use Asker\Adaptater;
+use Asker\Adapter;
 use Rrdtool\Rrdtool;
 use Rrdtool\RrdtoolExtension;
 
@@ -95,14 +95,13 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
       "login" => 'root',
       "pass" => '',
     );
-    if ($asker = Asker::factory(Adaptater::SSH, $configs)) {
-      $memory = $asker->getMemory();
-
+    if ($asker = Asker::factory(Asker::ADAPTER_SSH, $configs)) {
       $rrd['traffic']->update()->setDatas($asker->getTraffic())->execute();
-      $rrd['memory']->update()->setDatas($memory)->execute();
+      $rrd['memory']->update()->setDatas($asker->getMemory())->execute();
       $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
       $rrd['cpu']->update()->setDatas($asker->getCpu())->execute();
-      // TODO create graphs of paquets
+      // TODO create graphs of packets
+      //$app['monolog']->addDebug(var_export($asker->getMemory(), true));
     }
   }
   catch (Exception $e) {
@@ -143,7 +142,8 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     #"CDEF:mem_total_limit=mem_total",
     "CDEF:mem_total_resize=mem_total,1024,*",
     "AREA:mem_used#00FF00:Used",
-    "LINE1:mem_total_resize#FF0000:Limit",
+    "LINE1:mem_total_resize#FF0000:Limit\:",
+    "GPRINT:mem_total_resize:LAST:%6.2lf %So\\r",
   );
   $rrd['memory']->generate()->setOptions($options)->execute("memory-0.png");
 
@@ -153,7 +153,7 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "DEF:uptime15=".$rrd['uptime']->getDbPath().":uptime15:AVERAGE",
     "AREA:uptime1#ffe000:uptime (1min)",
     "AREA:uptime5#ffa000:uptime (5min)",
-    "AREA:uptime15#ff3333:uptime (15min)",
+    "AREA:uptime15#ff3333:uptime (15min)\\r",
   );
   $rrd['uptime']->generate()->setOptions($options)->execute("uptime-0.png");
 
@@ -169,10 +169,10 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
     "STACK:cpu_system#FF9999:System",
     "STACK:cpu_nice#FF99FF:Nice",
     "STACK:cpu_user#99FF99:User",
-    "STACK:cpu_idle#FFFFFF:Idle",
+    "STACK:cpu_idle#FFFFFF:Idle\\r",
   );
   $rrd['cpu']->generate()->setOptions($options)->execute("cpu-0.png");
-  $rrd['traffic']->generate()->setOptions($options)->execute("disk-0.png");
+  //$rrd['traffic']->generate()->setOptions($options)->execute("disk-0.png");
 }
 
 

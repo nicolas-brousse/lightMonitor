@@ -2,14 +2,14 @@
 /**
  *
  * Asker Extension
- * Base Asker Adaptater
+ * Base Asker Adapter
  *
  * @package Asker Extension
  * @version 1
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  */
 
-namespace Asker\Adaptater;
+namespace Asker\Adapter;
 
 require_once 'Interface.php';
 

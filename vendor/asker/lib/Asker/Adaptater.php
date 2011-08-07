@@ -1,8 +1,8 @@
 <?php
 /**
  *
- * Asker Adaptater
- * Caller Class for adaptaters
+ * Asker adapter
+ * Caller Class for Adapters
  *
  * @package Asker Extension
  * @version 1
@@ -11,7 +11,7 @@
 
 namespace Asker;
 
-Class Adaptater
+Class Adapter
 {
 
   Const SNMP  = 10;
@@ -29,23 +29,23 @@ Class Adaptater
     switch ($adapter) {
 
       case self::SNMP:
-        return new Adaptater\Snmp($config);
+        return new Adapter\Snmp($config);
         break;
 
       case self::SSH:
-        return new Adaptater\Ssh($config);
+        return new Adapter\Ssh($config);
         break;
 
       case self::HTTP:
-        return new Adaptater\Http($config);
+        return new Adapter\Http($config);
         break;
 
       default:
         /**
-         * @see Asker\Adaptater\Exception
+         * @see Asker\Adapter\Exception
          */
-        require_once 'Adaptater/Exception.php';
-        throw new Asker_Adaptater_Exception("ERROR: Adaptater not exist !");
+        require_once 'Adapter/Exception.php';
+        throw new Asker_Adapter_Exception("ERROR: Adapter not exist !");
     }
   }
 
