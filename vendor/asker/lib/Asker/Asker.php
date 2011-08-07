@@ -13,11 +13,24 @@ namespace Asker;
 
 Class Asker
 {
-  private $_adaptater;
+  Const ADAPTER_SNMP  = 10;
+  Const ADAPTER_SSH   = 20;
+  Const ADAPTER_HTTP  = 30;
 
-  public static function getProtocols($protocol=null)
+  static private $_adapters = array(
+    self::ADAPTER_SNMP  => 'SNMP',
+    self::ADAPTER_SSH   => 'SSH',
+    self::ADAPTER_HTTP  => 'HTTP',
+  );
+
+  private $_adapter;
+
+  final public static function getProtocols($adapter=null)
   {
-    return Adaptater::getProtocols($protocol);
+    if (!is_null($adapter) AND array_key_exists($adapter, self::$_adapters)) {
+      return self::$_adapters[$adapter];
+    }
+    return self::$_adapters;
   }
 
   public static function factory($adapter, $config=array())
@@ -45,20 +58,40 @@ Class Asker
     }
 
     /*
-     * Create an instance of the adapter class.
+     * Create an instance of the adapter ask.
      * Pass the config to the adapter.
      */
-    $askerAdapter = Adaptater::factory($adapter, $config);
+    switch ($adapter) {
+  
+        case self::ADAPTER_SNMP:
+          $askerAdapter = new Adapter\Snmp($config);
+          break;
+  
+        case self::ADAPTER_SSH:
+          $askerAdapter = new Adapter\Ssh($config);
+          break;
+  
+        case self::ADAPTER_HTTP:
+          $askerAdapter = new Adapter\Http($config);
+          break;
+  
+        default:
+          /**
+           * @see Asker\Adapter\Exception
+           */
+          require_once 'Adapter/Exception.php';
+          throw new Asker_Adapter_Exception("ERROR: Adapter not exist !");
+      }
 
     /*
      * Verify that the object created is a descendent of the abstract adapter type.
      */
-    if (! $askerAdapter instanceof Adaptater\Base) {
+    if (!$askerAdapter instanceof Adapter\Base) {
         /**
          * @see Asker_Exception
          */
         require_once 'Exception.php';
-        throw new Asker_Exception("Adapter class '$adapterName' does not extend Asker\Adaptater\Base");
+        throw new Asker_Exception("Adapter class '$adapterName' does not extend Asker\Adapter\Base");
     }
 
     return $askerAdapter;

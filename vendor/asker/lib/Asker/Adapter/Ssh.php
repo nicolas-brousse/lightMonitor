@@ -2,16 +2,16 @@
 /**
  *
  * Asker Extension
- * @adaptater SSH
+ * @adapter SSH
  *
  * @package Asker Extension
  * @version 1
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  */
 
-namespace Asker\Adaptater;
+namespace Asker\Adapter;
 
-use Asker\Asker_Adaptater_Exception;
+use Asker\Asker_Adapter_Exception;
 
 Class Ssh extends Base
 {
@@ -21,10 +21,10 @@ Class Ssh extends Base
   {
     if (!function_exists('ssh2_connect')) {
       /**
-       * @see Asker\Adaptater\Exception
+       * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
-      throw new Asker_Adaptater_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
+      throw new Asker_Adapter_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
     }
 
     /**
@@ -33,24 +33,24 @@ Class Ssh extends Base
     $config = $this->_config;
     if (!isset($config["host"]) OR empty($config["host"])) {
       /**
-       * @see Asker\Adaptater\Exception
+       * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
-      throw new Asker_Adaptater_Exception("ERROR: Precise host !");
+      throw new Asker_Adapter_Exception("ERROR: Precise host !");
     }
     if (!isset($config["login"]) OR empty($config["login"])) {
       /**
-       * @see Asker\Adaptater\Exception
+       * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
-      throw new Asker_Adaptater_Exception("ERROR: Precise login !");
+      throw new Asker_Adapter_Exception("ERROR: Precise login !");
     }
     if (!isset($config["pass"])) {
       /**
-       * @see Asker\Adaptater\Exception
+       * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
-      throw new Asker_Adaptater_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
+      throw new Asker_Adapter_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
     }
 
     /**
@@ -59,17 +59,17 @@ Class Ssh extends Base
     $this->_connection = @ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22);
     if (!$this->_connection) {
       /**
-       * @see Asker\Adaptater\Exception
+       * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
-      throw new Asker_Adaptater_Exception("ERROR: SSH Connection to '{$config["host"]}:{$config["port"]}' failed !");
+      throw new Asker_Adapter_Exception("ERROR: SSH Connection to '{$config["host"]}:{$config["port"]}' failed !");
     }
     if (!@ssh2_auth_password($this->_connection, $config["login"], $config["pass"])) {
       /**
-       * @see Asker\Adaptater\Exception
+       * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
-      throw new Asker_Adaptater_Exception("ERROR: Authentication failed for {$config["login"]} using password !");
+      throw new Asker_Adapter_Exception("ERROR: Authentication failed for {$config["login"]} using password !");
     }
     // TODO set Host and Log
     // TODO Can Log with public key

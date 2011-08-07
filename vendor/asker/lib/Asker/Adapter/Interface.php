@@ -2,14 +2,14 @@
 /**
  *
  * Asker Extension
- * Interface for Asker Adaptater
+ * Interface for Asker Adapter
  *
  * @package Asker Extension
  * @version 1
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  **/
 
-namespace Asker\Adaptater;
+namespace Asker\Adapter;
 
 Interface Asker_Interface
 {

@@ -11,27 +11,26 @@
  * Verif CLI options
  */
 if ('cli' === php_sapi_name()) {
-  if (empty($argv[1]) OR empty($argv[2])) {
+  if (empty($_SERVER['argv'][1]) OR empty($_SERVER['argv'][2])) {
     print("Precise environment\nExample file.php -e development\n");
     exit(0);
   }
-  switch ($argv[1]) {
+  switch ($_SERVER['argv'][1]) {
     case '-e':
-      if (in_array($argv[2], array('development', 'production'))) {
-        define('APPLICATION_ENV', $argv[2]);
-        define('CLI_FILENAME', basename($argv[0]));
+      if (in_array($_SERVER['argv'][2], array('development', 'production'))) {
+        define('APPLICATION_ENV', $_SERVER['argv'][2]);
+        define('CLI_FILENAME', basename($_SERVER['argv'][0]));
       }
       else {
-        printf("Unkown environment '%s' (available: development or production).\n", $argv[1]);
+        printf("Unkown environment '%s' (available: development or production).\n", $_SERVER['argv'][1]);
         exit(0);
       }
       break;
 
     default:
-      printf("Unkown option '%s' (available commands: -e).\n", $argv[1]);
+      printf("Unkown option '%s' (available commands: -e).\n", $_SERVER['argv'][1]);
       exit(0);
   }
-  $argv = array();
 }
 else {
   die('This file must be execute in CLI mode');
@@ -73,6 +72,7 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine2-dbal/lib',
   'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
 ));
+// TODO verify if DB exist, else duplicate emptyDB
 
 $app->register(new Asker\AskerExtension());
 
