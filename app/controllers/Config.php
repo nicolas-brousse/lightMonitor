@@ -42,7 +42,7 @@ Class Config extends Base
     return $this->twig->render('config/index.twig', array(
       'active_tab' => 'form',
       'form' => array(
-        'action' => $this->_getUrl('configs.save'),
+        'action' => $this->_getUrl('configs.servers.save'),
         'protocols' => Asker::getProtocols(),
       ),
     ));
@@ -50,17 +50,21 @@ Class Config extends Base
 
   public function Save_Action()
   {
-    //var_dump($this->_getRequest()->get('form'));
+    $request = $this->_getRequest();
+
+    //var_dump($this->_getRequest()->getMethod());
+    $this->_getRequest()->getSession()->setFlash('Notice', 'Your changes were saved!');
+
     $this->db->insert('servers',
       array(
-        'ip' => '192.168.1.200',
-        'servername' => 'srv-home',
-        'protocol' => 10,
+        'ip' => $request->get('ip'),
+        'servername' => $request->get('servername'),
+        'protocol' => $request->get('protocol'),
         'created_at' => time(),
         'updated_at' => time(),
       )
     );
-    return $this->_redirector('/configs/servers');
+    return $this->_redirector('configs.servers');
   }
 
   public function Edit_Action()

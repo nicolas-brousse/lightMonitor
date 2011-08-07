@@ -38,7 +38,7 @@ Abstract Class Base
 
   protected function _helper()
   {
-    
+    // TODO autoload helpers
   }
 
   protected function _redirector($url)
@@ -46,7 +46,11 @@ Abstract Class Base
     // TODO: dynamize
     if (preg_match('#^/#', $url))
       $url = substr($url, 1);
-    return $this->app->redirect($this->app['configs']->app['app']['base_url'] . $url);
+
+    if($this->_getUrl($url))
+      return $this->app->redirect($this->_getUrl($url));
+
+    return $this->app->redirect($this->app['request']->getBaseUrl() . $url);
   }
 
   protected function _getUrl($bind, array $parameters=array())
