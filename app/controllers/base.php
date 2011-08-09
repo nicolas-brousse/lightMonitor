@@ -31,6 +31,21 @@ Abstract Class Base
     return $this->app['request'];
   }
 
+  protected function _getPost()
+  {
+    return $this->_getRequest()->request->all();
+  }
+
+  protected function _getGet()
+  {
+    return $this->_getRequest()->query->all();
+  }
+
+  protected function _getSession()
+  {
+    return $this->app['session'];
+  }
+
   protected function _halt()
   {
     throw new NotFoundHttpException();
@@ -43,14 +58,7 @@ Abstract Class Base
 
   protected function _redirector($url)
   {
-    // TODO: dynamize
-    if (preg_match('#^/#', $url))
-      $url = substr($url, 1);
-
-    if($this->_getUrl($url))
-      return $this->app->redirect($this->_getUrl($url));
-
-    return $this->app->redirect($this->app['request']->getBaseUrl() . $url);
+    return $this->app->redirect($url);
   }
 
   protected function _getUrl($bind, array $parameters=array())
