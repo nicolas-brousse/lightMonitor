@@ -60,25 +60,28 @@ Class Setting extends Base
     #if ($form->isValid($query))
 
     if (empty($query->ip)) {
-      $this->_getSession()->setFlash('error', 'Precise ip!');
+      $this->_getSession()->setFlash('error', 'Form none ok!');
+      return $this->_redirector($this->_getUrl('settings.servers.new'));
     }
+    else {
 
-    $this->_getSession()->setFlash('success', 'Your changes were saved!');
+      $this->_getSession()->setFlash('success', 'Your changes were saved!');
 
-    $this->db->delete('servers', array('id' => '0'));
-    $this->db->insert('servers',
-      array(
-        'id'          => '0',
-        'ip'          => $request->get('ip'),
-        'servername'  => $request->get('servername'),
-        'protocol'    => $request->get('protocol'),
-        'port'        => $request->get('port'),
-        'login'       => $request->get('login'),
-        'pass'        => $request->get('pass'),
-        'created_at'  => time(),
-        'updated_at'  => time(),
-      )
-    );
+      $this->db->delete('servers', array('id' => '0'));
+      $this->db->insert('servers',
+        array(
+          'id'          => '0',
+          'ip'          => $request->get('ip'),
+          'servername'  => $request->get('servername'),
+          'protocol'    => $request->get('protocol'),
+          'port'        => $request->get('port'),
+          'login'       => $request->get('login'),
+          'pass'        => $request->get('pass'),
+          'created_at'  => time(),
+          'updated_at'  => time(),
+        )
+      );
+    }
     return $this->_redirector($this->_getUrl('settings.servers'));
   }
 

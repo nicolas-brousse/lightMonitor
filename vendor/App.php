@@ -19,7 +19,7 @@ Class App
       if ($dh = opendir($path)) {
         $yamlLoader = new sfYaml();
         while (($file = readdir($dh)) !== false) {
-          if (is_file($path.$file)) {
+          if (is_file($path.$file) AND !preg_match('#^\.#', $file)) {
             if (preg_match('#base\.php#i', $file))  { require_once $path.$file; }
             else                                   { $queue[] = $file; }
           }
@@ -30,7 +30,6 @@ Class App
       foreach ($queue as $file) {
         require_once $path.$file;
       }
-      return $queue;
     }
     else {
       throw new Exception('ERROR : \''.$path.'\' missing !');
@@ -45,7 +44,7 @@ Class App
       if ($dh = opendir($path)) {
         $yamlLoader = new sfYaml();
         while (($file = readdir($dh)) !== false) {
-          if (preg_match('#.yml$#i', $file)) {
+          if (preg_match('#.yml$#i', $file) AND !preg_match('#^\.#', $file)) {
             $tmp = $yamlLoader->load($path.$file);
             if (!isset($tmp[$env])) {
               throw new Exception("ERROR: Environment '".$env."' not exist in '".$file."' file");
