@@ -9,9 +9,11 @@
 
     {{ forms.select('protocol', form.protocol, form.protocols, 'Protocol to get informations', none, none, none, none) }}
 
-    {{ forms.input('user', form.user, none, 'User', none, none, none) }}
+    {{ forms.input('port', form.port, none, 'Port', none, none, none) }}
 
-    {{ forms.input('password', form.passwd, 'password', 'Password', none, none, none) }}
+    {{ forms.input('login', form.login, none, 'User', none, none, none) }}
+
+    {{ forms.input('pass', form.pass, 'password', 'Password', none, none, none) }}
 
     {{ forms.submit() }}
 
