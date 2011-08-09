@@ -58,10 +58,13 @@ Class Config extends Base
     $this->db->insert('servers',
       array(
         'ip' => $request->get('ip'),
-        'servername' => $request->get('servername'),
-        'protocol' => $request->get('protocol'),
-        'created_at' => time(),
-        'updated_at' => time(),
+        'servername'  => $request->get('servername'),
+        'protocol'    => $request->get('protocol'),
+        'port'       => $request->get('port'),
+        'login'       => $request->get('login'),
+        'pass'       => $request->get('pass'),
+        'created_at'  => time(),
+        'updated_at'  => time(),
       )
     );
     return $this->_redirector('configs.servers');

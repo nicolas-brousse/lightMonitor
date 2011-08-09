@@ -56,6 +56,14 @@ Abstract Class Base
   protected function _getUrl($bind, array $parameters=array())
   {
     # http://silex-project.org/doc/extensions/url_generator.html
-    return $this->app['url_generator']->generate($bind, $parameters);
+    try{
+      $url = $this->app['url_generator']->generate($bind, $parameters);
+    }
+    catch (Exception $e) {
+      
+    }
+    if ($url)
+      return $url;
+    return false;
   }
 }
