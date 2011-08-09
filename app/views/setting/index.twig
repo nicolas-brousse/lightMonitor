@@ -20,11 +20,11 @@
 
   <div class="content-box-content">
     <div class="tab-content{% if (active_tab == 'listing' or active_tab is empty) %} default-tab{% endif %}" id="listing">
-      {% include "config/_listing.twig" %}
+      {% include "setting/_listing.twig" %}
     </div> <!-- End #listing -->
 
     <div class="tab-content{% if active_tab == 'form' %} default-tab{% endif %}" id="form">
-      {% include "config/_form.twig" %}
+      {% include "setting/_form.twig" %}
     </div> <!-- End #form -->
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->

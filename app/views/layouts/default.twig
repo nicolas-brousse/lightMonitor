@@ -83,14 +83,15 @@
         <p id="page-intro">{{ block('page_intro') }}</p>
       {% endif %}
 
-      {% if app.session.hasFlash('notice') %}
-          <div class="notification notice png_bg">
-            <a href="#" class="close"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
-            <div>
-              {{ app.session.flash('notice') }}
-            </div>
+
+      {% for type,flash in app.session.getFlashes() %}
+        <div class="notification {{ type|lower }} png_bg">
+          <a href="#" class="close"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+          <div>
+            {{ flash }}
           </div>
-      {% endif %}
+        </div>
+      {% endfor %}
 
       {% block content %}{% endblock %}
 

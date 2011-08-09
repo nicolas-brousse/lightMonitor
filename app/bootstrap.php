@@ -64,14 +64,6 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
 ));
 // TODO verif if DB exist, else duplicate emptyDB
 
-# @$app['request']->getBaseUrl()
-/*$app['flash_messenger'] = '<div class="notification error png_bg">
-  <a href="#" class="close"><img src="http://localhost:8000/sandbox/lightMonitor/img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
-  <div>
-    Error notification. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate, sapien quis fermentum luctus, libero.
-  </div>
-</div>';*/
-
 
 /**
  * Navigation
@@ -100,15 +92,15 @@ $app['navigation'] = array(
   array(
     'name' => 'Settings',
     'href'  => '#',
-    'bind'  => 'configs.servers',
+    'bind'  => 'settings.servers',
     'items' => array(
       array(
         'name' => 'Servers',
-        'bind' => 'configs.servers',
+        'bind' => 'settings.servers',
       ),
       array(
         'name' => 'Users',
-        'bind' => 'configs.users',
+        'bind' => 'settings.users',
       ),
     ),
   ),

@@ -25,14 +25,14 @@ $app->get('/servers/{ip}',  function () { $c = new Controller\Server(); return $
 
 
 
-$app->get('/configs/servers',         function () { $c = new Controller\Config(); return $c->Index_Action(); })->bind('configs.servers');
-$app->get('/configs/servers/new',     function () { $c = new Controller\Config(); return $c->New_Action(); })->bind('configs.servers.new');
-$app->post('/configs/servers/save',   function () { $c = new Controller\Config(); return $c->Save_Action(); })->bind('configs.servers.save');
-$app->get('/configs/edit/{ip}',       function () { $c = new Controller\Config(); return $c->Edit_Action(); })->bind('configs.servers.edit');
-$app->post('/configs/update/{ip}',    function () { $c = new Controller\Config(); return $c->Update_Action(); })->bind('configs.servers.update');
-$app->get('/configs/delete/{ip}',     function () { $c = new Controller\Config(); return $c->Delete_Action(); })->bind('configs.servers.delete');
+$app->get('/settings/servers',         function () { $c = new Controller\Setting(); return $c->Index_Action(); })->bind('settings.servers');
+$app->get('/settings/servers/new',     function () { $c = new Controller\Setting(); return $c->New_Action(); })->bind('settings.servers.new');
+$app->post('/settings/servers/save',   function () { $c = new Controller\Setting(); return $c->Save_Action(); })->bind('settings.servers.save');
+$app->get('/settings/edit/{ip}',       function () { $c = new Controller\Setting(); return $c->Edit_Action(); })->bind('settings.servers.edit');
+$app->post('/settings/update/{ip}',    function () { $c = new Controller\Setting(); return $c->Update_Action(); })->bind('settings.servers.update');
+$app->get('/settings/delete/{ip}',     function () { $c = new Controller\Setting(); return $c->Delete_Action(); })->bind('settings.servers.delete');
 
-$app->get('/configs/users',           function () { $c = new Controller\Config(); return $c->Index_Action(); })->bind('configs.users');
+$app->get('/settings/users',           function () { $c = new Controller\Setting(); return $c->Index_Action(); })->bind('settings.users');
 
 
 /** SESSION

@@ -510,13 +510,13 @@ form input[type="radio"] {
                 }
 
 
-.attention {
+.warning {
                 background: #fffbcc url('../img/icons/exclamation.png') 10px 11px no-repeat;
                 border-color: #e6db55;
                 color: #666452;
                 }
 
-.information {
+.notice {
                 background: #dbe3ff url('../img/icons/information.png');
                 border-color: #a2b4ee;
                 color: #585b66;
