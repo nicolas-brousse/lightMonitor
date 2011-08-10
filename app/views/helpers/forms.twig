@@ -39,10 +39,14 @@
 {% endmacro %}
 
 
-{% macro submit(value) %}
+{% macro submit(value, name) %}
 <p>
-  <input class="button" type="submit" value="{{ value|default("Submit") }}" />
+  <input class="button" type="submit" {{ name is defined ? 'name="'~name~'" ' : '' }}value="{{ value|default("Submit") }}" />
 </p>
+{% endmacro %}
+
+{% macro submit_inline(value, name) %}
+  <input class="button" type="submit" {{ name is defined ? 'name="'~name~'" ' : '' }}value="{{ value|default("Submit") }}" />
 {% endmacro %}
 
 

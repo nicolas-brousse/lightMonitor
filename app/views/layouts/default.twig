@@ -85,10 +85,16 @@
 
 
       {% for type,flash in app.session.getFlashes() %}
-        <div class="notification {{ type|lower }} png_bg">
+        <div class="notification {{ type|lower }} {{ type == "action_confirmation" ? 'warning' : '' }} png_bg">
           <a href="#" class="close"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
           <div>
             {{ flash }}
+            {% if type == "action_confirmation" %}
+            {% import "helpers/forms.twig" as forms %}
+            <form action="" method="post">
+              {{ forms.submit_inline('Cancel', 'cancel') }} {{ forms.submit_inline('Confirm', 'action_confirmation') }}
+            </form>
+            {% endif %}
           </div>
         </div>
       {% endfor %}
