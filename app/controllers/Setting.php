@@ -60,15 +60,21 @@ Class Setting extends Base
     #if ($form->isValid($query))
 
     if (empty($query->ip)) {
-      $this->_getSession()->setFlash('error', 'Form none ok!');
-      return $this->_redirector($this->_getUrl('settings.servers.new'));
+      $this->_getSession()->setFlash('error', 'Form none ok! '.$query['ip'].'- '.var_export($query, true));
+
+      return $this->twig->render('setting/index.twig', array(
+        'active_tab' => 'form',
+        'form' => array(
+          'action' => $this->_getUrl('settings.servers.save'),
+          'protocols' => Asker::getProtocols(),
+          
+        ) + $query,
+      ));
     }
     else {
-
-      $this->_getSession()->setFlash('success', 'Your changes were saved!');
-
       $this->db->delete('servers', array('id' => '0'));
-      $this->db->insert('servers',
+
+      $insert = $this->db->insert('servers',
         array(
           'id'          => '0',
           'ip'          => $request->get('ip'),
@@ -81,6 +87,13 @@ Class Setting extends Base
           'updated_at'  => time(),
         )
       );
+
+      if ($insert) {
+        $this->_getSession()->setFlash('success', 'Your new server is added in listing!');
+      }
+      else {
+        $this->_getSession()->setFlash('error', 'Your new server is not added! Error to insert data in db... Look <a href="https://github.com/nicolas-brousse/lightMonitor/wiki/support">support</a>');
+      }
     }
     return $this->_redirector($this->_getUrl('settings.servers'));
   }
@@ -122,11 +135,21 @@ Class Setting extends Base
     if (!$server) {
       return $this->_halt();
     }
-    else {
-      # TODO: Ask confirmation
-      $this->db->delete('servers', array('id' => $server['id']));
-      return $this->_redirector($this->_getUrl('settings.servers'));
-      #return redirect;
+
+    # TODO: Ask confirmation
+    if (!$this->_getRequest()->get('action_confirmation')) {
+      $this->_getSession()->setFlash('action_confirmation', 'Are you sure to delete this server of the listing?');
     }
+    else {
+      #$this->db->delete('servers', array('id' => $server['id']))
+      if (true) {
+        $this->_getSession()->setFlash('success', 'Server deleted of the listing!');
+      }
+      else {
+        $this->_getSession()->setFlash('error', 'The server is not deleted! Error to deleted data in db... Look <a href="https://github.com/nicolas-brousse/lightMonitor/wiki/support">support</a>');
+      }
+    }
+
+    return $this->_redirector($this->_getUrl('settings.servers'));
   }
 }
