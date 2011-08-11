@@ -30,12 +30,12 @@
 
 
 {% macro checkbox(name, value, label, id, description, notification) %}
-<label for="{{ id|default(name) }}"><input type="checkbox" name="{{ name }}" id="{{ id|default(name) }}" value="" /> {{ label|default(name|capitalize) }}{% if description is not empty %} <small>{{ description }}</small>{% endif %}</label>
+<label for="{{ id|default(name) }}"><input type="checkbox" name="{{ name }}" id="{{ id|default(name) }}" {{ value == "on" ? 'checked="checked" ' : '' }}/> {{ label|default(name|capitalize) }}{% if description is not empty %} <small>{{ description }}</small>{% endif %}</label>
 {% endmacro %}
 
 
 {% macro radio(name, value, label, id, description, notification) %}
-<label for="{{ id|default(name) }}"><input type="radio" name="{{ name }}" id="{{ id|default(name) }}" value="" /> {{ label|default(name|capitalize) }}{% if description is not empty %} <small>{{ description }}</small>{% endif %}</label>
+<label for="{{ id|default(name) }}"><input type="radio" name="{{ name }}" id="{{ id|default(name) }}" {{ value == "on" ? 'selected="selected" ' : '' }}/> {{ label|default(name|capitalize) }}{% if description is not empty %} <small>{{ description }}</small>{% endif %}</label>
 {% endmacro %}
 
 

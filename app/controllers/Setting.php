@@ -32,7 +32,7 @@ Class Setting extends Base
       'servers' => $this->_servers,
       'form' => array(
         'action' => $this->_getUrl('settings.servers.save'),
-        'protocols' => Asker::getProtocols(),
+        'protocols' => array('' => '') + Asker::getProtocols(),
       ),
     ));
   }
@@ -43,7 +43,7 @@ Class Setting extends Base
       'active_tab' => 'form',
       'form' => array(
         'action' => $this->_getUrl('settings.servers.save'),
-        'protocols' => Asker::getProtocols(),
+        'protocols' => array('' => '') + Asker::getProtocols(),
       ),
     ));
   }
@@ -66,7 +66,7 @@ Class Setting extends Base
         'active_tab' => 'form',
         'form' => array(
           'action' => $this->_getUrl('settings.servers.save'),
-          'protocols' => Asker::getProtocols(),
+          'protocols' => array('' => '') + Asker::getProtocols(),
           
         ) + $query,
       ));

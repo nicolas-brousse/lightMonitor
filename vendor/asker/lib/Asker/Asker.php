@@ -18,9 +18,9 @@ Class Asker
   Const ADAPTER_HTTP  = 30;
 
   static private $_adapters = array(
-    self::ADAPTER_SNMP  => 'SNMP',
+    //self::ADAPTER_SNMP  => 'SNMP',
     self::ADAPTER_SSH   => 'SSH',
-    self::ADAPTER_HTTP  => 'HTTP',
+    //self::ADAPTER_HTTP  => 'HTTP',
   );
 
   private $_adapter;
