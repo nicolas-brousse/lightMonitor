@@ -21,13 +21,13 @@
   <fieldset class="column-right">
     <p>
       <label>Software to monitor</label>
-      {{ forms.checkbox('ftp', 'value', 'FTP', none, '(port 21)') }}
-      {{ forms.checkbox('ssh', 'value', 'SSH', none, '(port 22)') }}
-      {{ forms.checkbox('dns', 'value', 'DNS', none, '(port 53)') }}
-      {{ forms.checkbox('http', 'value', 'HTTP', none, '(port 80)') }}
-      {{ forms.checkbox('smtp', 'value', 'SMTP', none, '(port 25)') }}
-      {{ forms.checkbox('pop', 'value', 'POP', none, '(port 110)') }}
-      {{ forms.checkbox('imap', 'value', 'IMAP', none, '(port 143)') }}
+      {{ forms.checkbox('ftp', form.ftp, 'FTP', none, '(port 21)') }}
+      {{ forms.checkbox('ssh', form.ssh, 'SSH', none, '(port 22)') }}
+      {{ forms.checkbox('dns', form.dns, 'DNS', none, '(port 53)') }}
+      {{ forms.checkbox('http', form.http, 'HTTP', none, '(port 80)') }}
+      {{ forms.checkbox('smtp', form.smtp, 'SMTP', none, '(port 25)') }}
+      {{ forms.checkbox('pop', form.pop, 'POP', none, '(port 110)') }}
+      {{ forms.checkbox('imap', form.imap, 'IMAP', none, '(port 143)') }}
     </p>
   </fieldset>
 
