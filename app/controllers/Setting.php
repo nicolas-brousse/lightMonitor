@@ -50,17 +50,15 @@ Class Setting extends Base
 
   public function Save_Action()
   {
-    $request = $this->_getRequest();
-
-    $query = $this->_getPost();
+    $request = $this->_getPost();
     //var_dump($query); exit;
 
     #$form = new Form\Setting_Server();
     #$form->set($campaign);
     #if ($form->isValid($query))
 
-    if (empty($query->ip)) {
-      $this->_getSession()->setFlash('error', 'Form none ok! '.$query['ip'].'- '.var_export($query, true));
+    if (empty($request['ip'])) {
+      $this->_getSession()->setFlash('error', 'Form none ok! '.$request['ip'].'- '.var_export($request, true));
 
       return $this->twig->render('setting/index.twig', array(
         'active_tab' => 'form',
@@ -68,27 +66,29 @@ Class Setting extends Base
           'action' => $this->_getUrl('settings.servers.save'),
           'protocols' => array('' => '') + Asker::getProtocols(),
           
-        ) + $query,
+        ) + $request,
       ));
     }
     else {
       $this->db->delete('servers', array('id' => '0'));
 
-      $insert = $this->db->insert('servers',
+      $server = $this->db->insert('servers',
         array(
           'id'          => '0',
-          'ip'          => $request->get('ip'),
-          'servername'  => $request->get('servername'),
-          'protocol'    => $request->get('protocol'),
-          'port'        => $request->get('port'),
-          'login'       => $request->get('login'),
-          'pass'        => $request->get('pass'),
+          'ip'          => $this->_getPost('ip'),
+          'servername'  => $this->_getPost('servername'),
+          'protocol'    => $this->_getPost('protocol'),
+          'port'        => $this->_getPost('port'),
+          'login'       => $this->_getPost('login'),
+          'pass'        => $this->_getPost('pass'),
           'created_at'  => time(),
           'updated_at'  => time(),
         )
       );
+      var_dump($insert); exit;
+      // $softwares = $this->db->insert('softwares', array('server_id' => $server->id, 'name' => ));
 
-      if ($insert) {
+      if ($server && $softwares) {
         $this->_getSession()->setFlash('success', 'Your new server is added in listing!');
       }
       else {
