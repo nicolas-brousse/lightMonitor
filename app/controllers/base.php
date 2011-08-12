@@ -29,14 +29,24 @@ Abstract Class Base
     return $this->app['request'];
   }
 
-  protected function _getPost()
+  protected function _getPost($string=null)
   {
-    return $this->_getRequest()->request->all();
+    if (!empty($string)) {
+      return $this->_getRequest()->request->get($string);
+    }
+    else {
+      return $this->_getRequest()->request->all();
+    }
   }
 
-  protected function _getGet()
+  protected function _getGet($string=null)
   {
-    return $this->_getRequest()->query->all();
+    if (!empty($string)) {
+      return $this->_getRequest()->query->get($string);
+    }
+    else {
+      return $this->_getRequest()->query->all();
+    }
   }
 
   protected function _getSession()
