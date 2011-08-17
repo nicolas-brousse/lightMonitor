@@ -21,7 +21,7 @@ $app->register(new RrdtoolExtension());
 
 
 # List the servers
-foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
+foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
 {
 
   /**
