@@ -26,8 +26,8 @@
         {% for software in server.softwares %}
         <tr>
           <td><img src="{{ app.request.getBaseUrl() }}/img/icons/{{ software.status == true ? 'on' : 'off' }}.png" alt="off" /></td>
-          <td>{{ software.name }}{% if software.port %} (:{{software.port}}){% endif %}</td>
-          <td>{{ software.updated_at|date("d-m-Y H:m:s") }}</td>
+          <td>{{ software.label }}{% if software.port %} (:{{software.port}}){% endif %}</td>
+          <td>{{ software.checked_at ? software.checked_at|date("d-m-Y H:m:s") : 'never checked' }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -81,10 +81,6 @@
     <h4>CPU</h4>
     <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}cpu-0.png">
 
-    <hr />
-
-    <h4>Disk space</h4>
-    <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}disk-0.png">
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
 {% endblock %}

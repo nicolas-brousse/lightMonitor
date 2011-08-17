@@ -88,7 +88,7 @@
         <div class="notification {{ type|lower }} {{ type == "action_confirmation" ? 'warning' : '' }} png_bg">
           <a href="#" class="close"><img src="{{ app.request.getBaseUrl() }}/img/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
           <div>
-            {{ flash }}
+            {{ flash|raw }}
             {% if type == "action_confirmation" %}
             {% import "helpers/forms.twig" as forms %}
             <form action="" method="post">

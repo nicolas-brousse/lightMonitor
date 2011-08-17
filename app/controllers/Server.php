@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use Asker\Asker;
+
 Class Server extends Base
 {
   public function Index_Action()
@@ -15,32 +17,14 @@ Class Server extends Base
     if ($server) {
       $server['graphics_dir'] = '/graphs/'.md5($server['ip']).'/';
       $server['last_check'] = '1309649892';
+      $server['protocol'] = Asker::getProtocols($server['protocol']);
 
-      $server['softwares'] = array(
-        array(
-          'status' => true,
-          'name'   => 'Ping',
-          'updated_at'  => '1309649892',
-        ),
-        array(
-          'status' => false,
-          'name'   => 'DNS',
-          'port'   => '53',
-          'updated_at'  => '1309649902',
-        ),
-        array(
-          'status' => false,
-          'name'   => 'SSH',
-          'port'   => '22',
-          'updated_at'  => '1309649902',
-        ),
-        array(
-          'status' => true,
-          'name'   => 'FTP',
-          'port'   => '21',
-          'updated_at'  => '1309649992',
-        ),
+      $softwares = $this->db->fetchAll(
+        "SELECT * FROM softwares WHERE server_id = ?",
+        array($server['id'])
       );
+
+      $server['softwares'] = $softwares;
 
       return $this->twig->render('server/details.twig', array('server' => $server));
     }
