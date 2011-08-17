@@ -71,4 +71,9 @@ Class Rrdtool
   {
     
   }
+
+  public function delete()
+  {
+    // TODO remove dirs
+  }
 }

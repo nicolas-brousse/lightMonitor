@@ -53,6 +53,8 @@ foreach ($app['db']->fetchAll("SELECT ip, servername FROM servers") as $server)
   $options = array("--start", "N", "--step", "60",
     "DS:mem_total:GAUGE:150:0:U",
     "DS:mem_free:GAUGE:150:0:U",
+    "DS:swap_total:GAUGE:150:0:U",
+    "DS:swap_free:GAUGE:150:0:U",
     "RRA:AVERAGE:0.5:1:1440",
     "RRA:AVERAGE:0.5:10:1008",
     "RRA:AVERAGE:0.5:60:744",
