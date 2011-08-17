@@ -70,29 +70,35 @@ Class Setting extends Base
       ));
     }
     else {
-      $this->db->delete('servers', array('id' => '0'));
+      try {
+        $server = $this->db->insert('servers',
+          array(
+            'ip'          => $this->_getPost('ip'),
+            'servername'  => $this->_getPost('servername'),
+            'protocol'    => $this->_getPost('protocol'),
+            'port'        => $this->_getPost('port'),
+            'login'       => $this->_getPost('login'),
+            'pass'        => $this->_getPost('pass'),
+            'created_at'  => time(),
+            'updated_at'  => time(),
+          )
+        );
 
-      $server = $this->db->insert('servers',
-        array(
-          'id'          => '0',
-          'ip'          => $this->_getPost('ip'),
-          'servername'  => $this->_getPost('servername'),
-          'protocol'    => $this->_getPost('protocol'),
-          'port'        => $this->_getPost('port'),
-          'login'       => $this->_getPost('login'),
-          'pass'        => $this->_getPost('pass'),
-          'created_at'  => time(),
-          'updated_at'  => time(),
-        )
-      );
-      var_dump($insert); exit;
-      // $softwares = $this->db->insert('softwares', array('server_id' => $server->id, 'name' => ));
+        $softwares = $this->db->insert('softwares', array(
+          'server_id' => $this->db->lastInsertId(),
+          'label' => 'ssh',
+          'port' => '22',
+          'created_at' => time(),
+          'updated_at' => time(),
+        ));
+      }
+      catch (\PDOException $e) {
+        $this->_getSession()->setFlash('error', 'Your new server is not added! Error to insert data in db... Look <a href="https://github.com/nicolas-brousse/lightMonitor/wiki/support">support</a>'.
+        (APPLICATION_ENV == 'development' ? '<br /><pre>' . $e->getMessage() . '</pre>' : ''));
+      }
 
       if ($server && $softwares) {
         $this->_getSession()->setFlash('success', 'Your new server is added in listing!');
-      }
-      else {
-        $this->_getSession()->setFlash('error', 'Your new server is not added! Error to insert data in db... Look <a href="https://github.com/nicolas-brousse/lightMonitor/wiki/support">support</a>');
       }
     }
     return $this->_redirector($this->_getUrl('settings.servers'));
@@ -129,26 +135,29 @@ Class Setting extends Base
   {
     $ip = $this->_getRequest()->get('ip');
     $server = $this->db->fetchAssoc(
-      "SELECT id FROM servers WHERE ip = ?",
+      "SELECT id, servername, ip FROM servers WHERE ip = ?",
       array($ip)
     );
     if (!$server) {
       return $this->_halt();
     }
 
+    /*
     # TODO: Ask confirmation
     if (!$this->_getRequest()->get('action_confirmation')) {
       $this->_getSession()->setFlash('action_confirmation', 'Are you sure to delete this server of the listing?');
     }
     else {
-      #$this->db->delete('servers', array('id' => $server['id']))
-      if (true) {
-        $this->_getSession()->setFlash('success', 'Server deleted of the listing!');
+    */
+      $delete = $this->db->delete('servers', array('id' => $server['id']));
+      // TODO Rrdtool->delete();
+      if ($delete) {
+        $this->_getSession()->setFlash('success', 'Server <em>' . $server['servername'] . '[' . $server['ip'] . ']' . '</em> deleted of the listing!');
       }
       else {
         $this->_getSession()->setFlash('error', 'The server is not deleted! Error to deleted data in db... Look <a href="https://github.com/nicolas-brousse/lightMonitor/wiki/support">support</a>');
       }
-    }
+    /*}*/
 
     return $this->_redirector($this->_getUrl('settings.servers'));
   }
