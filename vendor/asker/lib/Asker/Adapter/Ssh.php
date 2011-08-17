@@ -132,9 +132,10 @@ Class Ssh extends Base
     $return = $this->_exec('cat /proc/meminfo');
     $result = $this->_execResult($return[0]);
 
-    preg_match("#^MemTotal:\s*(\d+) kB\s*MemFree:\s*(\d+) kB#",$result,$mem); 
+    preg_match("#^MemTotal:\s*(\d+) kB\s*MemFree:\s*(\d+) kB#",$result,$mem);
+    preg_match("#^SwapTotal:\s*(\d+) kB\s*SwapFree:\s*(\d+) kB#",$result,$swap);
 
-    return array($mem[1], $mem[2]);
+    return array($mem[1], $mem[2], $swap[1], $swap[2]);
   }
 
   public function getTraffic()
