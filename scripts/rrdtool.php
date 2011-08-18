@@ -148,7 +148,7 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     #"CDEF:mem_total_limit=mem_total",
     "CDEF:mem_total_resize=mem_total,1024,*",
     "CDEF:swap_used_resize=swap_free,1024,*",
-    "AREA:mem_free#00FF00:RAM Used",
+    "AREA:mem_used#00FF00:RAM Used",
     "LINE1:mem_total_resize#FF0000:RAM Limit",
     "LINE1:swap_used_resize#666000:Swap Used\\r",
     "GPRINT:swap_used_resize:LAST:Max memory %6.2lf %So",
