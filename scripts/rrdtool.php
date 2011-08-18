@@ -151,13 +151,11 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "DEF:swap_free=".$rrd['memory']->getDbPath().":swap_free:AVERAGE",
     "CDEF:mem_used=mem_total,mem_free,-,1024,*",
     "CDEF:mem_total_resize=mem_total,1024,*",
-
+    "AREA:mem_used#00FF00:Ram Used",
+    "LINE1:mem_total_resize#000000:Ram Limit",
     "CDEF:swap_used=swap_total,swap_free,-,1024,*",
     "CDEF:swap_total_resize=swap_total,1024,*",
-    "LINE1:swap_used#000000:Swap Used",
-
-    "AREA:mem_used#00FF00:RAM Used",
-    "LINE1:mem_total_resize#FF0000:RAM Limit\\r",
+    "STACK:swap_used#FF0000:Swap Used\\r",
 
     "COMMENT:\\n",
     "GPRINT:mem_used:AVERAGE:Avg Ram used\: %6.2lf %So",
@@ -167,9 +165,9 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "COMMENT: ",
     "GPRINT:swap_used:MAX:Max Swap used\: %6.2lf %So\\r",
 
-    "GPRINT:mem_total_resize:LAST:Max memory\: %6.2lf %So",
+    "GPRINT:mem_total_resize:LAST:Ram size\: %6.2lf %So",
     "COMMENT: ",
-    "GPRINT:swap_total_resize:LAST:Max Swap\: %6.2lf %So\\r",
+    "GPRINT:swap_total_resize:LAST:Swap size\: %6.2lf %So\\r",
   );
   $rrd['memory']->generate()->setOptions($options)->execute("memory-0.png");
 
