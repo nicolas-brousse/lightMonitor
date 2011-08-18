@@ -123,16 +123,21 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "DEF:outoctets=".$rrd['traffic']->getDbPath().":output:AVERAGE",
     "CDEF:outoctets_line=outoctets,-1,*",
     "AREA:inoctets#00FF00:In traffic",
-    "LINE1:outoctets#0000FF:Out traffic\\r",
     "CDEF:inbits=inoctets,8,*",
-    "CDEF:outbits=outoctets,8,*",
-    "COMMENT:\\n",
-    "GPRINT:inbits:AVERAGE:Avg In traffic\: %6.2lf %Sbps",
+    "GPRINT:inbits:AVERAGE:Avg\:%6.2lf %Sbps",
     "COMMENT:  ",
-    "GPRINT:inbits:MAX:Max In traffic\: %6.2lf %Sbps\\r",
-    "GPRINT:outbits:AVERAGE:Avg Out traffic\: %6.2lf %Sbps",
-    "COMMENT: ",
-    "GPRINT:outbits:MAX:Max Out traffic\: %6.2lf %Sbps\\r"
+    "GPRINT:inbits:MIN:Min\:%6.2lf %Sbps",
+    "COMMENT:  ",
+    "GPRINT:inbits:MAX:Max\:%6.2lf %Sbps\\r",
+
+    "LINE1:outoctets#0000FF:Out traffic",
+    "CDEF:outbits=outoctets,8,*",
+    "GPRINT:outbits:AVERAGE:Avg\:%6.2lf %Sbps",
+    "COMMENT:  ",
+    "GPRINT:outbits:MIN:Min\:%6.2lf %Sbps",
+    "COMMENT:  ",
+    "GPRINT:outbits:MAX:Max\:%6.2lf %Sbps\\r",
+
   );
   $rrd['traffic']->generate()->setOptions($options)->execute("traffic-0.png");
 
@@ -145,14 +150,26 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "DEF:swap_total=".$rrd['memory']->getDbPath().":swap_total:AVERAGE",
     "DEF:swap_free=".$rrd['memory']->getDbPath().":swap_free:AVERAGE",
     "CDEF:mem_used=mem_total,mem_free,-,1024,*",
-    #"CDEF:mem_total_limit=mem_total",
     "CDEF:mem_total_resize=mem_total,1024,*",
-    "CDEF:swap_used_resize=swap_free,1024,*",
+
+    "CDEF:swap_used=swap_total,swap_free,-,1024,*",
+    "CDEF:swap_total_resize=swap_total,1024,*",
+    "LINE1:swap_used#000000:Swap Used",
+
     "AREA:mem_used#00FF00:RAM Used",
-    "LINE1:mem_total_resize#FF0000:RAM Limit",
-    "LINE1:swap_used_resize#666000:Swap Used\\r",
-    "GPRINT:swap_used_resize:LAST:Max memory %6.2lf %So",
-    "GPRINT:mem_total_resize:LAST:Max Swap %6.2lf %So\\r",
+    "LINE1:mem_total_resize#FF0000:RAM Limit\\r",
+
+    "COMMENT:\\n",
+    "GPRINT:mem_used:AVERAGE:Avg Ram used\: %6.2lf %So",
+    "COMMENT:  ",
+    "GPRINT:mem_used:MAX:Max Ram used\: %6.2lf %So\\r",
+    "GPRINT:swap_used:AVERAGE:Avg Swap used\: %6.2lf %So",
+    "COMMENT: ",
+    "GPRINT:swap_used:MAX:Max Swap used\: %6.2lf %So\\r",
+
+    "GPRINT:mem_total_resize:LAST:Max memory\: %6.2lf %So",
+    "COMMENT: ",
+    "GPRINT:swap_total_resize:LAST:Max Swap\: %6.2lf %So\\r",
   );
   $rrd['memory']->generate()->setOptions($options)->execute("memory-0.png");
 
@@ -160,9 +177,27 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "DEF:uptime1=".$rrd['uptime']->getDbPath().":uptime1:AVERAGE",
     "DEF:uptime5=".$rrd['uptime']->getDbPath().":uptime5:AVERAGE",
     "DEF:uptime15=".$rrd['uptime']->getDbPath().":uptime15:AVERAGE",
-    "AREA:uptime1#ffe000:uptime (1min)",
-    "AREA:uptime5#ffa000:uptime (5min)",
-    "AREA:uptime15#ff3333:uptime (15min)\\r",
+
+    "AREA:uptime1#ffe000:1min",
+    "GPRINT:uptime1:AVERAGE:Avg\: %6.2lf %S",
+    "COMMENT:  ",
+    "GPRINT:uptime1:MIN:Min\: %6.2lf %S",
+    "COMMENT:  ",
+    "GPRINT:uptime1:MAX:Max\: %6.2lf %S\\r",
+
+    "AREA:uptime5#ffa000:5min",
+    "GPRINT:uptime5:AVERAGE:Avg\: %6.2lf %S",
+    "COMMENT:  ",
+    "GPRINT:uptime5:MIN:Min\: %6.2lf %S",
+    "COMMENT:  ",
+    "GPRINT:uptime5:MAX:Max\: %6.2lf %S\\r",
+
+    "AREA:uptime15#ff3333:15min",
+    "GPRINT:uptime15:AVERAGE:Avg\: %6.2lf %S",
+    "COMMENT:  ",
+    "GPRINT:uptime15:MIN:Min\: %6.2lf %S",
+    "COMMENT:  ",
+    "GPRINT:uptime15:MAX:Max\: %6.2lf %S\\r",
   );
   $rrd['uptime']->generate()->setOptions($options)->execute("uptime-0.png");
 
