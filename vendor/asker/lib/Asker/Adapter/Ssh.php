@@ -124,7 +124,7 @@ Class Ssh extends Base
 
     preg_match("#averages?: ([0-9\.]+),[\s]+([0-9\.]+),[\s]+([0-9\.]+)#",$result,$avgs); 
 
-    return array($avgs[1], $avgs[2], $avgs[3]);
+    return array(@$avgs[1], @$avgs[2], @$avgs[3]);
   }
 
   public function getMemory()
@@ -133,19 +133,19 @@ Class Ssh extends Base
     $result = $this->_execResult($return[0]);
 
     preg_match("#^MemTotal:\s*(\d+) kB\s*MemFree:\s*(\d+) kB#",$result,$mem);
-    preg_match("#^SwapTotal:\s*(\d+) kB\s*SwapFree:\s*(\d+) kB#",$result,$swap);
+    preg_match("#SwapTotal:\s*(\d+) kB\s*SwapFree:\s*(\d+) kB#",$result,$swap);
 
-    return array($mem[1], $mem[2], $swap[1], $swap[2]);
+    return array(@$mem[1], @$mem[2], @$swap[1], @$swap[2]);
   }
 
-  public function getTraffic()
+  public function getTraffic($dev="eth0")
   {
     $return = $this->_exec('cat /proc/net/dev');
     $result = $this->_execResult($return[0]);
 
-    preg_match("#eth0:\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)#",$result,$traffic);
+    preg_match("#".$dev.":\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)#",$result,$traffic);
 
-    return array($traffic[1], $traffic[9]);
+    return array(@$traffic[1], @$traffic[9]);
   }
 
   public function getCpu()
@@ -155,6 +155,6 @@ Class Ssh extends Base
 
     preg_match("#^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)#",$result,$cpu); 
 
-    return array($cpu[1], $cpu[2], $cpu[3], $cpu[4], $cpu[5], $cpu[6], $cpu[7]);
+    return array(@$cpu[1], @$cpu[2], @$cpu[3], @$cpu[4], @$cpu[5], @$cpu[6], @$cpu[7]);
   }
 }
