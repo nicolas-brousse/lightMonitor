@@ -10,7 +10,7 @@
  Target Server Version : 3007005
  File Encoding         : utf-8
 
- Date: 08/17/2011 21:35:11 PM
+ Date: 08/18/2011 20:52:03 PM
 */
 
 PRAGMA foreign_keys = false;
@@ -28,7 +28,8 @@ CREATE TABLE "servers" (
 	 "login" text,
 	 "pass" text,
 	 "created_at" integer NOT NULL,
-	 "updated_at" integer NOT NULL
+	 "updated_at" integer NOT NULL,
+	 "checked_at" integer
 );
 
 -- ----------------------------
