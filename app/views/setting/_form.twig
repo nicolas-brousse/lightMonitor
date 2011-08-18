@@ -3,11 +3,13 @@
 <form action="{{ form.action }}" method="post">
   <fieldset class="column-left">
 
+    {{ forms.input('id', form.id, 'hidden') }}
+
     {{ forms.input('servername', form.servername, none, 'Servername', none, none, 'This information is just visual, it doesn\'t match the reverse of the server.', 'medium') }}
 
-    {{ forms.input('ip', form.ip, none, 'IP address', none, {'text': 'Invalid format (xxx.xxx.xxx.xxx)', 'type': 'error'}) }}
+    {{ forms.input('ip', form.ip, none, 'IP address', none, {'text': 'Invalid format (ex: 127.0.0.1)', 'type': 'error'}) }}
 
-    {{ forms.select('protocol', form.protocol, form.protocols, 'Protocol to get informations', none, none, none, none) }}
+    {{ forms.select('protocol', form.protocol, form.protocols, 'Protocol to get informations', none, none, none, 'medium') }}
 
     {{ forms.input('port', form.port, none, 'Port', none, none, none) }}
 

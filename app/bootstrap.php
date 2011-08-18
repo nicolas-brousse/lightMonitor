@@ -71,7 +71,7 @@ $app->register(new Silex\Extension\DoctrineExtension(), array(
 $servers = array();
 foreach ($app['db']->fetchAll("SELECT servername, ip FROM servers") as $server) {
   $servers[] = array(
-    'name' => $server['servername'],
+    'name' => $server['ip'].' - '.$server['servername'],
     'bind'  => 'servers',
     'value'  => $server['ip'],
   );
