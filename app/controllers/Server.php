@@ -16,7 +16,6 @@ Class Server extends Base
 
     if ($server) {
       $server['graphics_dir'] = '/graphs/'.md5($server['ip']).'/';
-      $server['last_check'] = '1309649892';
       $server['protocol'] = Asker::getProtocols($server['protocol']);
 
       $softwares = $this->db->fetchAll(
@@ -28,13 +27,7 @@ Class Server extends Base
 
       return $this->twig->render('server/details.twig', array('server' => $server));
     }
-    else {
-      # $this->monolog->addDebug(var_export($this->app->redirect('/hello'), true));
-      # var_dump( $this->app->redirect('/hello')); exit;
-      # get_class_methods($this->app); exit; 
-      return $this->_halt();
-      # return "Erreur à faire !";#$this->app->redirector('/home');
-      # http://silex-project.org/doc/services.html#core-services
-    }
+
+    return $this->_halt();
   }
 }

@@ -121,7 +121,12 @@ Class Setting extends Base
     return $this->twig->render('setting/index.twig', array(
       'form' => $server + array(
         'action' => $this->_getUrl('settings.servers.update', array('ip' => $ip)),
+<<<<<<< HEAD
         'protocols' => Asker::getProtocols(),
+=======
+        'protocols' => array('' => '') + Asker::getProtocols(),
+        'id' => $server['id'],
+>>>>>>> dev
       ),
       'active_tab' => 'form'
     ));
@@ -129,9 +134,60 @@ Class Setting extends Base
 
   public function Update_Action()
   {
+<<<<<<< HEAD
     var_dump($this->_getRequest()->get('form')); exit;
     $conn->update('servers', array('ip' => 'ip'), array('id' => $id));
     return $this->twig->render('setting/index.twig', array('servers' => $this->_servers, 'active_tab' => 'form'));
+=======
+    $request = $this->_getPost();
+    //var_dump($query); exit;
+
+    #$form = new Form\Setting_Server();
+    #$form->set($campaign);
+    #if ($form->isValid($query))
+
+    // TODO Verif server ping and connect with Asker and protocol choosed Before Add server
+    // TODO Setup Rrdtool and generate empty graphs ?
+
+    if (empty($request['ip'])) {
+      $this->_getSession()->setFlash('error', 'Form none ok! '.$request['ip'].'- '.var_export($request, true));
+
+      return $this->twig->render('setting/index.twig', array(
+        'active_tab' => 'form',
+        'form' => array(
+          'action' => $this->_getUrl('settings.servers.edit', array('ip' => $ip)),
+          'protocols' => array('' => '') + Asker::getProtocols(),
+          
+        ) + $request,
+      ));
+    }
+    else {
+      try {
+        $server = $this->db->update('servers',
+          array(
+            'ip'          => $this->_getPost('ip'),
+            'servername'  => $this->_getPost('servername'),
+            'protocol'    => $this->_getPost('protocol'),
+            'port'        => $this->_getPost('port'),
+            'login'       => $this->_getPost('login'),
+            'pass'        => $this->_getPost('pass'),
+            'created_at'  => time(),
+            'updated_at'  => time(),
+          ),
+          array('id' => $this->_getPost('id'))
+        );
+      }
+      catch (\PDOException $e) {
+        $this->_getSession()->setFlash('error', 'Your new server is not added! Error to insert data in db... Look <a href="https://github.com/nicolas-brousse/lightMonitor/wiki/support">support</a>'.
+        (APPLICATION_ENV == 'development' ? '<br /><pre>' . $e->getMessage() . '</pre>' : ''));
+      }
+
+      if ($server) {
+        $this->_getSession()->setFlash('success', 'Server updated!');
+      }
+    }
+    return $this->_redirector($this->_getUrl('settings.servers'));
+>>>>>>> dev
   }
 
   public function Delete_Action()
