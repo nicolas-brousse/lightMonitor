@@ -40,7 +40,7 @@ Abstract Class Base implements Asker_Interface
 
   }
 
-  public function getTraffic()
+  public function getTraffic($dev="eth0")
   {
 
   }

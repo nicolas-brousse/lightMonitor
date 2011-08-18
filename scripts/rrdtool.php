@@ -142,12 +142,17 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "--lower-limit", "0", "-r",
     "DEF:mem_total=".$rrd['memory']->getDbPath().":mem_total:AVERAGE",
     "DEF:mem_free=".$rrd['memory']->getDbPath().":mem_free:AVERAGE",
+    "DEF:swap_total=".$rrd['memory']->getDbPath().":swap_total:AVERAGE",
+    "DEF:swap_free=".$rrd['memory']->getDbPath().":swap_free:AVERAGE",
     "CDEF:mem_used=mem_total,mem_free,-,1024,*",
     #"CDEF:mem_total_limit=mem_total",
     "CDEF:mem_total_resize=mem_total,1024,*",
-    "AREA:mem_used#00FF00:Used",
-    "LINE1:mem_total_resize#FF0000:Limit\:",
-    "GPRINT:mem_total_resize:LAST:%6.2lf %So\\r",
+    "CDEF:swap_used_resize=swap_free,1024,*",
+    "AREA:mem_free#00FF00:RAM Used",
+    "LINE1:mem_total_resize#FF0000:RAM Limit",
+    "LINE1:swap_used_resize#666000:Swap Used\\r",
+    "GPRINT:swap_used_resize:LAST:Max memory %6.2lf %So",
+    "GPRINT:mem_total_resize:LAST:Max Swap %6.2lf %So\\r",
   );
   $rrd['memory']->generate()->setOptions($options)->execute("memory-0.png");
 
