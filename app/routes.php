@@ -86,15 +86,17 @@ $app->get('/favicon.{ext}', function($ext) use ($app) {
 
 $app->error(function(\Exception $e) use ($app) {
     if ($e instanceof NotFoundHttpException) {
-        $content = vsprintf('<h1>Error %d</h1> <p>%s (%s)</p>', array(
-           $e->getStatusCode(),
-           Response::$statusTexts[$e->getStatusCode()],
-           $app['request']->getRequestUri()
-        ));
-        return new Response($content, $e->getStatusCode());
+        $content = array(
+          'title' => '404 Not Found',
+          'message' => '<h1>Error '.$e->getStatusCode().'</h1> <p>'.Response::$statusTexts[$e->getStatusCode()].' ('.$app['request']->getRequestUri().')</p>',
+        );
     }
- 
-    if ($e instanceof HttpException) {
-        return new Response('<h1>You should go eat some cookies while we\'re fixing this feature!</h1>', $e->getStatusCode());
+    else if ($e instanceof HttpException) {
+      $content = array(
+        'title' => 'ERROR',
+        'message' => '<h1>You should go eat some cookies while we\'re fixing this feature!</h1>',
+      );
     }
+
+    return new Response($app['twig']->render('error.twig', $content), $e->getStatusCode());
 });

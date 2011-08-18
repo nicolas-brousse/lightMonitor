@@ -1,6 +1,7 @@
 production:
   app:
     base_url: "/"
+    passphrase: ""
   rrdtool:
     img_path: "graphs/"
   monitor:
@@ -9,6 +10,7 @@ production:
 development:
   app:
     base_url: "/base_url"
+    passphrase: ""
   rrdtool:
     img_path: "graphs/"
   monitor:
