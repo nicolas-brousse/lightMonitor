@@ -50,7 +50,7 @@ Class Ssh extends Base
        * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
-      throw new Asker_Adapter_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
+      throw new Asker_Adapter_Exception("ERROR: Precise password !");
     }
 
     /**
@@ -71,8 +71,6 @@ Class Ssh extends Base
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: Authentication failed for {$config["login"]} using password !");
     }
-    // TODO set Host and Log
-    // TODO Can Log with public key
   }
 
   public function __destruct()
@@ -92,12 +90,12 @@ Class Ssh extends Base
 
   private function _exec($cmd)
   {
-    $stdout_stream=@ssh2_exec($this->_connection, $cmd);
+    $stdout_stream = @ssh2_exec($this->_connection, $cmd);
     if(!$stdout_stream) {
       return false;
     }
 
-    $stderr_stream=@ssh2_fetch_stream($stdout_stream, SSH2_STREAM_STDERR);
+    $stderr_stream = @ssh2_fetch_stream($stdout_stream, SSH2_STREAM_STDERR);
     if(!$stderr_stream) {
       return false;
     }
@@ -115,6 +113,12 @@ Class Ssh extends Base
   private function _execResult($stream)
   {
     return utf8_encode(stream_get_contents($stream));
+  }
+
+
+  public function checkDeamon($string)
+  {
+    // Return true if $string exists in ps aux command
   }
 
   public function getUptime()

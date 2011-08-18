@@ -23,30 +23,12 @@ Abstract Class Base implements Asker_Interface
     $this->init();
   }
 
-  /*final public function setHost($host, $port)
-  {
-    $this->_host = $host;
-    $this->_port = $port;
-    return $this;
-  }*/
 
-  public function getUptime()
-  {
+  public function getUptime()               { return; }
 
-  }
+  public function getMemory()               { return; }
 
-  public function getMemory()
-  {
+  public function getTraffic($dev="eth0")   { return; }
 
-  }
-
-  public function getTraffic($dev="eth0")
-  {
-
-  }
-
-  public function getCpu()
-  {
-
-  }
+  public function getCpu()                  { return; }
 }

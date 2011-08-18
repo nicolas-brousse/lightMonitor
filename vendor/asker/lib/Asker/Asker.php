@@ -16,11 +16,13 @@ Class Asker
   Const ADAPTER_SNMP  = 10;
   Const ADAPTER_SSH   = 20;
   Const ADAPTER_HTTP  = 30;
+  Const ADAPTER_SSH_PUBKEY   = 40;
 
   static private $_adapters = array(
     //self::ADAPTER_SNMP  => 'SNMP',
-    self::ADAPTER_SSH   => 'SSH',
+    self::ADAPTER_SSH   => 'SSH - Password',
     //self::ADAPTER_HTTP  => 'HTTP',
+    self::ADAPTER_SSH_PUBKEY => 'SSH - Pubkey',
   );
 
   private $_adapter;
@@ -62,19 +64,23 @@ Class Asker
      * Pass the config to the adapter.
      */
     switch ($adapter) {
-  
+
         case self::ADAPTER_SNMP:
           $askerAdapter = new Adapter\Snmp($config);
           break;
-  
+
         case self::ADAPTER_SSH:
           $askerAdapter = new Adapter\Ssh($config);
           break;
-  
+
+        case self::ADAPTER_SSH_PUBKEY:
+          $askerAdapter = new Adapter\SshPubkey($config);
+          break;
+
         case self::ADAPTER_HTTP:
           $askerAdapter = new Adapter\Http($config);
           break;
-  
+
         default:
           /**
            * @see Asker\Adapter\Exception
