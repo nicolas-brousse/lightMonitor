@@ -57,6 +57,9 @@ Class Setting extends Base
     #$form->set($campaign);
     #if ($form->isValid($query))
 
+    // TODO Verif server ping and connect with Asker and protocol choosed Before Add server
+    // TODO Setup Rrdtool and generate empty graphs ?
+
     if (empty($request['ip'])) {
       $this->_getSession()->setFlash('error', 'Form none ok! '.$request['ip'].'- '.var_export($request, true));
 

@@ -181,45 +181,4 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "STACK:cpu_idle#FFFFFF:Idle\\r",
   );
   $rrd['cpu']->generate()->setOptions($options)->execute("cpu-0.png");
-  //$rrd['traffic']->generate()->setOptions($options)->execute("disk-0.png");
 }
-
-
-/* Other DB
-
-Uptime
-rrdtool create uptime.rrd
---start N --step 60
-DS:uptime1:GAUGE:600:0:90
-DS:uptime5:GAUGE:600:0:90
-DS:uptime15:GAUGE:600:0:90
-RRA:MIN:0.5:12:1440
-RRA:MAX:0.5:12:1440
-RRA:AVERAGE:0.5:1:1440
-
-Memory
-rrdtool create mem.rrd \
---start N
---step 60
-DS:mem_total:GAUGE:150:0:U
-DS:mem_free:GAUGE:150:0:U
-RRA:AVERAGE:0.5:1:1440
-RRA:AVERAGE:0.5:10:1008
-RRA:AVERAGE:0.5:60:744
-
-CPU 
-rrdtool create cpu.rrd
---start N
---step 60
-DS:cpu_user:COUNTER:150:0:100
-DS:cpu_nice:COUNTER:150:0:100
-DS:cpu_system:COUNTER:150:0:100
-DS:cpu_idle:COUNTER:150:0:100
-DS:cpu_iowait:COUNTER:150:0:100
-DS:cpu_irq:COUNTER:150:0:100
-DS:cpu_softirq:COUNTER:150:0:100
-RRA:AVERAGE:0.5:1:1440
-RRA:AVERAGE:0.5:10:1008
-RRA:AVERAGE:0.5:60:744
-
-*/
