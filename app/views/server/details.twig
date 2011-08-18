@@ -57,30 +57,48 @@
 
 <div class="content-box"><!-- Start Content Box -->
   <div class="content-box-header">
-    <h3>Grahpics</h3>
+    <h3>Traffic</h3>
     <div class="clear"></div>
   </div> <!-- End .content-box-header -->
 
   <div class="content-box-content">
-    <h4>Traffic</h4>
     <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}traffic-0.png" alt="">
-    {# TODO Use configs for graphics Path AND apply md5 to ip for know the server graphics dir #}
+  </div> <!-- End .content-box-content -->
+</div> <!-- End .content-box -->
 
-    <hr />
 
-    <h4>Memory</h4>
+<div class="content-box"><!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3>Memory</h3>
+    <div class="clear"></div>
+  </div> <!-- End .content-box-header -->
+
+  <div class="content-box-content">
     <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}memory-0.png">
+  </div> <!-- End .content-box-content -->
+</div> <!-- End .content-box -->
 
-    <hr />
 
-    <h4>Load averages</h4>
+<div class="content-box"><!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3>Load average</h3>
+    <div class="clear"></div>
+  </div> <!-- End .content-box-header -->
+
+  <div class="content-box-content">
     <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}uptime-0.png">
+  </div> <!-- End .content-box-content -->
+</div> <!-- End .content-box -->
 
-    <hr />
 
-    <h4>CPU</h4>
+<div class="content-box"><!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3>CPU</h3>
+    <div class="clear"></div>
+  </div> <!-- End .content-box-header -->
+
+  <div class="content-box-content">
     <img src="{{ app.request.getBaseUrl() }}{{ server.graphics_dir }}cpu-0.png">
-
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->
 {% endblock %}
