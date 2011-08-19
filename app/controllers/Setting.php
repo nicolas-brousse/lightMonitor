@@ -119,6 +119,7 @@ Class Setting extends Base
       return $this->_halt();
     }
 
+    unset($server['pass']);
     return $this->twig->render('setting/index.twig', array(
       'form' => $server + array(
         'action' => $this->_getUrl('settings.servers.update', array('ip' => $ip)),
