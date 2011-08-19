@@ -63,6 +63,7 @@ Class Setting extends Base
     if (empty($request['ip'])) {
       $this->_getSession()->setFlash('error', 'Form none ok! '.$request['ip'].'- '.var_export($request, true));
 
+      unset($request['pass']);
       return $this->twig->render('setting/index.twig', array(
         'active_tab' => 'form',
         'form' => array(
@@ -143,6 +144,7 @@ Class Setting extends Base
     if (empty($request['ip'])) {
       $this->_getSession()->setFlash('error', 'Form none ok! '.$request['ip'].'- '.var_export($request, true));
 
+      unset($request['pass']);
       return $this->twig->render('setting/index.twig', array(
         'active_tab' => 'form',
         'form' => array(
@@ -162,7 +164,6 @@ Class Setting extends Base
             'port'        => $this->_getPost('port'),
             'login'       => $this->_getPost('login'),
             'pass'        => $this->_getPost('pass'),
-            'created_at'  => time(),
             'updated_at'  => time(),
           ),
           array('id' => $this->_getPost('id'))

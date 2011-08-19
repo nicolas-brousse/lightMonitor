@@ -29,6 +29,7 @@ Class Asker
 
   final public static function getProtocols($adapter=null)
   {
+    // TODO: Just sent the list of Protocols where php5-extension are active, and can run
     if (!is_null($adapter) AND array_key_exists($adapter, self::$_adapters)) {
       return self::$_adapters[$adapter];
     }

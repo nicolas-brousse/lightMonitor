@@ -27,7 +27,7 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   /**
    * Intanciate
    */
-  $rrd['traffic'] = new Rrdtool($server['ip'], 'traffic.rrd');
+  $rrd['traffic'] = new Rrdtool($server['ip'], 'traffic.rrd'); // TODO, multi interfaces
   $rrd['memory']  = new Rrdtool($server['ip'], 'memory.rrd');
   $rrd['uptime']  = new Rrdtool($server['ip'], 'uptime.rrd');
   $rrd['cpu']     = new Rrdtool($server['ip'], 'cpu.rrd');
@@ -200,6 +200,7 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   $rrd['uptime']->generate()->setOptions($options)->execute("uptime-0.png");
 
   $options = array("--start", "-1d", "--title", "CPU of ".$server['servername']." (average of 5min)", "--vertical-label=%", "--width", "500", "--height", "200", "-l", "0",
+    #"--lower-limit", "100",
     "DEF:cpu_user=".$rrd['cpu']->getDbPath().":cpu_user:AVERAGE",
     "DEF:cpu_nice=".$rrd['cpu']->getDbPath().":cpu_nice:AVERAGE",
     "DEF:cpu_system=".$rrd['cpu']->getDbPath().":cpu_system:AVERAGE",
