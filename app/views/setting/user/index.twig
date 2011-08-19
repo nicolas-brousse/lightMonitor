@@ -1,7 +1,7 @@
 {% extends "layouts/default.twig" %}
 
-{% block title %}Settings > Servers{% endblock %}
-{% block page_intro %}Configure servers to monitor{% endblock %}
+{% block title %}Settings > User{% endblock %}
+{% block page_intro %}Configure user to monitor{% endblock %}
 
 {% block content %}
 <div class="clear"></div> <!-- End .clear -->
@@ -20,11 +20,11 @@
 
   <div class="content-box-content">
     <div class="tab-content{% if (active_tab == 'listing' or active_tab is empty) %} default-tab{% endif %}" id="listing">
-      {% include "setting/_listing.twig" %}
+      {# include "setting/user/_listing.twig" #}
     </div> <!-- End #listing -->
 
     <div class="tab-content{% if active_tab == 'form' %} default-tab{% endif %}" id="form">
-      {% include "setting/_form.twig" %}
+      {# include "setting/user/_form.twig" #}
     </div> <!-- End #form -->
   </div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->

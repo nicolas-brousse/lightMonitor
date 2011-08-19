@@ -1,0 +1,37 @@
+{% import "helpers/forms.twig" as forms %}
+
+<form action="{{ form.action }}" method="post">
+  <fieldset class="column-left">
+
+    {{ forms.hidden('id', form.id) }}
+
+    {{ forms.input('servername', form.servername, none, 'Servername', none, none, 'This information is just visual, it doesn\'t match the reverse of the server.', 'medium') }}
+
+    {{ forms.input('ip', form.ip, none, 'IP address', none, {'text': 'Invalid format (ex: 127.0.0.1)', 'type': 'error'}) }}
+
+    {{ forms.select('protocol', form.protocol, form.protocols, 'Protocol to get informations', none, none, none, 'medium') }}
+
+    {{ forms.input('port', form.port, none, 'Port', none, none, none) }}
+
+    {{ forms.input('login', form.login, none, 'User', none, none, none) }}
+
+    {{ forms.input('pass', form.pass, 'password', 'Password', none, none, none) }}
+
+    {{ forms.submit() }}
+
+  </fieldset>
+  <fieldset class="column-right">
+    <p>
+      <label>Software to monitor</label>
+      {{ forms.checkbox('software[ftp]', form.software.ftp, 'FTP', none, '(port 21)') }}
+      {{ forms.checkbox('software[ssh]', form.software.ssh, 'SSH', none, '(port 22)') }}
+      {{ forms.checkbox('software[dns]', form.software.dns, 'DNS', none, '(port 53)') }}
+      {{ forms.checkbox('software[http]', form.software.http, 'HTTP', none, '(port 80)') }}
+      {{ forms.checkbox('software[smtp]', form.software.smtp, 'SMTP', none, '(port 25)') }}
+      {{ forms.checkbox('software[pop]', form.software.pop, 'POP', none, '(port 110)') }}
+      {{ forms.checkbox('software[imap]', form.software.imap, 'IMAP', none, '(port 143)') }}
+    </p>
+  </fieldset>
+
+  <div class="clear"></div><!-- End .clear -->
+</form>

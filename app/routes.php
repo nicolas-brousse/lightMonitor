@@ -25,14 +25,14 @@ $app->get('/servers/{ip}',  function () { $c = new Controller\Server(); return $
 
 
 
-$app->get('/settings/servers',         function () { $c = new Controller\Setting(); return $c->Index_Action(); })->bind('settings.servers');
-$app->get('/settings/servers/new',     function () { $c = new Controller\Setting(); return $c->New_Action(); })->bind('settings.servers.new');
-$app->post('/settings/servers/save',   function () { $c = new Controller\Setting(); return $c->Save_Action(); })->bind('settings.servers.save');
-$app->get('/settings/edit/{ip}',       function () { $c = new Controller\Setting(); return $c->Edit_Action(); })->bind('settings.servers.edit');
-$app->post('/settings/update/{ip}',    function () { $c = new Controller\Setting(); return $c->Update_Action(); })->bind('settings.servers.update');
-$app->get('/settings/delete/{ip}',     function () { $c = new Controller\Setting(); return $c->Delete_Action(); })->bind('settings.servers.delete');
+$app->get('/settings/servers',         function () { $c = new Controller\Setting\Server(); return $c->Index_Action(); })->bind('settings.servers');
+$app->get('/settings/servers/new',     function () { $c = new Controller\Setting\Server(); return $c->New_Action(); })->bind('settings.servers.new');
+$app->post('/settings/servers/save',   function () { $c = new Controller\Setting\Server(); return $c->Save_Action(); })->bind('settings.servers.save');
+$app->get('/settings/edit/{ip}',       function () { $c = new Controller\Setting\Server(); return $c->Edit_Action(); })->bind('settings.servers.edit');
+$app->post('/settings/update/{ip}',    function () { $c = new Controller\Setting\Server(); return $c->Update_Action(); })->bind('settings.servers.update');
+$app->get('/settings/delete/{ip}',     function () { $c = new Controller\Setting\Server(); return $c->Delete_Action(); })->bind('settings.servers.delete');
 
-$app->get('/settings/users',           function () { $c = new Controller\Setting(); return $c->Index_Action(); })->bind('settings.users');
+$app->get('/settings/users',           function () { $c = new Controller\Setting\User(); return $c->Index_Action(); })->bind('settings.users');
 
 
 /** SESSION
@@ -88,7 +88,7 @@ $app->error(function(\Exception $e) use ($app) {
     if ($e instanceof NotFoundHttpException) {
         $content = array(
           'title' => '404 Not Found',
-          'message' => '<h1>Error '.$e->getStatusCode().'</h1> <p>'.Response::$statusTexts[$e->getStatusCode()].' ('.$app['request']->getRequestUri().')</p>',
+          'message' => '<h1>Error '.$e->getStatusCode().'</h1> <pre>'.Response::$statusTexts[$e->getStatusCode()].' ('.$app['request']->getRequestUri().')</pre>',
         );
     }
     else if ($e instanceof HttpException) {
@@ -97,6 +97,9 @@ $app->error(function(\Exception $e) use ($app) {
         'message' => '<h1>You should go eat some cookies while we\'re fixing this feature!</h1>',
       );
     }
+    else {
+      return new Response("<h1>FATAL ERROR</h1><pre>".var_export($e, true)."</pre>", 500);
+    }
 
-    return new Response($app['twig']->render('error.twig', $content), $e->getStatusCode());
+    return new Response($app['twig']->render('error.twig', $content), $e instanceof \Exception ? $e->getStatusCode() : null);
 });

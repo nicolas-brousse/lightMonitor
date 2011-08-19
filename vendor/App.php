@@ -23,6 +23,7 @@ Class App
             if (preg_match('#base\.php#i', $file))  { require_once $path.$file; }
             else                                   { $queue[] = $file; }
           }
+          else if (is_dir($path.$file) AND $file != '.' AND $file != '..') { self::autoload($path.$file.'/'); }
         }
         closedir($dh);
       }
