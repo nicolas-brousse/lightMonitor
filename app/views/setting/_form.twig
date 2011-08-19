@@ -3,7 +3,7 @@
 <form action="{{ form.action }}" method="post">
   <fieldset class="column-left">
 
-    {{ forms.input('id', form.id, 'hidden') }}
+    {{ forms.hidden('id', form.id) }}
 
     {{ forms.input('servername', form.servername, none, 'Servername', none, none, 'This information is just visual, it doesn\'t match the reverse of the server.', 'medium') }}
 

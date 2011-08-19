@@ -1,9 +1,7 @@
 {% macro input(name, value, type, label, id, notification, description, class, size) %}
-{% if type != 'hidden' %}<p>
+<p>
   <label for="{{ id|default(name) }}">{{ label|default(name|capitalize) }}</label>
-{% endif %}
   <input class="text-input {{ class|default('small') }}-input" type="{{ type|default('text') }}" id="{{ id|default(name) }}" name="{{ name }}" value="{{ value|e }}" size="{{ size|default(20) }}" />
-{% if type != 'hidden' %}
     {% if notification is not empty %}
   <span class="input-notification png_bg {{ notification.type|default('success') }}">{{ notification.text|e }}</span>
     {% endif %}
@@ -11,7 +9,10 @@
   <br /><small>{{ description|e }}</small>
     {% endif %}
 </p>
-{% endif %}
+{% endmacro %}
+
+{% macro hidden(name, value, id, class) %}
+  <input class="{{ class }}" type="hidden" id="{{ id|default(name) }}" name="{{ name }}" value="{{ value|e }}" />
 {% endmacro %}
 
 
