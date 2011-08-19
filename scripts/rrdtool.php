@@ -152,10 +152,10 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "CDEF:mem_used=mem_total,mem_free,-,1024,*",
     "CDEF:mem_total_resize=mem_total,1024,*",
     "AREA:mem_used#00FF00:Ram Used",
-    "LINE1:mem_total_resize#000000:Ram Limit",
     "CDEF:swap_used=swap_total,swap_free,-,1024,*",
     "CDEF:swap_total_resize=swap_total,1024,*",
-    "STACK:swap_used#FF0000:Swap Used\\r",
+    "STACK:swap_used#FF0000:Swap Used",
+    "LINE1:mem_total_resize#000000:Ram Limit\\r",
 
     "COMMENT:\\n",
     "GPRINT:mem_used:AVERAGE:Avg Ram used\: %6.2lf %So",
