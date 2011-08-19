@@ -145,8 +145,8 @@ a.remove-link:hover   { color: #000; }
   text-align: right;
 }
 
-#sidebar #main-nav li a.nav-top-item {
-  background: #464646 url('../img/icons/closed.png') center right no-repeat;
+#sidebar #main-nav li a.nav-top-item, #sidebar #main-nav li a.close {
+  background: #464646 url('../img/icons/closed.png') 230px 50% no-repeat;
   padding: 10px 44px;
   color: #57CADD;
   font-size: 14px;
@@ -158,8 +158,8 @@ a.remove-link:hover   { color: #000; }
   border-bottom: 1px solid #5e5e5e;
 }
 
-#sidebar #main-nav li a.current {
-  background: #55CADB url('../img/icons/closed.png') center right no-repeat;
+#sidebar #main-nav li a.current, #sidebar #main-nav li a.open {
+  background: #55CADB url('../img/icons/opened.png') 230px 50% no-repeat;
   color: #fff;
 }
 
