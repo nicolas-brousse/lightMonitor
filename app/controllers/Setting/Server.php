@@ -81,6 +81,7 @@ Class Server extends Base
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
+            'params'      => serialize($this->_getPost('params')),
             'created_at'  => time(),
             'updated_at'  => time(),
           )
@@ -117,7 +118,9 @@ Class Server extends Base
       return $this->_halt();
     }
 
-    unset($server['pass']);
+    $server['params'] = unserialize($server['params']);
+    unset($server['params']['pass']);
+
     return $this->twig->render('setting/server/index.twig', array(
       'form' => $server + array(
         'action' => $this->_getUrl('settings.servers.update', array('ip' => $ip)),
@@ -160,6 +163,7 @@ Class Server extends Base
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
+            'params'      => serialize($this->_getPost('params')),
             'updated_at'  => time(),
           ),
           array('id' => $this->_getPost('id'))

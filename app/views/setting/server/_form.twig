@@ -11,11 +11,21 @@
 
     {{ forms.select('protocol', form.protocol, form.protocols, 'Protocol to get informations', none, none, none, 'medium') }}
 
-    {{ forms.input('port', form.port, none, 'Port', none, none, none) }}
+    {{ forms.input('params[port]', form.params.port, none, 'Port', none, none, none) }}
 
-    {{ forms.input('login', form.login, none, 'User', none, none, none) }}
+    <p><strong>SSH pass auth</strong></p>
+    {{ forms.input('params[login]', form.params.login, none, 'User', none, none, none) }}
 
-    {{ forms.input('pass', form.pass, 'password', 'Password', none, none, none) }}
+    {{ forms.input('params[pass]', form.params.pass, 'password', 'Password', none, none, none) }}
+
+    <p><strong>SSH pubkey</strong></p>
+    {{ forms.input('params[login]', form.params.login, none, 'User', none, none, none) }}
+    
+    {{ forms.textarea('params[pubkey]', form.params.pubkey, 'PubKey', none, none, none, none, 2) }}
+
+    {{ forms.textarea('params[privkey]', form.params.privkey, 'PrivKey', none, none, none, none, 2) }}
+
+    {{ forms.input('params[passphrase]', form.params.passphrase, 'password', 'Passphrase', none, none, none) }}
 
     {{ forms.submit() }}
 

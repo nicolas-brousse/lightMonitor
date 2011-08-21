@@ -8,7 +8,7 @@ $(document).ready(function(){
   // Facebox
   $('a[rel*=modal]').facebox();
   // Wysiwyg
-  $(".wysiwyg").wysiwyg();
+  //$(".wysiwyg").wysiwyg();
 
 
 
@@ -31,16 +31,16 @@ $(document).ready(function(){
   $("#main-nav li a.nav-top-item").click(
     function () {
       $(this).parent().siblings().find("ul").slideUp("normal");
-      //$(this).parent().find('a.nav-top-item').removeClass('current').removeClass('open').addClass('close');
+      //$("#main-nav li a.nav-top-item").removeClass('current').removeClass('open').addClass('close');
       $(this).next().slideToggle("normal", function() {
-        $link = $(this).prev();
+        /*$link = $(this).parent().find('a.nav-top-item');
         $link.removeClass('current');
-        if ($link.find('ul').is(':hidden')) {
+        if ($link.parent().find('ul').is(':hidden')) {
           $link.removeClass('open').addClass('close');
         }
         else {
           $link.removeClass('close').addClass('open');
-        }
+        }*/
       });
       return false;
     }
