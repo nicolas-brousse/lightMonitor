@@ -23,6 +23,12 @@ Abstract Class Base implements Asker_Interface
     $this->init();
   }
 
+  final public function getParamsStructure()
+  {
+    return $this->_paramsStructure;
+  }
+
+  protected $_paramsStructure = array();
 
   public function getUptime()               { return; }
 

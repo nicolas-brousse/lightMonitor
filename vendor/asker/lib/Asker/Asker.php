@@ -36,12 +36,29 @@ Class Asker
     return self::$_adapters;
   }
 
-  public static function factory($adapter, $config=array())
+  public static function factory($adapter, $host=null, $params)
   {
-    /*
+    /**
      * Verify that adapter parameters are in an array.
      */
-    if (!is_array($config)) {
+    if (empty($host)) {
+        /**
+         * @see Asker\Exception
+         */
+        require_once 'Exception.php';
+        throw new Asker_Exception('You must be precize an host');
+    }
+
+    /**
+     * Apply adapter config
+     */
+    $params = unserialize($params);
+    $params['host'] = $host;
+
+    /**
+     * Verify that adapter parameters are in an array.
+     */
+    if (!is_array($params)) {
         /**
          * @see Asker\Exception
          */
@@ -49,7 +66,7 @@ Class Asker
         throw new Asker_Exception('Adapter parameters must be in an array');
     }
 
-    /*
+    /**
      * Verify that an adapter name has been specified.
      */
     if (empty($adapter)) {
@@ -60,26 +77,26 @@ Class Asker
         throw new Asker_Exception('Adapter name must be specified');
     }
 
-    /*
+    /**
      * Create an instance of the adapter ask.
      * Pass the config to the adapter.
      */
     switch ($adapter) {
 
         case self::ADAPTER_SNMP:
-          $askerAdapter = new Adapter\Snmp($config);
+          $askerAdapter = new Adapter\Snmp($params);
           break;
 
         case self::ADAPTER_SSH:
-          $askerAdapter = new Adapter\Ssh($config);
+          $askerAdapter = new Adapter\Ssh($params);
           break;
 
         case self::ADAPTER_SSH_PUBKEY:
-          $askerAdapter = new Adapter\SshPubkey($config);
+          $askerAdapter = new Adapter\SshPubkey($params);
           break;
 
         case self::ADAPTER_HTTP:
-          $askerAdapter = new Adapter\Http($config);
+          $askerAdapter = new Adapter\Http($params);
           break;
 
         default:
@@ -90,7 +107,7 @@ Class Asker
           throw new Asker_Adapter_Exception("ERROR: Adapter not exist !");
       }
 
-    /*
+    /**
      * Verify that the object created is a descendent of the abstract adapter type.
      */
     if (!$askerAdapter instanceof Adapter\Base) {

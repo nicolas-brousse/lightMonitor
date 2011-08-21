@@ -15,11 +15,17 @@ use Asker\Asker_Adapter_Exception;
 
 Class Ssh extends Base
 {
+  protected $_paramsStructure = array(
+    'port' => array('type' => 'integer'),
+    'login' => array('type' => 'text'),
+    'pass' => array('type' => 'password'),
+  );
+
   private $_connection = false;
 
   public function init()
   {
-    if (!function_exists('ssh2_connect')) {
+    if (!function_exists('ssh2_connect') || !function_exists('ssh2_auth_password')) {
       /**
        * @see Asker\Adapter\Exception
        */
