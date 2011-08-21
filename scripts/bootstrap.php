@@ -36,15 +36,17 @@ else {
   die('This file must be execute in CLI mode');
 }
 
+define('APPLICATION_BASE_URI', dirname(__DIR__).'/');
+
 /**
  * Load required files
  */
-require_once __DIR__.'/../vendor/silex.phar';
-require_once __DIR__.'/../vendor/App.php';
-require_once __DIR__.'/../vendor/yaml/lib/sfYaml.php';
-require_once __DIR__.'/../vendor/rrdtool/required.php';
-require_once __DIR__.'/../vendor/asker/required.php';
-require_once __DIR__.'/../vendor/swiftmailer/lib/swift_required.php';
+require_once APPLICATION_BASE_URI.'/vendor/silex.phar';
+require_once APPLICATION_BASE_URI.'/vendor/App.php';
+require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
+require_once APPLICATION_BASE_URI.'/vendor/rrdtool/required.php';
+require_once APPLICATION_BASE_URI.'/vendor/asker/required.php';
+require_once APPLICATION_BASE_URI.'/vendor/swiftmailer/lib/swift_required.php';
 
 /**
  * Initialize new Application

@@ -91,21 +91,11 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
    */
 
   try {
-    $configs = array(
-      "host" => $server['ip'],
-      "port" => $server['port'],
-      "login" => $server['login'],
-      "pass" => $server['pass'],
-    );
-    if ($asker = Asker::factory($server['protocol'], $configs)) {
+    if ($asker = Asker::factory($server['protocol'], $server['ip'], $server['params'])) {
       $rrd['traffic']->update()->setDatas($asker->getTraffic())->execute();
       $rrd['memory']->update()->setDatas($asker->getMemory())->execute();
       $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
       $rrd['cpu']->update()->setDatas($asker->getCpu())->execute();
-
-      // TODO create graphs of packets
-      $app['monolog']->addDebug(var_export($asker->getMemory(), true));
-      $app['monolog']->addDebug(var_export($asker->getCpu(), true));
     }
   }
   catch (Exception $e) {
