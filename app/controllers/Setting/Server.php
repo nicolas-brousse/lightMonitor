@@ -9,6 +9,7 @@ use Asker\Asker;
 Class Server extends Base
 {
   private $_servers = array();
+  private $_appSshKey = array('pubkey' => null, 'privkey' => null);
 
   public function init()
   {
@@ -19,9 +20,12 @@ Class Server extends Base
       $servers[] = $tmp;
     }
     $this->_servers = $servers;
+
+    $this->_appSshKey['pubkey'] = @file_get_contents(APPLICATION_BASE_URI . '/data/keys/lightmonitor_dsa.pub');
+    $this->_appSshKey['privkey'] = @file_get_contents(APPLICATION_BASE_URI . '/data/keys/lightmonitor_dsa');
   }
 
-  public function Index_Action()
+  public function Index_Action($tab='listing')
   {
     /*$limit = 20;
     $midrange = 7;
@@ -31,8 +35,10 @@ Class Server extends Base
     return array('items' => $items, 'paginator' => $paginator);*/
 
     return $this->twig->render('setting/server/index.twig', array(
+      'active_tab' => $tab,
       'servers' => $this->_servers,
       'form' => array(
+        'params' => $this->_appSshKey,
         'action' => $this->_getUrl('settings.servers.save'),
         'protocols' => array('' => '') + Asker::getProtocols(),
       ),
@@ -41,13 +47,7 @@ Class Server extends Base
 
   public function New_Action()
   {
-    return $this->twig->render('setting/server/index.twig', array(
-      'active_tab' => 'form',
-      'form' => array(
-        'action' => $this->_getUrl('settings.servers.save'),
-        'protocols' => array('' => '') + Asker::getProtocols(),
-      ),
-    ));
+    return $this->Index_Action('form');
   }
 
   public function Save_Action()
