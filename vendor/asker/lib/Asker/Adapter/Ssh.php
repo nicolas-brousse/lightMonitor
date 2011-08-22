@@ -70,6 +70,7 @@ Class Ssh extends Base
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: SSH Connection to '{$config["host"]}:{$config["port"]}' failed !");
     }
+
     if (!@ssh2_auth_password($this->_connection, $config["login"], $config["pass"])) {
       /**
        * @see Asker\Adapter\Exception

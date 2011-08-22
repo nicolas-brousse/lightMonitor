@@ -71,7 +71,7 @@ Class SshPubkey extends Ssh
     /**
      * Generate SSH connection
      */
-    $this->_connection = @ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22);
+    $this->_connection = @ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22, array('hostkey'=>'ssh-dss,ssh-rsa'));
     if (!$this->_connection) {
       /**
        * @see Asker\Adapter\Exception
@@ -79,7 +79,12 @@ Class SshPubkey extends Ssh
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: SSH Connection to '{$config["host"]}:{$config["port"]}' failed !");
     }
+
     if (!@ssh2_auth_pubkey_file($this->_connection, $config["login"], $this->_generateTmpFile($config["pubkey"]), $this->_generateTmpFile($config["privkey"]), $config['passphrase'] ? $config['passphrase'] : null)) {
+      /**
+       * Remove temporaries files
+       */
+      $this->_removeTmpFiles();
       /**
        * @see Asker\Adapter\Exception
        */
@@ -108,7 +113,7 @@ Class SshPubkey extends Ssh
   {
     foreach ($this->_tmpFiles as $file)
     {
-      if (is_file($file)) {
+      if (file_exists($file)) {
         unlink($file);
       }
     }
