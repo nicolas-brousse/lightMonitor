@@ -1,5 +1,11 @@
 <?php
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 # Autoloader controllers
 App::autoload(__DIR__ . '/controllers/');
 //$controllers = array();
@@ -35,39 +41,28 @@ $app->get('/settings/delete/{ip}',     function () { $c = new Controller\Setting
 $app->get('/settings/users',           function () { $c = new Controller\Setting\User(); return $c->Index_Action(); })->bind('settings.users');
 
 
-/** SESSION
-$app->get('/login', function () use ($app) {
-    $username = $app['request']->server->get('PHP_AUTH_USER', false);
-    $password = $app['request']->server->get('PHP_AUTH_PW');
+/** SESSION **/
+$app->get('/login', function() use ($app) {
+  $username = $app['request']->server->get('PHP_AUTH_USER', false);
+  $password = $app['request']->server->get('PHP_AUTH_PW');
 
-    if ('igor' === $username && 'password' === $password) {
-        $app['session']->set('user', array('username' => $username));
-        return $app->redirect('/account');
-    }
+  if ('admin' === $username && 'admin' === $password) {
+      $app['session']->set('user', array('username' => $username));
+      // var_dump($app['session']->get('user')); exit;
+      return $app->redirect($app['url_generator']->generate('homepage'));
+  }
 
-    $response = new Response();
-    $response->headers->set('WWW-Authenticate', sprintf('Basic realm="%s"', 'site_login'));
-    $response->setStatusCode(401, 'Please sign in.');
-    return $response;
-});
-
-$app->get('/account', function () use ($app) {
-    if (null === $user = $app['session']->get('user')) {
-        return $app->redirect('/login');
-    }
-
-    return "Welcome {$user['username']}!";
-});
-**/
+  $response = new Response();
+  $response->headers->set('WWW-Authenticate', sprintf('Basic realm="%s"', $app['name']));
+  $response->setStatusCode(401, 'Please sign in.');
+  return $response;
+})->bind('app.login');
+/**/
 
 
 /**
  * Errors and Favicon
  */
-
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 $app->get('/favicon.{ext}', function($ext) use ($app) {
   $state = array_rand(array('on' => true, 'off' => true));
@@ -84,7 +79,10 @@ $app->get('/favicon.{ext}', function($ext) use ($app) {
 ->assert('ext', '(png|ico)');
 
 
-$app->error(function(\Exception $e) use ($app) {
+/**
+ * FILTERS
+ */
+$app->error(function(\Exception $e, $code) use ($app) {
     if ($e instanceof NotFoundHttpException) {
         $content = array(
           'title' => '404 Not Found',
@@ -102,4 +100,14 @@ $app->error(function(\Exception $e) use ($app) {
     }
 
     return new Response($app['twig']->render('error.twig', $content), $e instanceof \Exception ? $e->getStatusCode() : null);
+});
+
+$app->before(function (Request $request) use ($app) {
+  if (null === $app['session']->get('user') && !preg_match('#login#', $request->getPathInfo())) {
+    // return new RedirectResponse($app['url_generator']->generate('app.login'));
+  }
+});
+
+$app->after(function (Request $request, Response $response) use ($app) {
+  $app['monolog']->addDebug("APP execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");
 });

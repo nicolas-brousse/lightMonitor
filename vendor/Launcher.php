@@ -3,6 +3,7 @@
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
+define('APPLICATION_MICROTIME_START', microtime(true));
 define('APPLICATION_VERSION', 'alpha 0.3');
 define('APPLICATION_BASE_URI', dirname(__DIR__).'/');
 

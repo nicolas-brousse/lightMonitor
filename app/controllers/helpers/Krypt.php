@@ -49,6 +49,6 @@ Class Krypt
 
   private function _hex2bin($str)
   {
-    return pack('H*', $str);
+    return @pack('H*', $str);
   }
 }
