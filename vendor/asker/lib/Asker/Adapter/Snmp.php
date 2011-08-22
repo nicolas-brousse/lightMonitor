@@ -15,12 +15,19 @@ use Asker\Asker_Adapter_Exception;
 
 Class Snmp extends Base
 {
-  public function init()
+  protected function _verifDependencies()
   {
     if (!class_exists('SNMP')) {
-      throw new Asker_Adapter_Exception("ERROR: To use SNMP protocol, install php5-snmp PHP extention !");
+      /**
+       * @see Asker\Adapter\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adapter_Exception("ERROR: To use HTTP protocol, install php5-snmp PHP extention !");
     }
+  }
 
+  public function init()
+  {
     /*$host = "shell.example.com";
     $port = 22;
     $this->connection = ssh2_connect($host, $port);

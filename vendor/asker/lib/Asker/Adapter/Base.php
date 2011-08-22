@@ -19,6 +19,7 @@ Abstract Class Base implements Asker_Interface
 
   final public function __construct($config)
   {
+    $this->_verifDependencies();
     $this->_config = $config;
     $this->init();
   }
@@ -29,6 +30,8 @@ Abstract Class Base implements Asker_Interface
   }
 
   protected $_paramsStructure = array();
+
+  protected function _verifDependencies()   { }
 
   public function init()                    { }
 

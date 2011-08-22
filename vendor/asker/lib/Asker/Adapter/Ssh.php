@@ -23,7 +23,7 @@ Class Ssh extends Base
 
   private $_connection = false;
 
-  public function init()
+  protected function _verifDependencies()
   {
     if (!function_exists('ssh2_connect') || !function_exists('ssh2_auth_password')) {
       /**
@@ -32,7 +32,10 @@ Class Ssh extends Base
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
     }
+  }
 
+  public function init()
+  {
     /**
      * Verif configurations
      */
