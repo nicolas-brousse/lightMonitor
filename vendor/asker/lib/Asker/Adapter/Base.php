@@ -30,11 +30,13 @@ Abstract Class Base implements Asker_Interface
 
   protected $_paramsStructure = array();
 
-  public function getUptime()               { return; }
+  public function init()                    { }
 
-  public function getMemory()               { return; }
+  public function getUptime()               { }
 
-  public function getTraffic($dev="eth0")   { return; }
+  public function getMemory()               { }
 
-  public function getCpu()                  { return; }
+  public function getTraffic($dev="eth0")   { }
+
+  public function getCpu()                  { }
 }
