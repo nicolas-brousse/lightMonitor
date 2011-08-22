@@ -6,6 +6,11 @@
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  */
 
+/**
+ * APP CONST
+ */
+define('APPLICATION_BASE_URI', dirname(__DIR__).'/');
+define('APPLICATION_MICROTIME_START', microtime(true));
 
 /**
  * Verif CLI options
@@ -35,8 +40,6 @@ if ('cli' === php_sapi_name()) {
 else {
   die('This file must be execute in CLI mode');
 }
-
-define('APPLICATION_BASE_URI', dirname(__DIR__).'/');
 
 /**
  * Load required files

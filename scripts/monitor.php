@@ -49,3 +49,5 @@ if (!empty($serveurs_without_response)) {
     echo "Mailer Error";
   }
 }
+
+$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");

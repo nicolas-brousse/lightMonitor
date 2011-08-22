@@ -208,3 +208,5 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   );
   $rrd['cpu']->generate()->setOptions($options)->execute("cpu-0.png");
 }
+
+$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");
