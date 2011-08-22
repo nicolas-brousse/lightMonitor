@@ -2,6 +2,8 @@
 
 Namespace Controller\Helper;
 
+use App;
+
 Class Krypt
 {
   private $_key;
@@ -9,8 +11,16 @@ Class Krypt
   private $_mode;
   private $_iv;
 
-  public function __construct($key, $cipher = MCRYPT_RIJNDAEL_256, $mode = MCRYPT_MODE_ECB)
+  public function __construct($key=null, $cipher = MCRYPT_RIJNDAEL_256, $mode = MCRYPT_MODE_ECB)
   {
+    if ($key == null)
+    {
+      $configs = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_ENV);
+      if (empty($configs->app['app']['passphrase'])) {
+        throw new \Exception('ERROR: Key is not precise, and is not found in config file app.yml');
+      }
+    }
+    
     $this->_key = $key;
     $this->_cipher = $cipher;
     $this->_mode = $mode;

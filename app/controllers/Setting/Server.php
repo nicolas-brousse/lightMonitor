@@ -3,6 +3,7 @@
 namespace Controller\Setting;
 
 use Controller\Base;
+use Controller\Helper\Krypt;
 use Asker\Asker;
 
 Class Server extends Base
@@ -76,12 +77,13 @@ Class Server extends Base
     }
     else {
       try {
+        $krypt = new Krypt();
         $server = $this->db->insert('servers',
           array(
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
-            'params'      => serialize($this->_getPost('params')),
+            'params'      => $krypt->encrypt(serialize($this->_getPost('params'))),
             'created_at'  => time(),
             'updated_at'  => time(),
           )
@@ -117,8 +119,9 @@ Class Server extends Base
     if (!$server) {
       return $this->_halt();
     }
-
-    $server['params'] = unserialize($server['params']);
+    
+    $krypt = new Krypt();
+    $server['params'] = unserialize($krypt->decrypt($server['params']));
     unset($server['params']['pass']);
 
     return $this->twig->render('setting/server/index.twig', array(
@@ -158,12 +161,13 @@ Class Server extends Base
     }
     else {
       try {
+        $krypt = new Krypt();
         $server = $this->db->update('servers',
           array(
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
-            'params'      => serialize($this->_getPost('params')),
+            'params'      => $krypt->encrypt(serialize($this->_getPost('params'))),
             'updated_at'  => time(),
           ),
           array('id' => $this->_getPost('id'))

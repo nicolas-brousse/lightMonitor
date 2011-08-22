@@ -47,6 +47,7 @@ require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
 require_once APPLICATION_BASE_URI.'/vendor/rrdtool/required.php';
 require_once APPLICATION_BASE_URI.'/vendor/asker/required.php';
 require_once APPLICATION_BASE_URI.'/vendor/swiftmailer/lib/swift_required.php';
+App::autoload(APPLICATION_BASE_URI . '/app/controllers/helpers/');
 
 /**
  * Initialize new Application

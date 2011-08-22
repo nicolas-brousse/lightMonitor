@@ -4,6 +4,7 @@ use Asker\Asker;
 use Asker\Adapter;
 use Rrdtool\Rrdtool;
 use Rrdtool\RrdtoolExtension;
+use Controller\Helper\Krypt;
 
 /* Launch */
 require_once __DIR__.'/bootstrap.php';
@@ -91,7 +92,8 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
    */
 
   try {
-    if ($asker = Asker::factory($server['protocol'], $server['ip'], $server['params'])) {
+    $krypt = new Krypt();
+    if ($asker = Asker::factory($server['protocol'], $server['ip'], $krypt->decrypt($server['params']))) {
       $rrd['traffic']->update()->setDatas($asker->getTraffic())->execute();
       $rrd['memory']->update()->setDatas($asker->getMemory())->execute();
       $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
