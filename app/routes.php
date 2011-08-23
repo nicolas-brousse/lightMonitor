@@ -47,9 +47,9 @@ $app->get('/login', function() use ($app) {
   $password = $app['request']->server->get('PHP_AUTH_PW');
 
   if ('admin' === $username && 'admin' === $password) {
-      $app['session']->set('user', array('username' => $username));
-      // var_dump($app['session']->get('user')); exit;
-      return $app->redirect($app['url_generator']->generate('homepage'));
+    $app['session']->set('user', array('username' => $username));
+    // var_dump($app['session']->get('user')); exit;
+    return $app->redirect($app['url_generator']->generate('homepage'));
   }
 
   $response = new Response();
@@ -57,6 +57,11 @@ $app->get('/login', function() use ($app) {
   $response->setStatusCode(401, 'Please sign in.');
   return $response;
 })->bind('app.login');
+
+$app->get('/logout', function() use ($app) {
+  $app['session']->remove('user');
+  return new RedirectResponse($app['url_generator']->generate('app.login'));
+})->bind('app.logout');
 /**/
 
 
@@ -103,9 +108,14 @@ $app->error(function(\Exception $e, $code) use ($app) {
 });
 
 $app->before(function (Request $request) use ($app) {
-  // if (null === $app['session']->get('user') && !preg_match('#login#', $request->getPathInfo())) {
-  //   return new RedirectResponse($app['url_generator']->generate('app.login'));
-  // }
+  $request->setSession($app['session']);
+  if ($request->hasPreviousSession()) {
+      $request->getSession()->start();
+  }
+
+  if (null === $app['session']->get('user') && !preg_match('#login#', $request->getPathInfo())) {
+    return new RedirectResponse($app['url_generator']->generate('app.login'));
+  }
 });
 
 $app->after(function (Request $request, Response $response) use ($app) {
