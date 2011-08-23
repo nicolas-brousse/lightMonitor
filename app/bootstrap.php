@@ -16,19 +16,14 @@ require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
 
 
 /**
- * Load Configs
- **/
-$configs = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_ENV);
-
-
-/**
  * Initialize App
  */
 $app = App::getInstance();
 $app['version'] = APPLICATION_VERSION;
 $app['name'] = "LightMonitor";
 $app['debug'] = APPLICATION_ENV == 'development' ? true : false;
-$app['configs'] = $configs;
+$app['config'] = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_ENV);
+$app['config']->app['db']['path'] = APPLICATION_BASE_URI . $app['config']->app['db']['path'];
 
 
 /**
@@ -55,14 +50,10 @@ $app->register(new Rrdtool\RrdtoolExtension());
 $app->register(new Asker\AskerExtension());
 
 $app->register(new Silex\Extension\DoctrineExtension(), array(
-  'db.options'  => array(
-    'driver'    => 'pdo_sqlite',
-    'path'      => APPLICATION_BASE_URI . '/db/light_monitor.sqlite',
-  ),
+  'db.options'  => $app['config']->app['db'],
   'db.dbal.class_path'    => APPLICATION_BASE_URI . '/vendor/doctrine2-dbal/lib',
   'db.common.class_path'  => APPLICATION_BASE_URI . '/vendor/doctrine2-common/lib',
 ));
-// TODO verif if DB exist, else duplicate emptyDB
 
 
 /**

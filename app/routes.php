@@ -104,8 +104,8 @@ $app->error(function(\Exception $e, $code) use ($app) {
 
 $app->before(function (Request $request) use ($app) {
   // if (null === $app['session']->get('user') && !preg_match('#login#', $request->getPathInfo())) {
-  //     return new RedirectResponse($app['url_generator']->generate('app.login'));
-  //   }
+  //   return new RedirectResponse($app['url_generator']->generate('app.login'));
+  // }
 });
 
 $app->after(function (Request $request, Response $response) use ($app) {
