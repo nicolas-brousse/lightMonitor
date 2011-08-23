@@ -4,6 +4,7 @@ use Asker\Asker;
 use Asker\Adapter;
 use Rrdtool\Rrdtool;
 use Rrdtool\RrdtoolExtension;
+use Controller\Helper\Krypt;
 
 /* Launch */
 require_once __DIR__.'/bootstrap.php';
@@ -27,7 +28,7 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   /**
    * Intanciate
    */
-  $rrd['traffic'] = new Rrdtool($server['ip'], 'traffic.rrd');
+  $rrd['traffic'] = new Rrdtool($server['ip'], 'traffic.rrd'); // TODO, multi interfaces
   $rrd['memory']  = new Rrdtool($server['ip'], 'memory.rrd');
   $rrd['uptime']  = new Rrdtool($server['ip'], 'uptime.rrd');
   $rrd['cpu']     = new Rrdtool($server['ip'], 'cpu.rrd');
@@ -91,21 +92,12 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
    */
 
   try {
-    $configs = array(
-      "host" => $server['ip'],
-      "port" => $server['port'],
-      "login" => $server['login'],
-      "pass" => $server['pass'],
-    );
-    if ($asker = Asker::factory($server['protocol'], $configs)) {
+    $krypt = new Krypt();
+    if ($asker = Asker::factory($server['protocol'], $server['ip'], $krypt->decrypt($server['params']))) {
       $rrd['traffic']->update()->setDatas($asker->getTraffic())->execute();
       $rrd['memory']->update()->setDatas($asker->getMemory())->execute();
       $rrd['uptime']->update()->setDatas($asker->getUptime())->execute();
       $rrd['cpu']->update()->setDatas($asker->getCpu())->execute();
-
-      // TODO create graphs of packets
-      $app['monolog']->addDebug(var_export($asker->getMemory(), true));
-      $app['monolog']->addDebug(var_export($asker->getCpu(), true));
     }
   }
   catch (Exception $e) {
@@ -152,10 +144,10 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
     "CDEF:mem_used=mem_total,mem_free,-,1024,*",
     "CDEF:mem_total_resize=mem_total,1024,*",
     "AREA:mem_used#00FF00:Ram Used",
-    "LINE1:mem_total_resize#000000:Ram Limit",
     "CDEF:swap_used=swap_total,swap_free,-,1024,*",
     "CDEF:swap_total_resize=swap_total,1024,*",
-    "STACK:swap_used#FF0000:Swap Used\\r",
+    "STACK:swap_used#FF0000:Swap Used",
+    "LINE1:mem_total_resize#000000:Ram Limit\\r",
 
     "COMMENT:\\n",
     "GPRINT:mem_used:AVERAGE:Avg Ram used\: %6.2lf %So",
@@ -201,6 +193,7 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   $rrd['uptime']->generate()->setOptions($options)->execute("uptime-0.png");
 
   $options = array("--start", "-1d", "--title", "CPU of ".$server['servername']." (average of 5min)", "--vertical-label=%", "--width", "500", "--height", "200", "-l", "0",
+    #"--lower-limit", "100",
     "DEF:cpu_user=".$rrd['cpu']->getDbPath().":cpu_user:AVERAGE",
     "DEF:cpu_nice=".$rrd['cpu']->getDbPath().":cpu_nice:AVERAGE",
     "DEF:cpu_system=".$rrd['cpu']->getDbPath().":cpu_system:AVERAGE",
@@ -216,3 +209,5 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   );
   $rrd['cpu']->generate()->setOptions($options)->execute("cpu-0.png");
 }
+
+$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");

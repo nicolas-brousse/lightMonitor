@@ -2,6 +2,9 @@ production:
   app:
     base_url: "/"
     passphrase: ""
+  db:
+    driver: pdo_sqlite
+    path: "/db/light_monitor.sqlite"
   rrdtool:
     img_path: "graphs/"
   monitor:
@@ -11,6 +14,9 @@ development:
   app:
     base_url: "/base_url"
     passphrase: ""
+  db:
+    driver: pdo_sqlite
+    path: "/db/light_monitor.sqlite"
   rrdtool:
     img_path: "graphs/"
   monitor:

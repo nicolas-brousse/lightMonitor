@@ -15,12 +15,19 @@ use Asker\Asker_Adapter_Exception;
 
 Class Http extends Base
 {
-  public function init()
+  protected function _verifDependencies()
   {
     if (!function_exists('curl_init')) {
-      throw new Asker__Exception("ERROR: To use HTTP protocol, install php5-curl PHP extention !");
+      /**
+       * @see Asker\Adapter\Exception
+       */
+      require_once 'Exception.php';
+      throw new Asker_Adapter_Exception("ERROR: To use HTTP protocol, install php5-curl PHP extention !");
     }
+  }
 
+  public function init()
+  {
     /*$host = "shell.example.com";
     $port = 22;
     $this->connection = ssh2_connect($host, $port);

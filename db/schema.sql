@@ -10,10 +10,19 @@
  Target Server Version : 3007005
  File Encoding         : utf-8
 
- Date: 08/18/2011 20:52:03 PM
+ Date: 08/22/2011 01:13:24 AM
 */
 
 PRAGMA foreign_keys = false;
+
+-- ----------------------------
+--  Table structure for "logs"
+-- ----------------------------
+DROP TABLE IF EXISTS "logs";
+CREATE TABLE "logs" (
+	 "label" text NOT NULL,
+	 "created_at" integer NOT NULL
+);
 
 -- ----------------------------
 --  Table structure for "servers"
@@ -24,11 +33,9 @@ CREATE TABLE "servers" (
 	 "servername" text NOT NULL,
 	 "ip" text NOT NULL,
 	 "protocol" integer NOT NULL,
-	 "port" integer,
-	 "login" text,
-	 "pass" text,
 	 "created_at" integer NOT NULL,
 	 "updated_at" integer NOT NULL,
+	 "params" text,
 	 "checked_at" integer
 );
 

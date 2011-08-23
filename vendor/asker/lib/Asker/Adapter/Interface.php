@@ -16,6 +16,11 @@ Interface Asker_Interface
   /**
    * 
    */
+  public function init();
+
+  /**
+   * 
+   */
   public function getUptime();
 
   /**

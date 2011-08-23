@@ -15,18 +15,27 @@ use Asker\Asker_Adapter_Exception;
 
 Class Ssh extends Base
 {
+  protected $_paramsStructure = array(
+    'port' => array('type' => 'integer'),
+    'login' => array('type' => 'text'),
+    'pass' => array('type' => 'password'),
+  );
+
   private $_connection = false;
 
-  public function init()
+  protected function _verifDependencies()
   {
-    if (!function_exists('ssh2_connect')) {
+    if (!function_exists('ssh2_connect') || !function_exists('ssh2_auth_password')) {
       /**
        * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
     }
+  }
 
+  public function init()
+  {
     /**
      * Verif configurations
      */
@@ -68,6 +77,7 @@ Class Ssh extends Base
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: SSH Connection to '{$config["host"]}:{$config["port"]}' failed !");
     }
+
     if (!@ssh2_auth_password($this->_connection, $config["login"], $config["pass"])) {
       /**
        * @see Asker\Adapter\Exception

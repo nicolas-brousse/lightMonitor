@@ -1,0 +1,32 @@
+{% extends "layouts/default.twig" %}
+
+{% block title %}Settings > Servers{% endblock %}
+{% block page_intro %}Configure servers to monitor{% endblock %}
+
+{% block content %}
+<div class="clear"></div> <!-- End .clear -->
+
+<div class="content-box"><!-- Start Content Box -->
+  <div class="content-box-header">
+    <h3>List of servers to monitor</h3>
+
+    <ul class="content-box-tabs">
+      <li><a href="#listing"{% if (active_tab == 'listing' or active_tab is empty) %} class="default-tab"{% endif %}>Listing</a></li> 
+      <li><a href="#form"{% if active_tab == 'form' %} class="default-tab"{% endif %}>Form</a></li>
+    </ul>
+    <div class="clear"></div>
+  </div> <!-- End .content-box-header -->
+
+
+  <div class="content-box-content">
+    <div class="tab-content{% if (active_tab == 'listing' or active_tab is empty) %} default-tab{% endif %}" id="listing">
+      {% include "setting/server/_listing.twig" %}
+    </div> <!-- End #listing -->
+
+    <div class="tab-content{% if active_tab == 'form' %} default-tab{% endif %}" id="form">
+      {% include "setting/server/_form.twig" %}
+    </div> <!-- End #form -->
+  </div> <!-- End .content-box-content -->
+</div> <!-- End .content-box -->
+<div class="clear"></div><!-- End .clear -->
+{% endblock %}

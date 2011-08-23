@@ -39,8 +39,8 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
 if (!empty($serveurs_without_response)) {
   $message = \Swift_Message::newInstance()
       ->setSubject('[LightMonitor] Problème sur un serveur')
-      ->setFrom(array( $configs->app['monitor']['email'] ))
-      ->setTo(array( $configs->app['monitor']['email'] ))
+      ->setFrom(array( $config->app['monitor']['email'] ))
+      ->setTo(array( $config->app['monitor']['email'] ))
       ->setBody("Un problème est survenu sur les IPs suivantes : ".var_export($serveurs_without_response, true));
 
   $transport = \Swift_MailTransport::newInstance();
@@ -49,3 +49,5 @@ if (!empty($serveurs_without_response)) {
     echo "Mailer Error";
   }
 }
+
+$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");

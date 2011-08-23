@@ -3,27 +3,26 @@
 <form action="{{ form.action }}" method="post">
   <fieldset class="column-left">
 
-<<<<<<< HEAD
-    {{ forms.input('servername', form.servername, none, 'Servername', none, none, 'This information is just visual, it doesn\'t match the reverse of the server.', 'medium') }}
-
-    {{ forms.input('ip', form.ip, none, 'IP address', none, {'text': 'Invalid format (xxx.xxx.xxx.xxx)', 'type': 'error'}) }}
-
-    {{ forms.select('protocol', form.protocol, form.protocols, 'Protocol to get informations', none, none, none, none) }}
-=======
-    {{ forms.input('id', form.id, 'hidden') }}
+    {{ forms.hidden('id', form.id) }}
 
     {{ forms.input('servername', form.servername, none, 'Servername', none, none, 'This information is just visual, it doesn\'t match the reverse of the server.', 'medium') }}
 
     {{ forms.input('ip', form.ip, none, 'IP address', none, {'text': 'Invalid format (ex: 127.0.0.1)', 'type': 'error'}) }}
 
     {{ forms.select('protocol', form.protocol, form.protocols, 'Protocol to get informations', none, none, none, 'medium') }}
->>>>>>> dev
 
-    {{ forms.input('port', form.port, none, 'Port', none, none, none) }}
+    {{ forms.input('params[port]', form.params.port, none, 'Port', none, none, none) }}
+    
+    {{ forms.input('params[login]', form.params.login, none, 'User', none, none, none) }}
+    <p><strong>SSH pass auth</strong></p>
+    {{ forms.input('params[pass]', form.params.pass, 'password', 'Password', none, none, none) }}
 
-    {{ forms.input('login', form.login, none, 'User', none, none, none) }}
+    <p><strong>SSH pubkey</strong></p>
+    {{ forms.textarea('params[pubkey]', form.params.pubkey, 'PubKey', none, none, none, none, 4) }}
 
-    {{ forms.input('pass', form.pass, 'password', 'Password', none, none, none) }}
+    {{ forms.textarea('params[privkey]', form.params.privkey, 'PrivKey', none, none, none, none, 4) }}
+
+    {{ forms.input('params[passphrase]', form.params.passphrase, 'password', 'Passphrase', none, none, none) }}
 
     {{ forms.submit() }}
 

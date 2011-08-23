@@ -1,12 +1,15 @@
 <?php
 
-namespace Controller;
+namespace Controller\Setting;
 
+use Controller\Base;
+use Controller\Helper\Krypt;
 use Asker\Asker;
 
-Class Setting extends Base
+Class Server extends Base
 {
   private $_servers = array();
+  private $_appSshKey = array('pubkey' => null, 'privkey' => null);
 
   public function init()
   {
@@ -17,9 +20,12 @@ Class Setting extends Base
       $servers[] = $tmp;
     }
     $this->_servers = $servers;
+
+    $this->_appSshKey['pubkey'] = @file_get_contents(APPLICATION_BASE_URI . '/data/keys/lightmonitor_dsa.pub');
+    $this->_appSshKey['privkey'] = @file_get_contents(APPLICATION_BASE_URI . '/data/keys/lightmonitor_dsa');
   }
 
-  public function Index_Action()
+  public function Index_Action($tab='listing')
   {
     /*$limit = 20;
     $midrange = 7;
@@ -28,9 +34,11 @@ Class Setting extends Base
     $items = $repository->getList($offset);
     return array('items' => $items, 'paginator' => $paginator);*/
 
-    return $this->twig->render('setting/index.twig', array(
+    return $this->twig->render('setting/server/index.twig', array(
+      'active_tab' => $tab,
       'servers' => $this->_servers,
       'form' => array(
+        'params' => $this->_appSshKey,
         'action' => $this->_getUrl('settings.servers.save'),
         'protocols' => array('' => '') + Asker::getProtocols(),
       ),
@@ -39,13 +47,7 @@ Class Setting extends Base
 
   public function New_Action()
   {
-    return $this->twig->render('setting/index.twig', array(
-      'active_tab' => 'form',
-      'form' => array(
-        'action' => $this->_getUrl('settings.servers.save'),
-        'protocols' => array('' => '') + Asker::getProtocols(),
-      ),
-    ));
+    return $this->Index_Action('form');
   }
 
   public function Save_Action()
@@ -63,7 +65,8 @@ Class Setting extends Base
     if (empty($request['ip'])) {
       $this->_getSession()->setFlash('error', 'Form none ok! '.$request['ip'].'- '.var_export($request, true));
 
-      return $this->twig->render('setting/index.twig', array(
+      unset($request['pass']);
+      return $this->twig->render('setting/server/index.twig', array(
         'active_tab' => 'form',
         'form' => array(
           'action' => $this->_getUrl('settings.servers.save'),
@@ -74,14 +77,13 @@ Class Setting extends Base
     }
     else {
       try {
+        $krypt = new Krypt();
         $server = $this->db->insert('servers',
           array(
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
-            'port'        => $this->_getPost('port'),
-            'login'       => $this->_getPost('login'),
-            'pass'        => $this->_getPost('pass'),
+            'params'      => $krypt->encrypt(serialize($this->_getPost('params'))),
             'created_at'  => time(),
             'updated_at'  => time(),
           )
@@ -117,8 +119,12 @@ Class Setting extends Base
     if (!$server) {
       return $this->_halt();
     }
+    
+    $krypt = new Krypt();
+    $server['params'] = unserialize($krypt->decrypt($server['params']));
+    unset($server['params']['pass']);
 
-    return $this->twig->render('setting/index.twig', array(
+    return $this->twig->render('setting/server/index.twig', array(
       'form' => $server + array(
         'action' => $this->_getUrl('settings.servers.update', array('ip' => $ip)),
 <<<<<<< HEAD
@@ -152,7 +158,8 @@ Class Setting extends Base
     if (empty($request['ip'])) {
       $this->_getSession()->setFlash('error', 'Form none ok! '.$request['ip'].'- '.var_export($request, true));
 
-      return $this->twig->render('setting/index.twig', array(
+      unset($request['pass']);
+      return $this->twig->render('setting/server/index.twig', array(
         'active_tab' => 'form',
         'form' => array(
           'action' => $this->_getUrl('settings.servers.edit', array('ip' => $ip)),
@@ -163,15 +170,13 @@ Class Setting extends Base
     }
     else {
       try {
+        $krypt = new Krypt();
         $server = $this->db->update('servers',
           array(
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
-            'port'        => $this->_getPost('port'),
-            'login'       => $this->_getPost('login'),
-            'pass'        => $this->_getPost('pass'),
-            'created_at'  => time(),
+            'params'      => $krypt->encrypt(serialize($this->_getPost('params'))),
             'updated_at'  => time(),
           ),
           array('id' => $this->_getPost('id'))

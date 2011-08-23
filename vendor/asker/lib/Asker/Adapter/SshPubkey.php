@@ -9,24 +9,35 @@
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  */
 
-namespace Asker\Adapter;
+Namespace Asker\Adapter;
 
-use Asker\Asker_Adapter_Exception;
+Use Asker\Asker_Adapter_Exception;
 
 Class SshPubkey extends Ssh
 {
-  private $_connection = false;
+  protected $_paramsStructure = array(
+    'port' => array('type' => 'integer'),
+    'pubkey' => array('type' => 'text'),
+    'privkey' => array('type' => 'text'),
+    'passphrase' => array('type' => 'password', 'allowEmpty' => true),
+  );
 
-  public function init()
+  private $_connection = false;
+  private $_tmpFiles = array();
+
+  protected function _verifDependencies()
   {
-    if (!function_exists('ssh2_connect')) {
+    if (!function_exists('ssh2_connect') || !function_exists('ssh2_auth_pubkey_file')) {
       /**
        * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: To use SSH protocol, install PHP extention for SSH (php5-ssh2) !");
     }
+  }
 
+  public function init()
+  {
     /**
      * Verif configurations
      */
@@ -63,7 +74,7 @@ Class SshPubkey extends Ssh
     /**
      * Generate SSH connection
      */
-    $this->_connection = @ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22);
+    $this->_connection = @ssh2_connect($config["host"], !empty($config["port"]) ? $config["port"] : 22, array('hostkey'=>'ssh-dss,ssh-rsa'));
     if (!$this->_connection) {
       /**
        * @see Asker\Adapter\Exception
@@ -71,22 +82,43 @@ Class SshPubkey extends Ssh
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: SSH Connection to '{$config["host"]}:{$config["port"]}' failed !");
     }
-    if (!@ssh2_auth_pubkey_file($this->_connection, $config["login"], $config["pubkey"], $config["privkey"])) {
+
+    if (!@ssh2_auth_pubkey_file($this->_connection, $config["login"], $this->_generateTmpFile($config["pubkey"]), $this->_generateTmpFile($config["privkey"]), $config['passphrase'] ? $config['passphrase'] : null)) {
+      /**
+       * Remove temporaries files
+       */
+      $this->_removeTmpFiles();
       /**
        * @see Asker\Adapter\Exception
        */
       require_once 'Exception.php';
       throw new Asker_Adapter_Exception("ERROR: Authentication failed for {$config["login"]} using pubkey !");
     }
+
+    /**
+     * Remove temporaries files
+     */
+    $this->_removeTmpFiles();
+  }
+
+  private function _generateTmpFile($data)
+  {
+    $tmpfile = tempnam(APPLICATION_BASE_URI . "/data/tmp", "ssh");
+
+    $handle = fopen($tmpfile, "w");
+    fwrite($handle, $data);
+    fclose($handle);
+
+    $this->_tmpFiles[] = $tmpfile;
+  }
+
+  private function _removeTmpFiles()
+  {
+    foreach ($this->_tmpFiles as $file)
+    {
+      if (file_exists($file)) {
+        unlink($file);
+      }
+    }
   }
 }
-
-/***
-TODO For create temp file with pubkey and privkey
-$temp = tmpfile();
-fwrite($temp, "Écriture dans le fichier temporaire");
-fseek($temp, 0);
-echo fread($temp, 1024);
-fclose($temp); // ceci va effacer le fichier
-
-**/

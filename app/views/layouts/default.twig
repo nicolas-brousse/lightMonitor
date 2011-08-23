@@ -51,7 +51,9 @@
           {% if item.items is defined %}
           <ul>
             {% for sub_item in item.items %}
-            <li><a class="{% if (app.request.attributes.get(item.param) == sub_item.value and app.request.attributes.get('_route') == item.bind) %}current{% endif %}" href="{{ app.url_generator.generate(sub_item.bind, {'ip': sub_item.value}) }}">{{ sub_item.name }}</a></li>
+            <li>
+              <a class="{% if (app.request.attributes.get(item.param) == sub_item.value and app.request.attributes.get('_route') == sub_item.bind) %}current{% endif %}" href="{{ app.url_generator.generate(sub_item.bind, {'ip': sub_item.value}) }}">{{ sub_item.name }}</a>
+            </li>
             {% endfor %}
           </ul>
           {% endif %}
@@ -61,7 +63,7 @@
 
       <div class="credits">
         <small>
-          &#169; Copyright {{ "now"|date('Y') }} <a href="https://github.com/nicolas-brousse/">Nicolas BROUSSE</a><br />Designed by <a href="http://twitter.com/FuriouZz">FuriouZz</a><br />Powered by <a href="https://github.com/nicolas-brousse/lightMonitor">LightMonitor</a> - version {{ app.version }}
+          &#169; Copyright {{ "now"|date('Y') }} <a href="https://github.com/nicolas-brousse/">Nicolas BROUSSE</a><br />Designed by <a href="http://twitter.com/FuriouZz">FuriouZz</a><br />Powered by <a href="http://nicolas-brousse.github.com/lightMonitor/">LightMonitor</a> - version {{ app.version }}
         </small>
       </div>
 

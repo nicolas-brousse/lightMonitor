@@ -9,7 +9,7 @@
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  */
 
-namespace Asker\Adapter;
+Namespace Asker\Adapter;
 
 require_once 'Interface.php';
 
@@ -19,34 +19,27 @@ Abstract Class Base implements Asker_Interface
 
   final public function __construct($config)
   {
+    $this->_verifDependencies();
     $this->_config = $config;
     $this->init();
   }
 
-  /*final public function setHost($host, $port)
+  final public function getParamsStructure()
   {
-    $this->_host = $host;
-    $this->_port = $port;
-    return $this;
-  }*/
-
-  public function getUptime()
-  {
-
+    return $this->_paramsStructure;
   }
 
-  public function getMemory()
-  {
+  protected $_paramsStructure = array();
 
-  }
+  protected function _verifDependencies()   { }
 
-  public function getTraffic($dev="eth0")
-  {
+  public function init()                    { }
 
-  }
+  public function getUptime()               { }
 
-  public function getCpu()
-  {
+  public function getMemory()               { }
 
-  }
+  public function getTraffic($dev="eth0")   { }
+
+  public function getCpu()                  { }
 }

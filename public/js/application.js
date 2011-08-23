@@ -8,7 +8,7 @@ $(document).ready(function(){
   // Facebox
   $('a[rel*=modal]').facebox();
   // Wysiwyg
-  $(".wysiwyg").wysiwyg();
+  //$(".wysiwyg").wysiwyg();
 
 
 
@@ -27,21 +27,31 @@ $(document).ready(function(){
   );
 
   // Accordion
-  $("#main-nav li ul").hide(); // Hide all sub menus
-  $("#main-nav li a.current").parent().find("ul").slideToggle("slow"); // Slide down the current menu item's sub menu
-  $("#main-nav li a.nav-top-item").click( // When a top menu item is clicked...
+  $("#main-nav li > ul").hide();
+  $("#main-nav li a.nav-top-item").click(
     function () {
-      $(this).parent().siblings().find("ul").slideUp("normal"); // Slide up all sub menus except the one clicked
-      $(this).next().slideToggle("normal"); // Slide down the clicked sub menu
+      $(this).parent().siblings().find("ul").slideUp("normal");
+      //$("#main-nav li a.nav-top-item").removeClass('current').removeClass('open').addClass('close');
+      $(this).next().slideToggle("normal", function() {
+        /*$link = $(this).parent().find('a.nav-top-item');
+        $link.removeClass('current');
+        if ($link.parent().find('ul').is(':hidden')) {
+          $link.removeClass('open').addClass('close');
+        }
+        else {
+          $link.removeClass('close').addClass('open');
+        }*/
+      });
       return false;
     }
   );
-  $("#main-nav li a.no-submenu").click( // When a menu item with no sub menu is clicked...
+  $("#main-nav li a.no-submenu").click(
     function () {
-      window.location.href=(this.href); // Just open the link instead of a sub menu
+      window.location.href=(this.href);
       return false;
     }
   );
+  $("#main-nav li a.nav-top-item.current").not('.no-submenu').parent().find('ul').show();
 
 
 

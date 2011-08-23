@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller;
+Namespace Controller;
 
 Class Index extends Base
 {
