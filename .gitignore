@@ -2,8 +2,6 @@
 data/log/*.log
 *.htaccess
 *.yml
-*.sqlite-journal
 *.rrd
 public/graphs/*
-lightMonitor.esproj/*
-data/db/*
+/db/*.sqlite
