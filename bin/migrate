@@ -1,0 +1,5 @@
+#!/bin/sh
+
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+
+php $DIR/../vendor/doctrine-migrations.phar "$@" --db-configuration="$DIR/../db/migrate/options.php" --configuration="$DIR/../db/migrate/configurations.yml"
