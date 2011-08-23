@@ -63,8 +63,8 @@ $configs = App::loadConfigs(__DIR__ . '/../app/configs/', APPLICATION_ENV);
  *  Register Extensions
  */
 $app->register(new Silex\Extension\MonologExtension(), array(
-  'monolog.logfile'       => __DIR__.'/../data/log/development.jobCron.log',
-  'monolog.class_path'    => __DIR__.'/../vendor/monolog/src',
+  'monolog.logfile'       => APPLICATION_BASE_URI.'/data/log/development.jobCron.log',
+  'monolog.class_path'    => APPLICATION_BASE_URI.'/vendor/monolog/src',
   'monolog.name'          => 'jobCron',
 ));
 $app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBUG : \Monolog\Logger::WARNING;
@@ -73,16 +73,16 @@ $app['monolog']->addInfo("CLI EXEC : ".CLI_FILENAME);
 $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.options'  => array(
     'driver'    => 'pdo_sqlite',
-    'path'      => __DIR__.'/../data/db/light_monitor.sqlite',
+    'path'      => APPLICATION_BASE_URI.'//db/light_monitor.sqlite',
   ),
-  'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine2-dbal/lib',
-  'db.common.class_path'  => __DIR__.'/../vendor/doctrine2-common/lib',
+  'db.dbal.class_path'    => APPLICATION_BASE_URI.'/vendor/doctrine2-dbal/lib',
+  'db.common.class_path'  => APPLICATION_BASE_URI.'/vendor/doctrine2-common/lib',
 ));
 // TODO verify if DB exist, else duplicate emptyDB
 
 $app->register(new Asker\AskerExtension());
 
 $app->register(new Silex\Extension\SwiftmailerExtension(), array(
-  'swiftmailer.class_path'  => __DIR__.'/../vendor/swiftmailer/lib',
+  'swiftmailer.class_path'  => APPLICATION_BASE_URI.'/vendor/swiftmailer/lib',
 ));
 

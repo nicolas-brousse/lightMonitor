@@ -27,7 +27,7 @@ $(document).ready(function(){
   );
 
   // Accordion
-  $("#main-nav li ul").hide();
+  $("#main-nav li > ul").hide();
   $("#main-nav li a.nav-top-item").click(
     function () {
       $(this).parent().siblings().find("ul").slideUp("normal");
@@ -51,7 +51,7 @@ $(document).ready(function(){
       return false;
     }
   );
-  $("#main-nav li a.nav-top-item.current").not('.no-submenu').click();
+  $("#main-nav li a.nav-top-item.current").not('.no-submenu').parent().find('ul').show();
 
 
 

@@ -9,7 +9,7 @@
  * @author Nicolas BROUSSE <pro@nicolas-brousse.fr>
  */
 
-namespace Asker\Adapter;
+Namespace Asker\Adapter;
 
 require_once 'Interface.php';
 

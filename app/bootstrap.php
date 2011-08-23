@@ -57,7 +57,7 @@ $app->register(new Asker\AskerExtension());
 $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.options'  => array(
     'driver'    => 'pdo_sqlite',
-    'path'      => APPLICATION_BASE_URI . '/data/db/light_monitor.sqlite',
+    'path'      => APPLICATION_BASE_URI . '/db/light_monitor.sqlite',
   ),
   'db.dbal.class_path'    => APPLICATION_BASE_URI . '/vendor/doctrine2-dbal/lib',
   'db.common.class_path'  => APPLICATION_BASE_URI . '/vendor/doctrine2-common/lib',
