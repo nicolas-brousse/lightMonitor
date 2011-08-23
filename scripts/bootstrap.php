@@ -56,7 +56,8 @@ App::autoload(APPLICATION_BASE_URI . '/app/controllers/helpers/');
  * Initialize new Application
  */
 $app = App::getInstance('jobCron');
-$configs = App::loadConfigs(__DIR__ . '/../app/configs/', APPLICATION_ENV);
+$config = App::loadConfigs(__DIR__ . '/../app/configs/', APPLICATION_ENV);
+$config->app['db']['path'] = APPLICATION_BASE_URI . $config->app['db']['path'];
 
 
 /**
@@ -71,10 +72,7 @@ $app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBU
 $app['monolog']->addInfo("CLI EXEC : ".CLI_FILENAME);
 
 $app->register(new Silex\Extension\DoctrineExtension(), array(
-  'db.options'  => array(
-    'driver'    => 'pdo_sqlite',
-    'path'      => APPLICATION_BASE_URI.'//db/light_monitor.sqlite',
-  ),
+  'db.options'  => $config->app['db'],
   'db.dbal.class_path'    => APPLICATION_BASE_URI.'/vendor/doctrine2-dbal/lib',
   'db.common.class_path'  => APPLICATION_BASE_URI.'/vendor/doctrine2-common/lib',
 ));
