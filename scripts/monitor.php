@@ -18,22 +18,37 @@ use Symfony\Component\HttpFoundation\Response;
 # Ping it
 # If don't response, add servername to queue
 
+define('TIMEOUT', 5);
 $serveurs_without_response = array();
 
-#$serveurs = Model_Server::findAll();
+#$serveurs = Model_Server::getInstance()->findAll();
 foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
 {
   #$softwares = Model_Sofware::find($server['id'])
 
-  #print("ping -c 4 ".$server['ip']);
-  exec("ping -c 4 '".$server['ip']."'", $output, $response);
+  exec("ping -c 4 -t ".TIMEOUT." '".$server['ip']."'", $output, $response);
 
   if ($response != 0) {
     $serveurs_without_response[] = $server['ip'];
-    #Model_Log::add($server['id'], 'Ping no response');
-    #Model_Software::update($serverID, $softwareID, false);
+    #Model\Log::add($server['id'], 'Ping no response');
+    #Model\Software::update($serverID, $softwareID, false);
   }
+
+  # Check port
+  /*******/
+  foreach ($app['db']->fetchAll("SELECT * FROM softwares WHERE ?", array($server['id'])) as $software)
+  {
+    $fp = fsockopen($server['ip'], $software['port'], $errno, $errstr, TIMEOUT);
+    fclose($fp);
+  }
+
+  # Prevent by mail if software change state
+
+  // TODO: can check software (need SSH connection ?)
 }
+
+
+
 
 # If servername queue is not empty, send an email to contact
 if (!empty($serveurs_without_response)) {
