@@ -13,6 +13,9 @@ Class Krypt extends Base
 
   public function init($key=null, $cipher = MCRYPT_RIJNDAEL_256, $mode = MCRYPT_MODE_ECB)
   {
+    // TMP
+    // TODO clean
+    $key = null;
     if ($key == null)
     {
       $configs = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_ENV);
@@ -20,8 +23,8 @@ Class Krypt extends Base
         throw new \Exception('ERROR: Key is not precise, and is not found in config file app.yml');
       }
     }
-    
-    $this->_key = $key;
+
+    $this->_key = $key ? $key : $configs->app['app']['passphrase'];
     $this->_cipher = $cipher;
     $this->_mode = $mode;
 
