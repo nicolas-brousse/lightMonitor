@@ -11,7 +11,7 @@ Class Krypt extends Base
   private $_mode;
   private $_iv;
 
-  public function default($key=null, $cipher = MCRYPT_RIJNDAEL_256, $mode = MCRYPT_MODE_ECB)
+  public function init($key=null, $cipher = MCRYPT_RIJNDAEL_256, $mode = MCRYPT_MODE_ECB)
   {
     if ($key == null)
     {
