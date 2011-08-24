@@ -1,0 +1,5 @@
+---
+name: LightMonitor Migrations
+migrations_namespace: Migrations
+table_name: versions
+migrations_directory: ./migrate/

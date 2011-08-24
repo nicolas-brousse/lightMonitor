@@ -1,7 +1,7 @@
 *.DS_Store
 data/log/*.log
 *.htaccess
-*.yml
+/app/configs/*.yml
 *.rrd
 public/graphs/*
 /db/*.sqlite

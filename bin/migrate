@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 if [[ "$1" =~ migration ]];then
-  php $DIR/../vendor/doctrine-migrations.phar "$@" --db-configuration="$DIR/../db/options.php" --configuration="$DIR/../db/configurations.yml"
+  php $DIR/../vendor/doctrine-migrations.phar "$@" --db-configuration="$DIR/../db/options.php" --configuration="$DIR/../db/configuration.yml"
 else
   php $DIR/../vendor/doctrine-migrations.phar "$@"
 fi
