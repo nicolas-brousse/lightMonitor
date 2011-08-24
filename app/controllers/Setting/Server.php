@@ -77,13 +77,12 @@ Class Server extends Base
     }
     else {
       try {
-        $krypt = new Krypt();
         $server = $this->db->insert('servers',
           array(
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
-            'params'      => $krypt->encrypt(serialize($this->_getPost('params'))),
+            'params'      => $this->_helper()->Krypt()->encrypt(serialize($this->_getPost('params'))),
             'created_at'  => time(),
             'updated_at'  => time(),
           )
@@ -119,9 +118,8 @@ Class Server extends Base
     if (!$server) {
       return $this->_halt();
     }
-    
-    $krypt = new Krypt();
-    $server['params'] = unserialize($krypt->decrypt($server['params']));
+
+    $server['params'] = unserialize($this->_helper()->Krypt()->decrypt($server['params']));
     unset($server['params']['pass']);
 
     return $this->twig->render('setting/server/index.twig', array(

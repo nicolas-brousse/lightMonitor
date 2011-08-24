@@ -62,6 +62,7 @@ Abstract Class Base
   protected function _helper()
   {
     // TODO autoload helpers
+    return new Helper();
   }
 
   protected function _redirector($url)

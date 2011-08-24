@@ -4,14 +4,14 @@ Namespace Controller\Helper;
 
 use App;
 
-Class Krypt
+Class Krypt extends Base
 {
   private $_key;
   private $_cipher;
   private $_mode;
   private $_iv;
 
-  public function __construct($key=null, $cipher = MCRYPT_RIJNDAEL_256, $mode = MCRYPT_MODE_ECB)
+  public function default($key=null, $cipher = MCRYPT_RIJNDAEL_256, $mode = MCRYPT_MODE_ECB)
   {
     if ($key == null)
     {
