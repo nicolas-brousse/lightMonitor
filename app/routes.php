@@ -8,13 +8,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 # Autoloader controllers
 App::autoload(__DIR__ . '/controllers/');
-//$controllers = array();
-//foreach (App::autoload(__DIR__ . '/controllers/') as $controller) {
-//  $classname=substr($controller,0,-4).'_Controller';
-//  $controllers[strtolower(substr($controller,0,-4))] = new $classname();
-//}
-
-// TODO: use PHP5 autoloader
+// TODO: use PHP5 autoloader ?
 
 
 /**
