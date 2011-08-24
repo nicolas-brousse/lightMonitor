@@ -179,10 +179,8 @@ Class Server extends Base
   public function Delete_Action()
   {
     $ip = $this->_getRequest()->get('ip');
-    $server = $this->db->fetchAssoc(
-      "SELECT id, servername, ip FROM servers WHERE ip = ?",
-      array($ip)
-    );
+    $server = Model_Server::getInstance()->find($ip)
+
     if (!$server) {
       return $this->_halt();
     }

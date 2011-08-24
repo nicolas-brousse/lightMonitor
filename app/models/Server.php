@@ -16,4 +16,13 @@ Class Server extends Base
     }
     return $servers;
   }
+
+  public function find($ip)
+  {
+    $server = $this->db->fetchAssoc(
+      "SELECT * FROM servers WHERE ip = ?",
+      array($ip)
+    );
+    return $server;
+  }
 }
