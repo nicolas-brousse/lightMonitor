@@ -4,6 +4,7 @@ namespace Controller\Setting;
 
 use Controller\Base;
 use Controller\Helper\Krypt;
+use Model\Server as Model_Server;
 use Asker\Asker;
 
 Class Server extends Base
@@ -13,13 +14,7 @@ Class Server extends Base
 
   public function init()
   {
-    $servers = array();
-    foreach ($this->db->fetchAll("SELECT * FROM servers") as $server) {
-      $tmp = $server;
-      $tmp['protocol'] = Asker::getProtocols($server['protocol']);
-      $servers[] = $tmp;
-    }
-    $this->_servers = $servers;
+    $this->_servers = Model_Server::getInstance()->findAll();
 
     $this->_appSshKey['pubkey'] = @file_get_contents(APPLICATION_BASE_URI . '/data/keys/lightmonitor_dsa.pub');
     $this->_appSshKey['privkey'] = @file_get_contents(APPLICATION_BASE_URI . '/data/keys/lightmonitor_dsa');

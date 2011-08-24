@@ -2,19 +2,18 @@
 
 Namespace Model;
 
+use Asker\Asker;
+
 Class Server extends Base
 {
-  public static function getInstance()
+  public function findAll()
   {
-    if (!isset(self::$instance)) {
-      $className = __CLASS__;
-      self::$instance = new $className;
+    $servers = array();
+    foreach ($this->db->fetchAll("SELECT * FROM servers") as $server) {
+      $tmp = $server;
+      $tmp['protocol'] = Asker::getProtocols($server['protocol']);
+      $servers[] = $tmp;
     }
-    return self::$instance;
-  }
-
-  public function save()
-  {
-    
+    return $servers;
   }
 }

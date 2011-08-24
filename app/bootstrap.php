@@ -98,6 +98,9 @@ $app['navigation'] = array(
 );
 
 
+# Autoloader models
+App::autoload(__DIR__ . '/models/');
+
 /**
  * Load routes
  */
