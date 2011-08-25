@@ -55,8 +55,9 @@ App::autoload(APPLICATION_BASE_URI . '/app/controllers/helpers/');
 /**
  * Initialize new Application
  */
+App::setEnv(APPLICATION_ENV);
 $app = App::getInstance('jobCron');
-$config = App::loadConfigs(__DIR__ . '/../app/configs/', APPLICATION_ENV);
+$config = App::configs();
 $config->app['db']['path'] = APPLICATION_BASE_URI . $config->app['db']['path'];
 
 

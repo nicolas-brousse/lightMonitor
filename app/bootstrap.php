@@ -19,11 +19,23 @@ require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
  * Initialize App
  */
 $app = App::getInstance();
-$app['version'] = APPLICATION_VERSION;
+App::setEnv(APPLICATION_ENV);
+$app['version'] = App::VERSION;
 $app['name'] = "LightMonitor";
-$app['debug'] = APPLICATION_ENV == 'development' ? true : false;
-$app['config'] = App::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', APPLICATION_ENV);
+$app['debug'] = App::getEnv() == 'development' ? true : false;
+$app['config'] = App::configs();
 $app['config']->app['db']['path'] = APPLICATION_BASE_URI . $app['config']->app['db']['path'];
+
+
+/**
+ * Register Namespaces to autoloader
+ */
+$app['autoloader']->registerNamespace('Asker', APPLICATION_BASE_URI . '/vendor/asker/lib');
+$app['autoloader']->registerNamespace('Rrdtool', APPLICATION_BASE_URI . '/vendor/rrdtool/lib');
+App::autoload(__DIR__ . '/models/');
+App::autoload(__DIR__ . '/controllers/');
+#$app['autoloader']->registerNamespace('Model', APPLICATION_BASE_URI);
+#$app['autoloader']->registerNamespace('Controller', APPLICATION_BASE_URI);
 
 
 /**
@@ -37,7 +49,7 @@ $app->register(new Silex\Extension\TwigExtension(), array(
 $app->register(new Silex\Extension\SessionExtension());
 
 $app->register(new Silex\Extension\MonologExtension(), array(
-  'monolog.logfile'       => APPLICATION_BASE_URI . '/data/log/'.APPLICATION_ENV.'.App.log',
+  'monolog.logfile'       => APPLICATION_BASE_URI . '/data/log/'.App::getEnv().'.App.log',
   'monolog.class_path'    => APPLICATION_BASE_URI . '/vendor/monolog/src',
   'monolog.name'          => 'App',
 ));
@@ -45,9 +57,9 @@ $app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBU
 
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 
-$app->register(new Rrdtool\RrdtoolExtension());
-
 $app->register(new Asker\AskerExtension());
+
+$app->register(new Rrdtool\RrdtoolExtension());
 
 $app->register(new Silex\Extension\DoctrineExtension(), array(
   'db.options'  => $app['config']->app['db'],
@@ -98,19 +110,10 @@ $app['navigation'] = array(
 );
 
 
-# Autoloader models
-App::autoload(__DIR__ . '/models/');
-
-# Autoloader controllers and helpers
-App::autoload(__DIR__ . '/controllers/');
-// TODO: use PHP5 autoloader ?
-
-
-
 /**
  * Load routes
  */
-require_once APPLICATION_BASE_URI . '/app/routes.php';
+require_once __DIR__ . '/routes.php';
 
 
 /**

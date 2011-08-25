@@ -3,13 +3,27 @@
 Class App
 {
   protected static $app = array();
+  protected static $env;
+
+  const VERSION = 'alpha 0.5';
 
   public static function getInstance($name="default")
   {
     if (!isset(self::$app[$name])) {
-      self::$app[$name] = new Silex\Application();
+      $app = new Silex\Application();
+      self::$app[$name] = $app;
     }
     return self::$app[$name];
+  }
+
+  public static function setEnv($env)
+  {
+    self::$env = $env;
+  }
+
+  public static function getEnv()
+  {
+    return self::$env;
   }
 
   public static function autoload($path)
@@ -60,5 +74,10 @@ Class App
       throw new Exception('ERROR : \''.$path.'\' missing !');
     }
     return $configs;
+  }
+
+  public static function configs()
+  {
+    return self::loadConfigs(APPLICATION_BASE_URI . '/app/configs/', self::getEnv());
   }
 }
