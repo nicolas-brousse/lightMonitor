@@ -6,10 +6,12 @@ use Asker\Asker;
 
 Class Server extends Base
 {
+  protected $_tablename = 'servers';
+
   public function findAll()
   {
     $servers = array();
-    foreach ($this->db->fetchAll("SELECT * FROM servers") as $server) {
+    foreach (parent::findAll() as $server) {
       $tmp = $server;
       $tmp['protocol'] = Asker::getProtocols($server['protocol']);
       $servers[] = $tmp;

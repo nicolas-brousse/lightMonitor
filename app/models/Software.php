@@ -6,6 +6,8 @@ use Asker\Asker;
 
 Class Software extends Base
 {
+  protected $_tablename = 'sofwares';
+
   public function findAll($server_id=null)
   {
     if (intval($server_id)) {

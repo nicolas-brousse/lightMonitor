@@ -7,10 +7,7 @@ use Controller\Helper\Token;
 
 Class User extends Base
 {
-  public function findAll()
-  {
-    return $this->db->fetchAll("SELECT * FROM users");
-  }
+  protected $_tablename = 'users';
 
 
   private function _setPassword($password)

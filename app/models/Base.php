@@ -23,4 +23,14 @@ Abstract Class Base
     }
     return self::$instance;
   }
+
+  public function findAll()
+  {
+    return $this->db->fetchAll("SELECT * FROM ".$this->_tablename);
+  }
+
+  public function find($id)
+  {
+    return $this->db->fetchAll("SELECT * FROM ".$this->_tablename." WHERE id = ? ", array($id));
+  }
 }
