@@ -6,10 +6,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-# Autoloader controllers
-App::autoload(__DIR__ . '/controllers/');
-// TODO: use PHP5 autoloader ?
-
 
 /**
  * ROUTES

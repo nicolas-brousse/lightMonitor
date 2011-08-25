@@ -101,6 +101,12 @@ $app['navigation'] = array(
 # Autoloader models
 App::autoload(__DIR__ . '/models/');
 
+# Autoloader controllers and helpers
+App::autoload(__DIR__ . '/controllers/');
+// TODO: use PHP5 autoloader ?
+
+
+
 /**
  * Load routes
  */

@@ -3,7 +3,6 @@
 namespace Controller\Setting;
 
 use Controller\Base;
-#use Controller\Helper\Token;
 
 Class User extends Base
 {
@@ -22,14 +21,5 @@ Class User extends Base
         #'action' => $this->_getUrl('settings.users.save'),
       ),
     ));
-  }
-
-
-
-  private function _setPassword($pass)
-  {
-    #$this->password_salt = Token::get();
-    #$this->password = sha1($this->password_salt . $this->password);
-    #return $pass;
   }
 }

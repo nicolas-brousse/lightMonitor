@@ -152,13 +152,12 @@ Class Server extends Base
     }
     else {
       try {
-        $krypt = new Krypt();
         $server = $this->db->update('servers',
           array(
             'ip'          => $this->_getPost('ip'),
             'servername'  => $this->_getPost('servername'),
             'protocol'    => $this->_getPost('protocol'),
-            'params'      => $krypt->encrypt(serialize($this->_getPost('params'))),
+            'params'      => $this->_helper()->Krypt()->encrypt(serialize($this->_getPost('params'))),
             'updated_at'  => time(),
           ),
           array('id' => $this->_getPost('id'))
@@ -179,7 +178,7 @@ Class Server extends Base
   public function Delete_Action()
   {
     $ip = $this->_getRequest()->get('ip');
-    $server = Model_Server::getInstance()->find($ip)
+    $server = Model_Server::getInstance()->find($ip);
 
     if (!$server) {
       return $this->_halt();
