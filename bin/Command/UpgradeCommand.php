@@ -5,25 +5,22 @@ namespace Console\Command;
 use Symfony\Component\Console\Input\InputInterface,
     Symfony\Component\Console\Output\OutputInterface,
     Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption;
+    Symfony\Component\Console\Input\InputOption,
+    Symfony\Component\Console\Command\Command;
 
-class UpgradeCommand extends GenerateCommand
+class UpgradeCommand extends Command
 {
     protected function configure()
     {
         parent::configure();
 
         $this
-            ->setName('app:install')
-            ->setDescription('Generate a migration by comparing your current database to your mapping information.')
+            ->setName('app:upgrade')
+            ->setDescription('Upgrade application if is necessary')
             ->setHelp(<<<EOT
-The <info>%command.name%</info> command generates a migration by comparing your current database to your mapping information:
+The <info>%command.name%</info> command upgrade application:
 
     <info>%command.full_name%</info>
-
-You can optionally specify a <comment>--editor-cmd</comment> option to open the generated file in your favorite editor:
-
-    <info>%command.full_name% --editor-cmd=mate</info>
 EOT
         );
 
@@ -31,8 +28,6 @@ EOT
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $version = date('YmdHis');
-
-        $output->writeln(sprintf('Generated new migration class to "<info>%s</info>" from schema differences.', $version));
+        $output->writeln('Comming soon');
     }
 }
