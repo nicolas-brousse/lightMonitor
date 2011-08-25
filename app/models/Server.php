@@ -27,4 +27,20 @@ Class Server extends Base
     );
     return $server;
   }
+
+  public function insert(array $data=array())
+  {
+    
+  }
+
+  public function insert(array $data=array(), $id)
+  {
+    
+  }
+
+  public function delete($id)
+  {
+    parent::delete($id);
+    // TODO Rrdtool->delete();
+  }
 }

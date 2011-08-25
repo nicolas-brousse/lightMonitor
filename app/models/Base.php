@@ -24,6 +24,12 @@ Abstract Class Base
     return self::$instance;
   }
 
+  public function getColumns()
+  {
+    // TODO return list of columns of current table
+    return;
+  }
+
   public function findAll()
   {
     return $this->db->fetchAll("SELECT * FROM ".$this->_tablename);
@@ -32,5 +38,10 @@ Abstract Class Base
   public function find($id)
   {
     return $this->db->fetchAll("SELECT * FROM ".$this->_tablename." WHERE id = ? ", array($id));
+  }
+
+  public function delete($id)
+  {
+    return $this->db->delete($this->_tablename, array('id' => $id));
   }
 }
