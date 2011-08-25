@@ -191,8 +191,7 @@ Class Server extends Base
     }
     else {
     */
-      $delete = $this->db->delete('servers', array('id' => $server['id']));
-      // TODO Rrdtool->delete();
+      $delete = Model_Server::delete($server['id']);
       if ($delete) {
         $this->_getSession()->setFlash('success', 'Server <em>' . $server['servername'] . '[' . $server['ip'] . ']' . '</em> deleted of the listing!');
       }

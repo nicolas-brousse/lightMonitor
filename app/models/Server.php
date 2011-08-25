@@ -33,7 +33,7 @@ Class Server extends Base
     
   }
 
-  public function insert(array $data=array(), $id)
+  public function update(array $data=array(), $id)
   {
     
   }

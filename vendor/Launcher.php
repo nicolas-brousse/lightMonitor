@@ -14,6 +14,12 @@ ini_set('html_errors', false);
 ini_set('error_log', APPLICATION_BASE_URI . '/data/log/php.log');
 ini_set('display_errors', APPLICATION_ENV == 'development' ? true : false);
 
+// autoload
+function __autoload($classname)
+{
+  
+}
+
 // required
 require_once APPLICATION_BASE_URI . '/vendor/silex.phar';
 require_once APPLICATION_BASE_URI . '/vendor/App.php';
