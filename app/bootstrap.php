@@ -30,8 +30,6 @@ $app['config']->app['db']['path'] = APPLICATION_BASE_URI . $app['config']->app['
 /**
  * Register Namespaces to autoloader
  */
-$app['autoloader']->registerNamespace('Asker', APPLICATION_BASE_URI . '/vendor/asker/lib');
-$app['autoloader']->registerNamespace('Rrdtool', APPLICATION_BASE_URI . '/vendor/rrdtool/lib');
 App::autoload(__DIR__ . '/models/');
 App::autoload(__DIR__ . '/controllers/');
 #$app['autoloader']->registerNamespace('Model', APPLICATION_BASE_URI);
@@ -53,7 +51,7 @@ $app->register(new Silex\Extension\MonologExtension(), array(
   'monolog.class_path'    => APPLICATION_BASE_URI . '/vendor/monolog/src',
   'monolog.name'          => 'App',
 ));
-$app['monolog.level'] = APPLICATION_ENV == 'development' ? \Monolog\Logger::DEBUG : \Monolog\Logger::WARNING;
+$app['monolog.level'] = App::getEnv() == 'development' ? \Monolog\Logger::DEBUG : \Monolog\Logger::WARNING;
 
 $app->register(new Silex\Extension\UrlGeneratorExtension());
 

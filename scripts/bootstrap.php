@@ -10,36 +10,7 @@
  * APP CONST
  */
 define('APPLICATION_BASE_URI', dirname(__DIR__).'/');
-define('APPLICATION_MICROTIME_START', microtime(true));
 
-/**
- * Verif CLI options
- */
-if ('cli' === php_sapi_name()) {
-  if (empty($_SERVER['argv'][1]) OR empty($_SERVER['argv'][2])) {
-    print("Precise environment\nExample file.php -e development\n");
-    exit(0);
-  }
-  switch ($_SERVER['argv'][1]) {
-    case '-e':
-      if (in_array($_SERVER['argv'][2], array('development', 'production'))) {
-        define('APPLICATION_ENV', $_SERVER['argv'][2]);
-        define('CLI_FILENAME', basename($_SERVER['argv'][0]));
-      }
-      else {
-        printf("Unkown environment '%s' (available: development or production).\n", $_SERVER['argv'][1]);
-        exit(0);
-      }
-      break;
-
-    default:
-      printf("Unkown option '%s' (available commands: -e).\n", $_SERVER['argv'][1]);
-      exit(0);
-  }
-}
-else {
-  die('This file must be execute in CLI mode');
-}
 
 /**
  * Load required files
@@ -50,7 +21,7 @@ require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
 require_once APPLICATION_BASE_URI.'/vendor/rrdtool/required.php';
 require_once APPLICATION_BASE_URI.'/vendor/asker/required.php';
 require_once APPLICATION_BASE_URI.'/vendor/swiftmailer/lib/swift_required.php';
-App::autoload(APPLICATION_BASE_URI . '/app/controllers/helpers/');
+#App::autoload(APPLICATION_BASE_URI . '/app/controllers/helpers/');
 
 /**
  * Initialize new Application
