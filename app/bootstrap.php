@@ -21,7 +21,7 @@ require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
 $app = App::getInstance();
 App::setEnv(APPLICATION_ENV);
 $app['version'] = App::VERSION;
-$app['name'] = "LightMonitor";
+$app['name'] = App::NAME;
 $app['debug'] = App::getEnv() == 'development' ? true : false;
 $app['config'] = App::configs();
 $app['config']->app['db']['path'] = APPLICATION_BASE_URI . $app['config']->app['db']['path'];

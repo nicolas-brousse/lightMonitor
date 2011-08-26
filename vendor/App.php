@@ -6,10 +6,12 @@ Class App
   protected static $env;
 
   const VERSION = 'alpha 0.5';
+  const NAME = 'LightMonitor';
 
   public static function getInstance($name="default")
   {
     if (!isset(self::$app[$name])) {
+      require_once __DIR__ . '/silex.phar';
       $app = new Silex\Application();
       self::$app[$name] = $app;
     }

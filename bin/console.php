@@ -1,11 +1,9 @@
 #!/usr/bin/env php
 <?php
 # http://beryllium.ca/?p=481
-require_once __DIR__ . '/../vendor/silex.phar';
+require_once __DIR__ . '/../vendor/App.php';
 
-$loader->register();
-
-$app = new Silex\Application();
+$app = App::getInstance();
 $app['autoloader']->registerNamespace('Symfony', __DIR__ . '/../vendor');
 
 # require command
@@ -22,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 //Instantiate our Console application
-$cli = new Application('LightMonitor', '0.1');
+$cli = new Application(App::NAME, App::VERSION);
 
 
 $cli->setCatchExceptions(true);
