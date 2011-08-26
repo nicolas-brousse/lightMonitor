@@ -10,6 +10,8 @@ use Symfony\Component\Console\Input\InputInterface,
 
 class ScriptCommand extends Command
 {
+    private $envList = array('development', 'production');
+
     protected function configure()
     {
       parent::configure();
@@ -18,7 +20,7 @@ class ScriptCommand extends Command
            ->setDescription('Execute a script')
            ->setDefinition( array(
                new InputArgument('filename', InputArgument::REQUIRED, 'Filename of script must be executed (scripts in \'script/\' folder)'),
-               new InputOption('--env', '-e', InputOption::VALUE_REQUIRED, 'Environment (development|production)', 'development'),
+               new InputOption('--env', '-e', InputOption::VALUE_REQUIRED, 'Environment ('.implode(' or ', $this->envList).')', 'development'),
               ) )
            ->setHelp(<<<EOT
 The <info>%command.name%</info> command execute a script:
@@ -41,11 +43,14 @@ EOT
         if (!file_exists(__DIR__ . '/../../scripts/'.$filename)) {
           throw new \InvalidArgumentException("File '$filename' doesn't exist");
         }
-        else if (!in_array($env, array('development', 'production'))) {
-          throw new \RuntimeException("Environment '$env' is not valid (development or production)");
+        else if (!in_array($env, $this->envList)) {
+          throw new \RuntimeException("Environment '$env' is not valid (".implode(' or ', $this->envList).")");
         }
         else {
           $start = microtime(true);
+          /**
+           * Bootstraping
+           */
           define('APPLICATION_ENV', $env);
           define('CLI_FILENAME', $filename);
 
