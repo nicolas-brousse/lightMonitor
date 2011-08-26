@@ -8,14 +8,6 @@
 
 
 /**
- * Load Required files
- */
-require_once APPLICATION_BASE_URI.'/vendor/rrdtool/required.php';
-require_once APPLICATION_BASE_URI.'/vendor/asker/required.php';
-require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
-
-
-/**
  * Initialize App
  */
 $app = App::getInstance();
@@ -25,6 +17,14 @@ $app['name'] = App::NAME;
 $app['debug'] = App::getEnv() == 'development' ? true : false;
 $app['config'] = App::configs();
 $app['config']->app['db']['path'] = APPLICATION_BASE_URI . $app['config']->app['db']['path'];
+
+
+/**
+ * Load Required files
+ */
+require_once APPLICATION_BASE_URI.'/vendor/rrdtool/required.php';
+require_once APPLICATION_BASE_URI.'/vendor/asker/required.php';
+require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
 
 
 /**

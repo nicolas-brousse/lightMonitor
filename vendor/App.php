@@ -21,6 +21,7 @@ Class App
   public static function setEnv($env)
   {
     self::$env = $env;
+    return true;
   }
 
   public static function getEnv()
@@ -33,7 +34,6 @@ Class App
     if (is_dir($path)) {
       $queue = array();
       if ($dh = opendir($path)) {
-        $yamlLoader = new sfYaml();
         while (($file = readdir($dh)) !== false) {
           if (is_file($path.$file) AND !preg_match('#^\.#', $file)) {
             if (preg_match('#base\.php#i', $file))  { require_once $path.$file; }
@@ -59,6 +59,7 @@ Class App
 
     if (is_dir($path)) {
       if ($dh = opendir($path)) {
+        require_once __DIR__.'/yaml/lib/sfYaml.php';
         $yamlLoader = new sfYaml();
         while (($file = readdir($dh)) !== false) {
           if (preg_match('#.yml$#i', $file) AND !preg_match('#^\.#', $file)) {
