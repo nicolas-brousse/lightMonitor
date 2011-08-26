@@ -40,7 +40,7 @@ EOT
         $filename = $input->getArgument('filename');
         $env = $input->getOption('env');
 
-        if (!file_exists(__DIR__ . '/../../scripts/'.$filename)) {
+        if (!file_exists(__DIR__ . '/../../../scripts/'.$filename)) {
           throw new \InvalidArgumentException("File '$filename' doesn't exist");
         }
         else if (!in_array($env, $this->envList)) {
@@ -54,10 +54,10 @@ EOT
           define('APPLICATION_ENV', $env);
           define('CLI_FILENAME', $filename);
 
-          $output->writeln("--- Start execution of '$filename' ---");
-          $tmp = include __DIR__ . '/../../scripts/'.$filename;
-          $output->writeln($tmp);
-          $output->writeln("--- End of execution - Execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes ---");
+          $output->writeln("<info>--- Start execution of '$filename' ---</info>\n");
+          $tmp = include __DIR__ . '/../../../scripts/'.$filename;
+          //$output->writeln($tmp);
+          $output->writeln("\n<info>--- End of execution - Execute in " . (microtime(true) - $start) . " secondes ---</info>\n");
         }
     }
 }

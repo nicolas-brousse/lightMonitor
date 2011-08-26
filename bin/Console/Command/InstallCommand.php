@@ -30,7 +30,7 @@ EOT
     public function execute(InputInterface $input, OutputInterface $output)
     {
         # Check if application is installed or not
-        $app_installed = true;
+        $app_installed = false;
         if ($app_installed !== false) {
           throw new \Exception("Operation cancelled\nThis application is already installed!");
         }
