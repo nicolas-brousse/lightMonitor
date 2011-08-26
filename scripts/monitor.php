@@ -38,8 +38,11 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   /*******/
   foreach ($app['db']->fetchAll("SELECT * FROM softwares WHERE ?", array($server['id'])) as $software)
   {
-    $fp = fsockopen($server['ip'], $software['port'], $errno, $errstr, TIMEOUT);
-    fclose($fp);
+    $fp = @fsockopen($server['ip'], $software['port'], $errno, $errstr, TIMEOUT);
+    if (!$fp) {
+      throw new \Exception('unable to connect to '.$server['ip'].':'.$software['port'].' (Operation timed out)');
+    }
+    @fclose($fp);
   }
 
   # Prevent by mail if software change state
@@ -65,4 +68,4 @@ if (!empty($serveurs_without_response)) {
   }
 }
 
-$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");
+//$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");

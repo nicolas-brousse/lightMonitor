@@ -32,8 +32,8 @@ require_once APPLICATION_BASE_URI.'/vendor/yaml/lib/sfYaml.php';
  */
 App::autoload(__DIR__ . '/models/');
 App::autoload(__DIR__ . '/controllers/');
-#$app['autoloader']->registerNamespace('Model', APPLICATION_BASE_URI);
-#$app['autoloader']->registerNamespace('Controller', APPLICATION_BASE_URI);
+#$app['autoloader']->registerNamespace('Model\\', APPLICATION_BASE_URI . '/app/models/');
+#$app['autoloader']->registerNamespace('Controller\\', APPLICATION_BASE_URI . '/app/controllers/');
 
 
 /**

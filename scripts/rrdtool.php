@@ -1,5 +1,18 @@
 <?php 
 
+/***
+Namespace App/Script;
+
+// Create Abstract and interface
+
+class Rrdtool extends Bootstrap
+{
+  init();
+
+  execute();
+}
+**/
+
 use Asker\Asker;
 use Asker\Adapter;
 use Rrdtool\Rrdtool;
@@ -209,4 +222,4 @@ foreach ($app['db']->fetchAll("SELECT * FROM servers") as $server)
   $rrd['cpu']->generate()->setOptions($options)->execute("cpu-0.png");
 }
 
-$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");
+//$app['monolog']->addInfo(basename(__FILE__) . " script execute in " . (microtime(true) - APPLICATION_MICROTIME_START) . " secondes");

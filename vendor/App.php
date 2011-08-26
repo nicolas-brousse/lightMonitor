@@ -12,8 +12,8 @@ Class App
   {
     if (!isset(self::$app[$name])) {
       require_once __DIR__ . '/silex.phar';
-      $app = new Silex\Application();
-      self::$app[$name] = $app;
+      $newApp = new Silex\Application();
+      self::$app[$name] = $newApp;
     }
     return self::$app[$name];
   }
